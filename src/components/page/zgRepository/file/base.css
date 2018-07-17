@@ -1,0 +1,94 @@
+.warrp * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.warrp *:after,
+.warrp *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/*border-box模式*/
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    display: block;
+    clear: both;
+    content: " ";
+    height: 0;
+    visibility: hidden;
+}
+/*清除浮动*/
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+table,
+caption,
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th,
+form,
+fieldset,
+label,
+input,
+button,
+textarea,
+select,
+option,
+img,
+iframe {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: "Microsoft Yahei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    /* text-align: center; */
+    color: #555;
+    background-color: #fff;
+}
+.warrp{
+    padding:0 30px;
+}
+h3 {
+    font-size: 24px;
+    line-height: 58px;
+    text-align: center
+}
+
+.data {
+    text-align: right;
+    font-size: 12px;
+    line-height: 24px;
+}
+.indent{
+    text-align: left;
+    text-indent: 2em;
+    line-height: 32px;
+}
+.imgBox{
+    padding: 20px;
+}

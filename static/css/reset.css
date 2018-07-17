@@ -1,0 +1,16 @@
+*{margin: 0;padding: 0;-webkit-tap-highlight-color:rgba(255,255,255,0);font-size: 14px;font-family: '微软雅黑'}
+ul,li{list-style: none;}
+a{text-decoration: none;color:#000;}
+input,textarea ,button{outline:none;}
+img{border: 0;}
+input,button,textarea,select,a:focus{outline: 0;}
+input[type="button"],input[type="submit"] { -webkit-appearance: none; }
+.clearfix:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+body {color: #333;  }
+.fl {float:left;}
+.fr{float: right;}
+i{font-style: normal;}
+textarea{overflow: auto;}
+button, a,input[type=button],input[type=submit],input[type=file] {cursor: pointer;}
+.chart_box_cjs {text-align: center;position: relative;}
+.chart_box_cjs img {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);}

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="author" content="cjs1992,李珂,王秋砚" />
+    <meta name="keywrods" content="职业院校教学诊断与改进工作管理系统,诊改系统,教学诊改,教学,诊改" />
+    <meta name="google" content="notranslate" />
+    <link rel="icon" href="./static/img/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/font-awesome.css">
+    <!--<link rel="stylesheet" href="./static/layout-grid/layout-grid.min.css">-->
+    <!--[if lte IE 9]>
+    <style>
+     .operation_item  .el-date-editor {line-height: 25px;}
+        .operation_item  .el-date-editor .el-range-input { -ms-transform: translateY(0px);}
+        .operation_item .el-data-editor .el-range-separator { -ms-transform: translateY(-15px);}
+        .el-date-editor .el-range-input, .el-data-editor .el-range-separator { -ms-transform: translateY(-4px)}
+        .el-date-editor .el-input__icon.el-range__close-icon {
+            -ms-transform: translateY(-23px)
+        }
+    </style>
+    <![endif]-->
+    <style>
+      /*登录页*/
+      .login_box .swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 10px 0;
+    display: block;
+}
+.login_box .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #70ad47 !important;
+    border: 0 !important;
+}
+.login_box .swiper-pagination-bullet {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-radius: 100%;
+    background: transparent;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    opacity: 1;
+}
+      .card{
+        box-shadow:0px 2px 12px rgba(0,0,0,.1)!important;
+      }
+      .lanmo .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+        background-color: #70ad47 !important;
+        border-color:#70ad47 !important;
+        -webkit-box-shadow:-1px 0 0 0 #70ad47 !important;;
+        box-shadow:-1px 0 0 0 #70ad47 !important;
+      }
+      .lanmo .el-tabs__nav {
+        background: #f1f4f5
+      }
+      .lanmo .el-tabs__nav-scroll {
+        background: #fff;
+      }
+      .el-table::before{
+        height: 0!important;
+      }
+      .commonLoading>div:nth-child(1) {
+        width: 100%;
+        height: 100%;
+      }
+      .el-button.el-button--info {
+        transform: translateY(-1px)
+      }
+      .cjs_detail_box .el-tab-pane {
+        padding:  0 32px;
+      }
+      .cjs_detail_box .el-tab-pane .detail_item_box:last-child {
+        padding-bottom: 20px;
+        border-bottom: 0;
+      }
+      .el-col-14 .grid-content.bg-purple:nth-last-of-type(1) .detail_item_box {
+        border-bottom: 0;
+      }
+      .cjs_detail_box .el-tabs__nav>div {
+        padding: 0;
+        width: 50% !important;
+      }
+      .el-select-dropdown.el-popper {
+        max-width: 1000px;
+      }
+      .scroll_x_hidden_box .el-scrollbar__wrap {
+        overflow-x: hidden
+      }
+      .scroll_x_hidden_box .el-aside {
+        height: 500px;
+      }
+      .scroll_x_hidden_box .el-card__body {
+        min-height: 420px;
+      }
+      /* .el-dialog {
+        margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+      } */
+      #app .el-tabs__item{
+        color: #76838f!important;
+      }
+      .tableYiLan  .el-table th{
+        background-color: #70ab47;
+        padding: 6px 5px;
+        font-size: 12px
+      }
+      .tableYiLan  .el-table th .cell{
+       color: #fff;
+       font-size: 12px;
+    
+      }
+      .tableYiLan  .el-table .cell{
+        font-size: 12px;
+        line-height: 18px ;
+        padding: 5px 
+      }
+      /* .tableBox .tableWidth .has-gutter tr th:first-child, */
+      .tableYiLan .el-table__row>td:first-child {
+        background: #f5f7fa !important;
+        padding-left:10px 
+      }
+  
+      .target_plan_detail_box .detail_item_box {
+        position: relative;
+      }
+      .target_plan_detail_box .detail_item_left {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .target_plan_detail_box .detail_item_right {
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 110px !important;
+        line-height: 30px;
+        padding-top: 15px;
+      }
+      .target_plan_detail_box .el-tag {
+        margin-bottom: 10px;
+      }
+      .download_a {
+        /* display: block; */
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+      }
+      .download_i {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .download_span {
+        height: 34px;
+        display: inline-block;
+        vertical-align: top;
+        color: #37474f;
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 45px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #workbench .el-scrollbar__wrap{
+          overflow-x: hidden!important;
+      }
+      #workbench .el-alert__icon{
+        font-size: 16px;
+      }
+      #workbench .noticeRList .el-alert__content{
+        width: 88%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #workbench .contentX .el-card__body{
+        padding: 0
+      }
+      #workbench .el-collapse-item__arrow{
+        display: none
+      }
+      #workbench .planTbableList .el-table th,
+      #workbench .planTbableList .el-table td,
+      #workbench .planTbableList .el-table tr{
+      border: 1px solid #e4eaec;
+      position: relative;
+      border-collapse:collapse;
+      cursor: pointer;
+      }
+      #workbench .el-collapse-item__header{
+        height: 55px;
+        line-height: 55px;
+      }
+      #workbench .el-collapse-item__content{
+        padding-bottom: 0
+      }
+      #workbench .el-progress-bar__innerText{
+        display: none
+      }
+      #workbench .targerLIst{
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+      }
+      #workbench .targerLIst .firstL .goTablelink{
+        white-space: nowrap;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: absolute;
+        left: 30px;
+        top: 0;
+        width: 90%;
+      }
+      .w_tableBoxA .el-table td{
+        padding: 5px 0
+      }
+      main {
+        display: block;
+      }
+      .tableYiLan table {
+        width: 100% !important;
+      }
+      .zggyzbk_cjs table {
+        width: 100% !important;
+      }
+      .zwfx-ysdb .el-checkbox {
+        margin-left: 0 !important;
+        margin-right: 30px;
+      }
+      .cell_pointer table tbody div.cell {
+  cursor: pointer;
+}
+.textarea_box textarea {
+  height: 140px !important;
+  margin-bottom: 10px;
+}
+.target_plan_detail_box .el-tabs__item {
+  height: 54px;
+  line-height: 54px;
+}
+.scroll_x_hidden_box .el-dialog__body {
+  padding-top: 0;
+}
+.scroll_x_hidden_box .el-card {
+  box-shadow: none;
+}
+ /* 上传 */
+ .upload_btn {
+         width: 88px;
+         height: 34px;
+         text-align: center;
+         line-height: 34px;
+         color:#fff;
+         background-color: #57a026;
+         border-radius: 4px;
+         cursor: pointer;
+       }
+       .upload_btn.no_use {
+         cursor: not-allowed;
+       }
+       .webuploader-container {
+	position: relative;
+}
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px,1px,1px,1px);
+}
+.upload_btn .webuploader-pick {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	background: #57a026;
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden;
+}
+.webuploader-pick-hover {
+	background: #57a026;
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
+.upload_list .info {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 80%;
+  padding-right: 20px;
+}
+.upload_list .item {
+  position: relative;
+}
+.upload_list .info>i {
+  margin-right: 10px;
+}
+.upload_list .state {
+  margin-left: 20px;
+  position: absolute;
+  right: 5px;
+  color:#57a026;
+}
+.upload_list .item:hover .el-icon-success:before {
+    content: "\E60F";
+}
+.upload_list .item:hover {
+  background: #e0e0e0;
+  cursor: pointer;
+}
+.el-alert__content, .el-message__content {
+        display: inline-block !important;
+    }
+#mainPortrain .tableFlex .el-table__header-wrapper .el-table__header, 
+#mainPortrain .tableFlex .el-table__header-wrapper .el-table__body{
+  width: 100%!important
+}
+/* 数据权限 */
+.sjqxcontent .el-tree-node__content {
+  text-align: left !important;
+}
+#zgrer {
+  padding: 0 1.64%;
+}
+#zgrer .el-main {
+  padding: 0 !important;
+}
+
+/*兼容ie 9 的 table 样式*/
+table.special_table{
+  border-collapse:collapse;
+}
+.special_table th,
+.special_table td{
+  padding: 12px 0;
+  min-width: 0;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
+  /* border: none; */
+  border-bottom: 1px solid #ebeef5;
+  text-align: center;
+  border-collapse: collapse;/*关键代码*/
+}
+.special_table th{
+  font-weight: bold
+}
+.special_table thead {
+  color: #909399;
+  font-weight: 500;
+}
+.special_table th{
+  background-color: #f5f9fb;
+  color: #76838f;
+  border-collapse: collapse;
+}
+.special_table thead tr{
+  background-color: #f5f9fb;
+}
+.special_table tr {
+  background-color: #fff;
+  color: #76838f;
+  border-collapse: collapse;
+}
+.special_table tr:hover {
+  transition: background-color .25s ease;
+}
+.special_table tbody tr:hover {
+  background: #f6faff;
+}
+.scroll_x_hidden_box .item_right {
+  width: 800px;
+}
+.scroll_x_hidden_box .item_right .el-input+span+span {
+  line-height: 24px;
+  color: #80b748 !important;
+}
+body .schoolgroup.mainContent_school .bookGroup .xqItem .num {
+    padding-top: 0px !important;
+}
+#zBdiaogA  .el-dialog__body{
+   padding-bottom: 15px!important;
+   padding-top: 15px!important
+   }
+   #zjdialog .el-dialog__headerbtn .el-dialog__close{
+  display: none !important
+}
+
+    </style>
+    <!--<link rel="stylesheet" href="http://at.alicdn.com/t/font_515713_z30px9t1gul92j4i.css">-->
+    <title>内部质量保证体系诊断与改进系统</title>
+    <script src="./static/js/jquery-2.1.1.min.js"></script>
+    <script src="./static/js/d3.v3.min.js"></script>
+    <script src="./static/webuploader/webuploader.min.js"></script>
+    <!--<script src="./static/layout-grid/layout-grid.min.js"></script>-->
+  </head>
+  <script type="text/html" id="template">
+    <div class="ie-updater_box">
+     <div class="tb-ie-updater-layer"></div>
+      <div class="tb-ie-updater-box" v-if="closeBoxFlag">
+            <a href="javascript:;" class="ie_close_btn" @click="closeBox" style="color:#909399">&times;</a>
+            <h4> 很抱歉！您正在使用的浏览器版本过低，无法正常使用我们的网站，请升级后再试！</h4>
+            <p>为获得最佳浏览体验，建议您升级或选用其他浏览器，我们列出了一些最受欢迎的浏览器供您升级，点击图标将跳转到相应的下载页。</p>
+            <ul>
+                <li class="Firefox">
+                    <a href="https://download-ssl.firefox.com.cn/releases-sha2/stub/official/zh-CN/Firefox-latest.exe" target="_blank" title="下载火狐浏览器">
+                        <span></span>
+                        <em>Firefox</em>
+                    </a>
+                </li>
+                <li class="Chrome">
+                    <a href="http://sw.bos.baidu.com/sw-search-sp/software/7732d57f1669a/ChromeStandalone_49.0.2623.112_Setup.exe" target="_blank" title="下载谷歌浏览器">
+                    <!-- https://chrome.en.softonic.com -->
+                        <span></span>
+                        <em>Chrome</em>
+                    </a>
+                </li>
+                <li class="Opera">
+                    <a href="https://www.opera.com/download/get/?partner=www&opsys=Windows" target="_blank" title="下载欧朋浏览器">
+                        <span></span>
+                        <em>Opera</em>
+                    </a>
+                </li>
+                <li class="Safari">
+                    <a href="http://dlsw.baidu.com/sw-search-sp/soft/d3/12966/Safari_5.34.57.2.1417745549.exe" target="_blank" title="下载苹果浏览器">
+                        <span></span>
+                        <em>Safari</em>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <style>
+      * {
+         -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+         box-sizing: border-box;
+       }
+       *:after,*:before {
+         -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+         box-sizing: border-box;
+       }
+       /*border-box模式*/
+       .clearfix {
+         *zoom: 1;
+       }
+       .clearfix:after {
+         display: block;
+         clear: both;
+         content: " ";
+         height: 0;
+         visibility: hidden;
+       }
+       .tb-ie-updater-layer {
+          position: fixed;
+          _position:absolute;
+          top: 0;
+          _top:expression(eval(document.documentElement.scrollTop));
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #000;
+          filter:alpha(opacity=50);
+          opacity:.5;
+          z-index:99999999;
+        }
+       .tb-ie-updater-box {
+         position: fixed;
+         _position:absolute;
+         top: 50%;
+         left: 50%;
+         margin-left: -300px;
+         margin-top: -215px;
+         padding: 134px 30px 0 30px;
+         width: 600px;
+         height: 430px;
+         *width: 540px;
+         *height:296px;
+         text-align: left;
+         background: #fff url(./static/ie-updater/ie_bg.png) no-repeat top center;
+         z-index: 100000000;
+       }
+       .tb-ie-updater-box a{
+         outline: none;
+       }
+       .tb-ie-updater-box .ie_close_btn {
+         position: absolute;
+         right: 15px;
+         top: 0px;
+         font-size: 40px;
+       }
+       .tb-ie-updater-box h4{
+         text-align: center;
+         font-size: 18px;
+         line-height: 32px;
+         font-weight: bold;
+         color: #0088f5;
+       }
+       .tb-ie-updater-box p{
+         padding: 25px 0 40px 100px;
+         font-size: 12px;
+         line-height: 24px;
+         background: url(./static/ie-updater/ie_warning.png) no-repeat left 5px;
+       }
+       .tb-ie-updater-box ul{
+         overflow: hidden;
+       }
+       .tb-ie-updater-box li{
+         float:left;
+         width: 150px;
+         text-align: center;
+         border-right: 1px solid #e6e6e6;
+       }
+       .tb-ie-updater-box li span {
+         display: inline-block;
+         width: 62px;
+         height: 62px;
+         background: url(./static/ie-updater/browser.png) no-repeat 0 0;
+       }
+       .tb-ie-updater-box .Firefox{
+         width: 120px;
+       }
+       .tb-ie-updater-box .Safari{
+         float: right;
+         width: 110px;
+         border-right: none;
+       }
+       .tb-ie-updater-box .Firefox span{
+         background-position: -124px 0;
+       }
+       .tb-ie-updater-box .Chrome span{
+         background-position: -186px 0;
+       }
+       .tb-ie-updater-box .Safari span{
+         background-position: -62px 0;
+       }
+       .tb-ie-updater-box li em {
+         display: block;
+         font-size: 14px;
+         line-height: 28px;
+         font-weight: bold;
+       }
+       /*ie 6、7提示 end*/
+       .list_main .content .link{
+         display: block;
+       }
+       .list_main .content .link li{
+         float: left;
+       }
+ </style>
+  </script>
+  <body style="min-width: 500px">
+    <div id="app">
+      <div style="width: 100%;height: 100%;text-align: center;position: relative;">
+        <img src="./static/img/loader.gif" alt="" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%)"/>
+    </div>
+    </div>
+    <script>
+      var index = -1;
+    var str = navigator.userAgent.toLowerCase();
+    index = str.indexOf('msie');
+    if (index !== -1 && str.substr(index + 5, 3) - 0 < 9) {
+        document.body.innerHTML = document.getElementById('template').innerHTML
+      }
+    </script>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
