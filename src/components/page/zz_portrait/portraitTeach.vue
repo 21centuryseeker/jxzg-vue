@@ -1,533 +1,787 @@
 <template>
-    <div class="mainContent1 mainContentA">
-      <!-- <div class="filterBox marginBto24" v-if="flagUser"> -->
-        <div class="filterBox marginBto24">
+  <div class="mainContent1 mainContentA">
+    <!-- <div class="filterBox marginBto24" v-if="flagUser"> -->
+    <div class="filterBox marginBto24">
+      <el-card class="box-card">
+        <el-row :gutter="20">
+          <div class="w_seachGroup">
+            <ul class=" clearfix">
+              <li>
+                <div class="title_seach">院系</div>
+                <div class="title_select">
+                  <el-select v-model="valueYx" placeholder="请选择" size="small" style="width: 300px" filterable @change="selectYXFn">
+                    <el-option v-for="item in optionsYx" :key="item.code" :label="item.name" :value="item.code">
+                    </el-option>
+                  </el-select>
+                </div>
+              </li>
+              <li>
+                <div class="title_seach">教师</div>
+                <div class="title_select">
+                  <el-select v-model="valueZy" style="width: 300px" size="small" placeholder="请选择" filterable :disabled="flagZY">
+                    <el-option v-for="(item,index) in optionsZy" :key="index" :label="item.name" :value="item.code">
+                    </el-option>
+                  </el-select>
+                </div>
+              </li>
+              <li style="width:80px; text-align: right;">
+                <el-button type="info" size="small" style="height: 32px;margin-left: 5px;background: #70ad47;border-color: #70ad47;transform: translateY(1px)" @click="seachFn">查询</el-button>
+              </li>
+            </ul>
+            <!-- <el-button type="info" size="small" style="height: 32px;margin-left: 5px;background: #70ad47;border-color: #70ad47;transform: translateY(1px)" @click="searchInfo">查询</el-button>   -->
+          </div>
+        </el-row>
+      </el-card>
+    </div>
+    <div>
+      <div class="infoBox marginBto24">
         <el-card class="box-card">
-            <el-row :gutter="20" >
-             <div class="w_seachGroup">
-               <ul class=" clearfix">
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <div class="infoLeft">
+                <div class="pic"><img src="../../../assets/jiaoshihuaxiang.png" /></div>
+                <p class="name">{{teachBaseInfo.XM?teachBaseInfo.XM:'--'}}
+                  <template v-if="teachBaseInfo.XZ_XB=='男'">
+                    <i class="iconfont" style="color:#4472c4">&#xe650;</i>
+                  </template>
+                  <template v-else>
+                    <i class="iconfont" style="color:#ed7d31">&#xe652;</i>
+                  </template>
+
+                </p>
+                <p class="num">工号 {{teachBaseInfo.GH?teachBaseInfo.GH:'--'}}</p>
+              </div>
+            </el-col>
+            <el-col :span="18">
+              <div class="infoList" style="padding-top:50px">
+                <ul class="clearfix">
                   <li>
-                    <div class="title_seach">专业部</div>
-                    <div class="title_select">
-                      <el-select v-model="valueYx" placeholder="请选择"  size="small"  style="width: 300px" filterable @change="selectYXFn">
-                      <el-option
-                        v-for="item in optionsYx"
-                        :key="item.id"
-                        :label="item.deptName"
-                        :value="item.id">
-                      </el-option>
-                      </el-select>
-                    </div>
-                  </li>
+                    <span>职称：</span> {{teachBaseInfo.ZYZGZS_MC?teachBaseInfo.ZYZGZS_MC:'--'}}</li>
                   <li>
-                    <div class="title_seach">教师</div>
-                    <div class="title_select">
-                      <el-select v-model="valueZy" style="width: 300px" size="small"  placeholder="请选择"  filterable :disabled="flagZY" >
-                        <el-option
-                          v-for="item in optionsZy"
-                          :key="item.zgh"
-                          :label="item.jsxm"
-                          :value="item.zgh">
-                        </el-option>
-                      </el-select>
-                    </div>
-                  </li>
-                  <li style="width:80px; text-align: right;">
-                    <el-button type="info" size="small" style="height: 32px;margin-left: 5px;background: #70ad47;border-color: #70ad47;transform: translateY(1px)" @click="searchInfo">查询</el-button>  
-                  </li>
+                    <span>学位：</span>{{teachBaseInfo.XZ_XW?teachBaseInfo.XZ_XW:'--'}}</li>
+                  <!-- <li><span>政治面貌：</span>{{teachBaseInfo.zzmmmc?teachBaseInfo.zzmmmc:'--'}}</li> -->
+                  <li>
+                    <span>专业领域：</span>{{teachBaseInfo.XZ_ZYLY?teachBaseInfo.XZ_ZYLY:'--'}}</li>
                 </ul>
-                <!-- <el-button type="info" size="small" style="height: 32px;margin-left: 5px;background: #70ad47;border-color: #70ad47;transform: translateY(1px)" @click="searchInfo">查询</el-button>   -->
-              </div>  
-            </el-row>
+                <ul class="clearfix">
+                  <!-- <li><span>籍贯： </span>{{teachBaseInfo.jgmc?teachBaseInfo.jgmc:'--'}}</li>   -->
+                  <li>
+                    <span>专业特长： </span>{{teachBaseInfo.ZYTC?teachBaseInfo.ZYTC:'--'}}</li>
+                  <li>
+                    <span>学历：</span>{{teachBaseInfo.XZ_XL?teachBaseInfo.XZ_XL:'--'}}</li>
+                  <li>
+                    <span>民族：</span>{{teachBaseInfo.XZ_MZ?teachBaseInfo.XZ_MZ:'--'}}</li>
+                  <!-- <li><span>年龄：</span>{{teachBaseInfo.nl?teachBaseInfo.nl:'--'}}</li> -->
+                </ul>
+                <ul class="clearfix">
+                  <li>
+                    <span>出生日期：</span>{{teachBaseInfo.CSRQ? teachBaseInfo.CSRQ:'--'}}</li>
+                  <li>
+                    <span>是否专业教师： </span>{{teachBaseInfo.XZ_SFZYJS?teachBaseInfo.XZ_SFZYJS:'--'}}</li>
+                  <li>
+                    <span>是否骨干教师： </span>{{teachBaseInfo.XZ_SFGGJS?teachBaseInfo.XZ_SFGGJS:''}}</li>
+
+                </ul>
+                <ul class="clearfix">
+                  <li>
+                    <span>是否双师素质教师：</span>{{teachBaseInfo.XZ_SFSSSZ?teachBaseInfo.XZ_SFSSSZ:'--'}}</li>
+                  <li>
+                    <span>是否教学名师： </span>{{teachBaseInfo.XZ_JXMS?teachBaseInfo.XZ_JXMS:'--'}}</li>
+                  <!-- <li><span>身份证号：</span> {{teachBaseInfo.id_num?teachBaseInfo.id_num:'--'}}</li> -->
+                  <li>
+                    <span>所在部门：</span>{{teachBaseInfo.BMMC?teachBaseInfo.BMMC:'--'}}</li>
+                </ul>
+
+              </div>
+            </el-col>
+          </el-row>
         </el-card>
       </div>
-      <!-- <div v-if="teachNull" class="nodataPicAB">
-          <img src="../../../assets/empty.jpg"/>
-      </div> -->
-      <!-- <div v-else> -->
-        <div>
-        <div class="infoBox marginBto24">
-          <el-card class="box-card">
-              <el-row :gutter="20" >
-                      <el-col :span="6">
-                          <div class="infoLeft">
-                              <div class="pic"><img src="../../../assets/jiaoshihuaxiang.png" /></div>
-                              <p class="name">{{teachBaseInfo.XM?teachBaseInfo.XM:'--'}}
-                                     <template v-if="teachBaseInfo.gender=='男'">
-                                      <i class="iconfont" style="color:#4472c4">&#xe650;</i>
-                                  </template>
-                                  <template v-else>
-                                      <i class="iconfont" style="color:#ed7d31">&#xe652;</i>
-                                  </template>
 
-                              </p>
-                              <p class="num">工号 {{teachBaseInfo.zgh?teachBaseInfo.zgh:'--'}}</p>
-                          </div>
-                      </el-col>
-                      <el-col :span="18">
-                          <div class="infoList" style="padding-top:50px">
-                              <!-- <div class="deptOptions">
-                                      <span>所在部门</span>
-                                      <el-select v-model="value" size="small" @change="jobSwitch">
-                                      <el-option
-                                      v-for="item in deptOptions"
-                                      :key="item.dept_id"
-                                      :label="item.dept_name"
-                                      :value="item.dept_id">
-                                      </el-option>
-                                      </el-select>
-                              </div> -->
-                              <ul class="clearfix">
-                                  <li><span>职称：</span> {{teachBaseInfo.zc?teachBaseInfo.zc:'--'}}</li>
-                                  <li><span>学历：</span>{{teachBaseInfo.xlmc?teachBaseInfo.xlmc:'--'}}</li>
-                                  <!-- <li><span>学位：</span>{{teachBaseInfo.xw?teachBaseInfo.xw:'--'}}</li> -->
-                                  <li><span>政治面貌：</span>{{teachBaseInfo.zzmmmc?teachBaseInfo.zzmmmc:'--'}}</li>
-                              </ul>
-                              <ul class="clearfix">
-                                  <li><span>籍贯： </span>{{teachBaseInfo.jgmc?teachBaseInfo.jgmc:'--'}}</li>  
-                                  <li><span>民族：</span>{{teachBaseInfo.mzmc?teachBaseInfo.mzmc:'--'}}</li>
-                                  <li><span>年龄：</span>{{teachBaseInfo.nl?teachBaseInfo.nl:'--'}}</li>
-                              </ul>
-                              <ul class="clearfix">
-                                  <li><span>状态： </span>{{teachBaseInfo.zzztmc?teachBaseInfo.zzztmc:'--'}}</li>
-                                  <li><span>任职时间： </span>{{teachBaseInfo.RZRQ?teachBaseInfo.RZRQ:''}}--{{teachBaseInfo.LZRQ?teachBaseInfo.LZRQ:''}}</li>
-                                  <li><span>工作年限： </span>{{teachBaseInfo.gznx?teachBaseInfo.gznx:'--'}}</li>
-                                  <!-- <li><span>出生日期：</span>{{teachBaseInfo.csrq?teachBaseInfo.csrq:'--'}}</li> -->
-                              </ul>
-                              <!-- <ul class="clearfix">
-                                  <li><span>编制：</span>{{teachBaseInfo.bz?teachBaseInfo.bz:'--'}}</li>
-                                  
-                                  <li><span>类型：</span>{{teachBaseInfo.JZGLBMC?teachBaseInfo.JZGLBMC:'--'}}</li> 
-                              </ul> -->
-                              <ul class="clearfix">
-                                <li><span>类型：</span>{{teachBaseInfo.JZGLBMC?teachBaseInfo.JZGLBMC:'--'}}</li> 
-                                <li><span>所在部门：</span>{{teachBaseInfo.dept_name?teachBaseInfo.dept_name:'--'}}</li> 
-                                  <!-- <li class="large"><span>身份证号：</span> {{teachBaseInfo.id_num?teachBaseInfo.id_num:'--'}}</li> -->
-                              </ul>
-                          </div>
-                      </el-col>
-              </el-row>
-          </el-card>
+      <div style="margin-bottom:24px">
+        <div class="titleTop" style="margin-bottom:10px">
+          <span style="font-size:14px">学年</span>
+          <el-select v-model="valueXq" placeholder="请选择" size="small" style="width: 200px" filterable @change="selectXqFn">
+            <el-option v-for="item in optionsXq" :key="item.code" :label="item.name" :value="item.code">
+            </el-option>
+          </el-select>
         </div>
+        <div class=“special_table_box”>
+           <el-card class="box-card">
+          <template v-if="zyZhLDFlag">
+            <div class="nodataPic_zg" style="height:360px">
+              <img src="../../../assets/empty.jpg" />
+            </div>
+          </template>
+          <template v-else>
+              <p class="details" style="margin-bottom:10px">
+                    该教师建设质量指数 <span style="color:#70ad47">{{zdf}}</span>分
+                     <span style="margin-left:10px">全校排名 第</span><span style="color:#70ad47">{{XXTOP?XXTOP:'-'}}</span>名
+                    <span style="margin-left:10px">全院排名 第</span><span style="color:#70ad47">{{YXTOP?YXTOP:'-'}}</span>名
+                     <span style="margin-left:10px">全专业排名 第</span><span style="color:#70ad47">{{ZYTOP?ZYTOP:'-'}}</span>名
+                  </p>
+            <el-row :gutter="20">
+              <el-col :span="12">
+                  <!-- 雷达图 -->
+                  <div id="zyZhLD" style="height:360px"></div>
+                
+              </el-col>
+              <el-col :span="12">
               
-        <div class="showInfo">
-            <div class="titleName"> 教学情况 </div>              
-              <div class="showInfoList">
-                    <el-row :gutter="20">
-                      <template v-for="(item,index) in countCard">
-                        <el-col :span="8" :key="index">
-                            <div :class="'showInfoItem'+(index+1)">
-                              <el-card class="box-card">
-                                  <p class="num">{{item.VALUE?item.VALUE:'0'}}</p>
-                                  <p class="name">{{item.name?item.name:'--'}}(个)</p>
-                              </el-card>
-                            </div>
-                        </el-col>
-                      </template> 
-                    </el-row >
-              </div>
+                  <div style="padding-top:30px" class="special_table_box">
+                    <table class="special_table" style="width:100%">
+                      <thead>
+                        <tr>
+                           <th style="width:150px">序号</th>
+                          <th class="leftAlign">指标名称</th>
+                          <th style="width:200px">得分</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template v-for="(item,index) in zyldtTable">
+                          <tr :key="index">
+                            <td >{{index+1}}</td>
+                            <td class="leftAlign">{{item.name}}</td>
+                            <td>{{item.value}}</td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+                  </div>
+                
+              </el-col>
+            </el-row>
+          </template>
+</el-card>
         </div>
-
-
-        <!--课程授课情况  -->
-        <div class="SituationBox">
-          <div class="titleName"> 课程授课情况 </div>
-        
-            <div class="Situation_title">
-               <template v-if="SituationFlag">
-                  <div class="nodataPic_zg" style="height:358px">
-                    <img src="../../../assets/empty.jpg" />
-                  </div> 
-                </template>
-                <template v-for="(item,index) in SituationData" v-else>
-                <ul class="clearfix" :key="index">
-                    <li>
-                        <el-card class="box-card">
-                          <p class="leftMc" >课程： {{item.KCMC}}</p>
-                          <div class="rightMc">
-                              <template v-if="item.bjList.length>0">
-                                班级：
-                                  <p  v-for="(listItem,indexList) in item.bjList">
-                                    <span :key="indexList">{{listItem.BJMC}}</span>
-                                  </p>
-                              </template>
-                          </div>
-                          
-                          <div class="SituationPic"></div>
-                        </el-card> 
-                    </li>
-                </ul>    
-                </template>
-            </div>  
-        </div> 
-
       </div>
- </div>
+      <!-- 专业雷达图 end -->
+
+      <div class="showInfo">
+        <div class="titleName"> 教学情况 </div>
+        <div class="showInfoList">
+          <el-row :gutter="20">
+            <template v-for="(item,index) in countCard">
+              <el-col :span="8" :key="index">
+                <div :class="'showInfoItem'+(index+1)">
+                  <el-card class="box-card">
+                    <p class="num">{{item.value?item.value:'0'}}</p>
+                    <p class="name">{{item.name?item.name:'--'}}(个)</p>
+                  </el-card>
+                </div>
+              </el-col>
+            </template>
+          </el-row>
+        </div>
+      </div>
+
+      <div style="margin-bottom:24px">
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <el-card class="box-card">
+              <!-- 招生及录取情况 -->
+              <!-- <div class="textTitleA">历年授课课程数量</div> -->
+              <template v-if="studentNumFlag">
+                <div class="nodataPic_zg" style="height:345px">
+                  <img src="../../../assets/empty.jpg" />
+                </div>
+              </template>
+              <template v-else>
+                <div class="majorEchart" style="height:345px" id="studentNum" :key="101"></div>
+              </template>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- 使用教材 -->
+      <div class="marginBto24 special_table_box">
+        <el-card class="box-card">
+          <div class="textTitleA">课程授课情况</div>
+          <div class="topList special_tableColor" style="padding-top:20px">
+            <template v-if="teachbookFlag">
+              <div class="nodataPic_zg" style="height:345px">
+                <img src="../../../assets/empty.jpg" />
+              </div>
+            </template>
+            <template v-else>
+              <table class="special_table " width="100%">
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th class="leftAlign">课程名称</th>
+                    <th class="leftAlign">授课年级</th>
+                    <th class="leftAlign">授课学期</th>
+                    <th>教学工作量（学时）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in teacherbookData" :key="index">
+                    <td>{{index+1}}</td>
+                    <td class="leftAlign">{{item.KCMC?item.KCMC:'-'}}</td>
+                    <td class="leftAlign">{{item.XZ_SKNJ?item.XZ_SKNJ:'-'}}</td>
+                    <td class="leftAlign">{{item.XZ_SKXQ?item.XZ_SKXQ:'-'}}</td>
+                    <td>{{item.JXGZL?item.JXGZL:'-'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <el-pagination background  layout="prev, pager, next"  :total="total" v-show="total" style="margin-top: 10px"    @current-change = "getCurrentPage" :current-page="currentPage" :page-size="pageSize">
+                        </el-pagination> -->
+            </template>
+          </div>
+        </el-card>
+      </div>
+
+      <!--课程授课情况  -->
+      <div class="SituationBox" v-if="false">
+        <div class="titleName"> 课程授课情况 </div>
+
+        <div class="Situation_title">
+          <template v-if="SituationFlag">
+            <div class="nodataPic_zg" style="height:358px">
+              <img src="../../../assets/empty.jpg" />
+            </div>
+          </template>
+          <template v-for="(item,index) in SituationData" v-else>
+            <ul class="clearfix" :key="index">
+              <li>
+                <el-card class="box-card">
+                  <p class="leftMc">课程： {{item.KCMC}}</p>
+                  <div class="rightMc">
+                    <template v-if="item.bjList.length>0">
+                      班级：
+                      <p v-for="(listItem,indexList) in item.bjList">
+                        <span :key="indexList">{{listItem.BJMC}}</span>
+                      </p>
+                    </template>
+                  </div>
+
+                  <div class="SituationPic"></div>
+                </el-card>
+              </li>
+            </ul>
+          </template>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
-      SituationData:[],//课程授课情况
-      chartDates:[],//课程授课情况数据
-      colorIndex:0,
-      colorArr: ['#d56290','#70ad47', '#ed7d31', '#ffc000',
-        '#4472c4', '#dd6969', '#00a6a6',
-        '#6c6fbf', '#62a8ea', '#ffb980'
+      SituationData: [], //课程授课情况
+      chartDates: [], //课程授课情况数据
+      colorIndex: 0,
+      colorArr: [
+        "#d56290",
+        "#70ad47",
+        "#ed7d31",
+        "#ffc000",
+        "#4472c4",
+        "#dd6969",
+        "#00a6a6",
+        "#6c6fbf",
+        "#62a8ea",
+        "#ffb980"
       ],
-      userId: '',
-      value: '',
-      deptId: '',
-      zgh: '',
+      userId: "",
+      value: "",
+      deptId: "",
+      zgh: "",
       deptOptions: [],
       teachBaseInfo: [], // 教师基本信息
       countCard: [], // 卡片统计个数
-      teachSelectoptions: [{ value: '2016-2017-1' }], // 教学下拉菜单
-      teachSelect: '2016-2017-1',
+      teachSelectoptions: [{ value: "2016-2017-1" }], // 教学下拉菜单
+      teachSelect: "2016-2017-1",
       pleased: [], // 满意度数组
       TOP5List: [],
       resultTypeObj: {
-        '1': 'style_three',
-        '-1': 'style_one',
-        '0':"style_tow"
+        "1": "style_three",
+        "-1": "style_one",
+        "0": "style_tow"
       },
       scientificTJ: [], // 科研统计
-      filterText:'',
-      seachTeach:false,
-      flagUser:0,
-      teachNull:true,
-      depedIdFlag:true,
-      getRadarDataFlag1:true,
-      getRadarDataFlag3:true,
-      teachDegreeFlag:true,
-      teachWorkEchartsFlag:true,
-      TOP5ListFlag:true,
-      WorkBoxFlag:true,
-      salaryBoxFlag:true,
-      feedbackSelect:'',
-      feedbackSelectGroup:[],
-      curriculumFlag:true,
-     valueYx:'',
-      optionsYx:[],
-       optionsZy: [],
-      valueZy: '',
-      flagZY:false,
-      flagOne:1,
-      SituationFlag:true
-
-    }
+      filterText: "",
+      seachTeach: false,
+      flagUser: 0,
+      teachNull: true,
+      depedIdFlag: true,
+      getRadarDataFlag1: true,
+      getRadarDataFlag3: true,
+      teachDegreeFlag: true,
+      teachWorkEchartsFlag: true,
+      TOP5ListFlag: true,
+      WorkBoxFlag: true,
+      salaryBoxFlag: true,
+      feedbackSelect: "",
+      feedbackSelectGroup: [],
+      curriculumFlag: true,
+      valueYx: "",
+      optionsYx: [],
+      optionsZy: [],
+      valueZy: "",
+      flagZY: false,
+      flagOne: 1,
+      SituationFlag: true,
+      studentNumFlag: true, //历年授课课程数量
+      teachbookFlag: true, //课程授课情况flag
+      teacherbookData: [], //课程授课情况
+      zyZhLDFlag: true,
+      zyZhLDFlag: true, //雷达图是否有数据flag
+      valueXq: "", //雷达图选择学期
+      optionsXq: [], //学期数组
+      flagYear: 1, //设置默认
+      zdf: "", //总得分
+      XXTOP:'',
+      YXTOP:'',
+      ZYTOP:'',
+      zyldtTable: [] //雷达图右侧列表
+    };
   },
-  created () {},
-  mounted () {
-    this.getYxFn()
+  created() {},
+  mounted() {
+    this.getYxFn();
   },
   methods: {
-    // 是否有搜素权限
-    // checkUserLevelFn(){
-    //   let self = this
-    //   self.$ajax(
-    //     'post',
-    //     self.HOST + '/tr/individualPortrait/web/checkUserLevel',
-    //     {},
-    //     (res) => {
-    //       if (res.success) {
-    //         self.flagUser=res.obj.flag
-    //       } else {
-    //         self.$message({
-    //           message: res.msg,
-    //           type: 'error'
-    //         })
-    //       }
-    //     }
-    //   ) 
-    // },
-    //   查询
-    searchInfo () {
-      // console.log(this.valueZy)
-     let SearchData={
-       searchKey:this.valueZy
+    seachFn(){
+     if(this.valueZy){
+       this.downFn()
+     }else{
+       this.$message({
+              message: '请选择教师',
+              type: "error"
+            });
      }
-    
-    this.ajaxFn(SearchData)
     },
-    ajaxFn(newData){
-      let self = this
-      self.$ajaxMore(
-        'post',
-        self.HOST + '/tr/individualPortrait/web/searchJZG',
-        newData,
-        (res) => {
+    // 关于执行接口
+    downFn() {
+      //  this.checkUserLevelFn()
+      //  this.SituationFn()
+      this.baseInfoFn();
+      this.countCardFn();
+      this.studentNumFn();
+      this.teacherbookDataFn();
+      this.getXqFn();
+    },
+    // 获取院系
+    getYxFn() {
+      let self = this;
+      this.$ajax(
+        "post",
+        this.HOST + "/tr/individualPortrait/web/getselectJbxx?id=29",
+        {},
+        res => {
           if (res.success) {
-            // self.teachNull=false
-            self.downFn()  
+            if (res.obj.length > 0) {
+              self.optionsYx = res.obj;
+              self.valueYx = res.obj[0].code;
+              self.getZyFn();
+            } else {
+              self.optionsYx = [];
+              self.valueYx = "";
+            }
           } else {
-            //  self.teachNull=true
             self.$message({
               message: res.msg,
-              type: 'error'
-            })
+              type: "error"
+            });
           }
         }
-      )
+      );
     },
-
-   // 关于执行接口
-    downFn(){
-      //  this.checkUserLevelFn()
-        this.baseInfoFn()
-        this.SituationFn()
-        this.countCardFn()
+    selectYXFn(v) {
+      this.flagZY = false;
+      this.valueZy = "";
+      this.getZyFn();
+    },
+    // 获取专业
+    getZyFn() {
+      let self = this;
+      let dataNew = {
+        id: 49,
+        key: self.valueYx
+      };
+      self.$ajax(
+        "post",
+        this.HOST + "/tr/individualPortrait/web/getselectJbxx",
+        dataNew,
+        res => {
+          if (res.success) {
+            if (res.obj.length > 0) {
+              0;
+              //  self.flagZY = false
+              self.optionsZy = res.obj;
+              self.valueZy = res.obj[0].code;
+              self.flagOne++;
+              if (self.flagOne == 2) {
+                self.downFn();
+              }
+            } else {
+              self.optionsZy = [];
+              self.valueZy = "";
+            }
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
+        }
+      );
     },
     //   基本信息---------------------------
-    baseInfoFn () {
-      let self = this
+    baseInfoFn() {
+      let self = this;
       let newData = {
-        id: 1, // 必输
-        key:self.valueZy
-      }
-      self.$ajax(
-        'post',
-        self.HOST + '/tr/individualPortrait/web/getJbxx',
-        newData,
-        (res) => {
-          if (res.success) {
-            self.teachBaseInfo = []
-            if(!res.obj){
-                self.teachBaseInfo = res.data
-            }
-          } else {
-            self.$message({
-              message: res.msg,
-              type: 'error'
-            })
-          }
-        }
-      )
-    },
-
-     //   课程授课情况
-    SituationFn () {
-      let self = this
-      let newData = {
-        id: 3, // 必输
-        zgh:self.valueZy
-      }
-      self.$ajax(
-        'post',
-        self.HOST + '/tr/individualPortrait/web/getKc_Bj1',
-        newData,
-        (res) => {
-          if (res.success) {
-             self.SituationData = []
-             
-            if(res.obj.length>0){
-              self.SituationFlag=false
-                self.SituationData = res.obj
-                self.chartDates=res.obj
-                setTimeout(() => {
-                    self.showChart()
-                }, 150)
-            }
-            //  self.SituationFlag=true
-          } else {
-            self.$message({
-              message: res.msg,
-              type: 'error'
-            })
-          }
-        }
-      )
-    },
-
-    showChart(){
-       this.colorIndex = 0
-        for(var i=0;i<this.chartDates.length; i++){
-            this.colorIndex ++;
-            this.SituationPicFn(this.chartDates[i].legend,this.chartDates[i].dataxList, this.chartDates[i].datay1List, this.chartDates[i].datay2List,document.getElementsByClassName('SituationPic')[i],index)
-        }  
-    },
-
-    SituationPicFn(leg,xdata, series,series1, ele,index){   
-     let myChart = this.$echarts.init(ele)
-     if(index>7){
-        this.colorIndex = 0
-     }
-     let option = {
-          calculable : true,
-          legend: {
-              data:leg
-          },
-
-         tooltip : {
-              trigger: 'axis',
-              formatter : '{b}<br/>{a0}:{c0}人<br/>{a1}:{c1}%'
-          },
-          xAxis : [
-              {
-                  type : 'category',
-                  data :xdata
-              }
-          ],
-           dataZoom: [{
-              type: 'slider',
-              show: true,
-              xAxisIndex: [0],
-              left: '9%',
-              bottom: -5,
-              start: 10,
-              end: 90 //初始化滚动条
-          }],
-          yAxis : [
-              {
-                  type : 'value',
-                  name : '平均成绩',
-                  axisLabel : {
-                      formatter: '{value} '
-                  }
-              },
-              {
-                  type : 'value',
-                  name : '优秀率',
-                  axisLabel : {
-                      formatter: '{value} %'
-                  }
-              }
-          ],
-          series : [
-              {
-                  name:leg[0],
-                  type:'bar',
-                 label :{
-                    normal: {
-                      show: true,
-                      position: 'top'
-                    }
-                 },
-                  // barWidth: 20, // 柱图宽度
-                  color:this.colorArr[this.colorIndex],
-                  data:series
-              },
-              {
-                  name:leg[1],
-                  type:'line',
-                  yAxisIndex: 1,
-                  color:this.colorArr[this.colorIndex+1],
-                  data:series1,
-                  itemStyle: {
-                    normal: {
-                      lineStyle: {
-                        width: 2,
-                        type: 'solid' // 'dotted'虚线 'solid'实线
-                      },
-                      label : {show: true}
-                    }
-                  }
-              }
-          ]
+        id: 50, // 必输
+        key: self.valueZy
       };
-        myChart.setOption(option)
-        window.addEventListener('resize', function () {
-          myChart.resize()
-        })
-                    
-    },
-
-    //   统计个数信息
-    countCardFn () {
-      let self = this
-      let newData = {
-        id: 2,
-        key:self.valueZy
-      }
       self.$ajax(
-        'post',
-        self.HOST + '/tr/individualPortrait/web/getJxqk',
+        "post",
+        self.HOST + "/tr/individualPortrait/web/getselectJbxx",
         newData,
-        (res) => {
-          if (res.success) { 
-            self.countCard = []             
-            if(res.obj.length>0){     
-                self.countCard = res.obj
-                // self.depedIdFlag=false
-            }
-           
-          } else {
-            self.$message({
-              message: res.msg,
-              type: 'error'
-            })
-          }
-        }
-      )
-    },
-
-
-       // 获取院系
-    getYxFn () {
-      let self = this
-      let dataNew = {
-        searchName: ''
-      }
-      this.$ajax('post', this.HOST + '/tr/trDept/web/getIsDeptList', {}, (res) => {
-        if (res.success) {
-          if(res.obj.length>0){
-           self.optionsYx = res.obj
-           self.valueYx= res.obj[0].id 
-           self.getZyFn()
-          }else{
-             self.optionsYx=[]
-             self.valueYx=''
-          }
-        
-        } else {
-          self.$message({
-            message: res.msg,
-            type: 'error'
-          })
-        }
-      }
-      )
-    },
-   selectYXFn (v) {
-      this.flagZY = false
-      this.getZyFn()
-    },
-      // 获取专业
-    getZyFn () {
-      let self = this
-      let dataNew = {
-        type: 1,
-        zy: self.valueYx,
-        tableId: ''
-      }
-      self.$ajaxMore('post', this.HOST + '/tr/factorAnalysis/web/getCoreList', dataNew,
-        (res) => {
+        res => {
           if (res.success) {
-            if(res.obj.length>0){0
-            //  self.flagZY = false
-             self.optionsZy = res.obj
-             self.valueZy= res.obj[0].zgh
-             self.flagOne++
-            //  console.log('self.flagOne',self.flagOne)
-             if(self.flagOne<3){
-                self.downFn()
-             }     
-            }else{
-             self.optionsZy = []
-             self.valueZy= ''
+            self.teachBaseInfo = [];
+            if (res.obj.length > 0) {
+              self.teachBaseInfo = res.obj[0];
             }
           } else {
             self.$message({
               message: res.msg,
-              type: 'error'
-            })
+              type: "error"
+            });
           }
         }
-      )
+      );
     },
-  
+
+    //   教学情况统计个数信息
+    countCardFn() {
+      let self = this;
+      let newData = {
+        id: 55,
+        key: self.valueZy
+      };
+      self.$ajax(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/getselectJbxx",
+        newData,
+        res => {
+          if (res.success) {
+            self.countCard = [];
+            if (res.obj.length > 0) {
+              self.countCard = res.obj;
+            }
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
+        }
+      );
+    },
+
+    //历年授课课程数量
+    studentNumFn() {
+      let self = this;
+      let newData = {
+        id: 56,
+        key: self.valueZy
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/getBarData",
+        newData,
+        res => {
+          if (res.success) {
+            if (res.obj) {
+              if (res.obj.dataxList.length > 0) {
+                self.studentNumFlag = false;
+                let series = [
+                  {
+                    name: "",
+                    type: "bar",
+                    color: "#70ad47",
+                    data: res.obj.datayList
+                  }
+                ];
+                setTimeout(() => {
+                  self.$ChartUtil.drawChart(
+                    "studentNum",
+                    res.obj.title,
+                    res.obj.legend,
+                    "",
+                    series,
+                    res.obj.dataxList,
+                    false,
+                    {
+                      yAxis: [
+                        {
+                          type: "value",
+                          name: "（门）"
+                        }
+                      ],
+                      tooltip: {
+                        trigger: "axis",
+                        formatter: "{b}<br/>{c0}门"
+                      },
+                      grid: {
+                        x: 50,
+                        y: 80,
+                        x2: 30,
+                        y2: 60
+                      },
+                      customattrs: { xrotate: 0 }
+                    },
+                    self
+                  );
+                }, 150);
+              } else {
+                self.studentNumFlag = true;
+              }
+            }
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
+        }
+      );
+    },
+
+    // 使用教材
+    teacherbookDataFn() {
+      let self = this;
+      let newData = {
+        id: 51,
+        key: self.valueZy
+      };
+      self.$ajax(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/getselectJbxx",
+        newData,
+        res => {
+          if (res.success) {
+            if (res.obj.length > 0) {
+              self.teachbookFlag = false;
+              self.teacherbookData = res.obj;
+            } else {
+              self.teachbookFlag = true;
+              self.teacherbookData = [];
+            }
+            // total 总数 赋给 total
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
+        }
+      );
+    },
+
+    // 获得学年的学期切换
+    getXqFn() {
+      let self = this;
+      let dataNew = {
+        typeId: 2,
+        key: self.valueZy
+      };
+      self.$ajaxMore(
+        "post",
+        this.HOST + "/tr/individualPortrait/web/searchYear",
+        dataNew,
+        res => {
+          if (res.success) {
+            if (res.obj.length > 0) {
+              this.optionsXq = res.obj;
+              self.valueXq = res.obj[0].code;
+              self.zyZhFn();
+              self.XXTOPFn();
+              self.YXTOPFn();
+              self.ZYTOPFn();
+            }else{
+                self.valueXq=''
+              self.optionsXq=[]
+              self.zyZhLDFlag = true;
+            }
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
+        }
+      );
+    },
+    // 切换学期
+    selectXqFn() {
+      this.zyZhFn();
+      this.XXTOPFn()
+      this.YXTOPFn()
+      this.ZYTOPFn()
+    },
+    // 获取学期雷达图数据
+    zyZhFn() {
+      let self = this;
+      self.zyldtTable = [];
+      let newData = {
+        typeId: 2,
+        key: self.valueZy,
+        year: self.valueXq
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchTOP",
+        newData,
+        res => {
+          if (res.data) {
+            self.zdf = res.data.zdf;
+            for (var i = res.data.dataxList.length - 1; i > 0; i--) {
+              self.zyldtTable.push({
+                name: res.data.indicator[i].text,
+                value: res.data.dataxList[i]
+              });
+            }
+            self.zyldtTable.unshift({
+              name: res.data.indicator[0].text,
+              value: res.data.dataxList[0]
+            });
+            if (self.zyldtTable.length > 0) {
+              self.zyZhLDFlag = false;
+            } else {
+              self.zyZhLDFlag = true;
+            }
+            let series = [
+              {
+                value: res.data.dataxList,
+                name: res.data.legend
+              }
+            ];
+            setTimeout(() => {
+              this.studentScaleFn(
+                "",
+                res.data.legend,
+                res.data.indicator,
+                series,
+                document.getElementById("zyZhLD")
+              );
+            }, 150);
+          }
+        }
+      );
+    },
+
+         // 全校排名
+    XXTOPFn() {
+      let self = this;
+      let newData = {
+       typeId: 2,
+        key: self.valueZy,
+        year: self.valueXq
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchXXTOP",
+        newData,
+        res => {
+          self.XXTOP=res.data.pm
+        }
+      );
+    },
+        // 全校排名
+        // 全校排名
+    YXTOPFn() {
+      let self = this;
+      let newData = {
+        typeId: 2,
+        key: self.valueZy,
+        year: self.valueXq,
+        yxid:self.valueYx
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchYXTOP",
+        newData,
+        res => {
+          self.YXTOP=res.data.pm
+        }
+      );
+    },
+    // 专业排名
+   ZYTOPFn() {
+      let self = this;
+      let newData = {
+       typeId: 2,
+        key: self.valueZy,
+        year: self.valueXq,
+        zyid:self.valueZy
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchZYTOP",
+        newData,
+        res => {
+          self.ZYTOP=res.data.pm
+        }
+      );
+    },
+    // 雷达图数据
+    studentScaleFn(title, leg, ind, data, el) {
+      var option = {
+        title: {
+          // text: '基础雷达图'
+        },
+        tooltip: {},
+        legend: {
+          left: "right",
+          data: []
+        },
+        color: [
+          "#70ad47",
+          "#ed7d31",
+          "#ffc000",
+          "#4472c4",
+          "#a5a5a5",
+          "#dd6969",
+          "#00a6a6"
+        ],
+        radar: {
+           radius: '80%',
+          center: ['50%', '50%'],
+          // shape: 'circle',
+          name: {
+            textStyle: {
+              color: "#76838f",
+              backgroundColor: "#fff",
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: ind
+        },
+        series: [
+          {
+            name: "",
+            type: "radar",
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: data
+          }
+        ]
+      };
+      var myChart = this.$echarts.init(el);
+      myChart.setOption(option);
+      window.addEventListener("resize", function() {
+        myChart.resize();
+      });
+    }
   }
-}
+};
 </script>
 <style scoped>
 .clearfix {
@@ -646,7 +900,6 @@ export default {
 }
 .infoList li.large {
   width: 42%;
-
 }
 .infoList li span {
   display: inline-block;
@@ -783,8 +1036,8 @@ export default {
 .style_three {
   background: #70ad47;
 }
-.style_tow{
- background: #4472c4;
+.style_tow {
+  background: #4472c4;
 }
 
 .span_state {
@@ -853,9 +1106,9 @@ export default {
   -webkit-transform: translate3d(0, -2px, 0);
   transform: translate3d(0, -2px, 0);
 }
-.schoolBox{
-    padding: 27px 10px 27px 25px;
-    background-color:#ee8239
+.schoolBox {
+  padding: 27px 10px 27px 25px;
+  background-color: #ee8239;
 }
 .schoolBox .title {
   font-size: 12px;
@@ -975,7 +1228,7 @@ export default {
   margin-bottom: 0;
 }
 #teachWork,
-#teachWork1{
+#teachWork1 {
   float: left;
   width: 50%;
   height: 317px;
@@ -988,7 +1241,7 @@ export default {
 .mainContentA .nodataPicAB img {
   display: inline-block;
   margin: auto;
-  margin-top: 50px
+  margin-top: 50px;
 }
 .mainContentA .nodataPicAB_small {
   height: 199px;
@@ -997,35 +1250,34 @@ export default {
   margin-top: 0px;
   height: 90%;
 }
-.mainContentA  .schoolBoxA{
-padding: 27px 10px 27px 25px;
+.mainContentA .schoolBoxA {
+  padding: 27px 10px 27px 25px;
 }
-.Situation_title .SituationPic{
+.Situation_title .SituationPic {
   height: 362px;
 }
-.leftMc{
+.leftMc {
   margin-bottom: 10px;
 }
-.SituationBox .rightMc p{
-display: inline-block;
-margin-right: 10px;
+.SituationBox .rightMc p {
+  display: inline-block;
+  margin-right: 10px;
 }
-.w_seachGroup li{
- float: left;
- margin-bottom: 15px
+.w_seachGroup li {
+  float: left;
+  margin-bottom: 15px;
 }
-.w_seachGroup .title_seach{
+.w_seachGroup .title_seach {
   float: left;
   width: 100px;
- line-height: 32px;
- font-size: 14px;
- text-align: right;
- padding-right: 15px;
- color: #606266
+  line-height: 32px;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 15px;
+  color: #606266;
 }
-.w_seachGroup .title_select{
+.w_seachGroup .title_select {
   float: left;
-
 }
 .nodataPic_zg {
   width: 100%;
@@ -1035,5 +1287,13 @@ margin-right: 10px;
 .nodataPic_zg img {
   display: inline-block;
   margin-top: 50px;
+}
+/* .special_table_box .special_table th,
+.special_table_box .special_table td{
+  font-size: 12px!important
+} */
+.special_table_box .special_table .leftAlign {
+  text-align: left;
+  padding-left: 30px;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="cell_pointer">
     <!-- <div class="container_box_header">我负责的计划</div> -->
+    <fiveSelect></fiveSelect>
     <!-- 操作容器 -->
     <div class="bg_box">
       <div class="operation_box boxShadow">
@@ -468,9 +469,13 @@
   </div>
 </template>
 <script>
+import fiveSelect from "../../target_plan_common/five_select.vue";
 export default {
+  components: { fiveSelect },
   data () {
     return {
+      deptId: "", // 部门id
+      roleId: "", // 角色id
       shqkInput: '',
       shskOptions: [
         // {
@@ -543,28 +548,18 @@ export default {
       descStr: 'true'
     }
   },
+  watch: {
+    $route(to, from) {
+      this.refreshCondition();
+    }
+  },
   mounted () {
     let self = this
-    self.$ajax(
-      'post',
-      self.HOST + '/tr/trTarget/web/getTargetAttribution',
-      {},
-      (res) => {
-        if (res.success) {
-          for (let item of res.obj) {
-            self.deptOptions.push(item)
-          }
-        } else {
-          self.$message({
-            message: res.msg,
-            type: 'error'
-          })
-        }
-      }
-    )
     this.planType = this.$route.params.type
     this.planType1 = this.$route.params.type
-    this.searchFunc()
+    if (this.$route.query.deptId) {
+      this.refreshCondition()
+    }
   },
   methods: {
     refreshCondition () {
@@ -595,22 +590,6 @@ export default {
         }
       }
     },
-    // shqkInputChange () {
-    //   this.currentPage = 1
-    //   let data = {
-    //     planType: this.planType,
-    //     checkStatus: this.shqkInput,
-    //     deptId: this.targetDept,
-    //     resultType: this.targetState,
-    //     startTime: this.starttime,
-    //     endTime: this.endtime,
-    //     searchName: this.targetName,
-    //     pageNumber: this.currentPage,
-    //     pageSize: this.pageSize,
-    //     descStr: this.descStr
-    //   }
-    //   this.refreshDom(data)
-    // },
     timeChange () {
       if (this.targetTime) {
         this.starttime = this.mydateFormat.dateCodeYmd(this.targetTime[0])
@@ -621,38 +600,6 @@ export default {
       }
       this.searchFunc()
     },
-    // targetNameEnter () {
-    //   this.currentPage = 1
-    //   let data = {
-    //     planType: this.planType,
-    //     checkStatus: this.shqkInput,
-    //     deptId: this.targetDept,
-    //     resultType: this.targetState,
-    //     startTime: this.starttime,
-    //     endTime: this.endtime,
-    //     searchName: this.targetName,
-    //     pageNumber: this.currentPage,
-    //     pageSize: this.pageSize,
-    //     descStr: this.descStr
-    //   }
-    //   this.refreshDom(data)
-    // },
-    // targetStateChange () {
-    //   this.currentPage = 1
-    //   let data = {
-    //     planType: this.planType,
-    //     checkStatus: this.shqkInput,
-    //     deptId: this.targetDept,
-    //     resultType: this.targetState,
-    //     startTime: this.starttime,
-    //     endTime: this.endtime,
-    //     searchName: this.targetName,
-    //     pageNumber: this.currentPage,
-    //     pageSize: this.pageSize,
-    //     descStr: this.descStr
-    //   }
-    //   this.refreshDom(data)
-    // },
     planTypeChange (val) {
       this.planType1 = val
       this.currentPage = 1
@@ -663,47 +610,9 @@ export default {
       }
       this.searchFunc()
       this.$router.push({
-        path: '/zgjhydb/' + val
+        path: '/zgjhydb/' + val,
+        query: this.$route.query
       })
-      // let data = {
-      //   planType: this.planType,
-      //   checkStatus: this.shqkInput,
-      //   deptId: this.targetDept,
-      //   resultType: this.targetState,
-      //   startTime: this.starttime,
-      //   endTime: this.endtime,
-      //   searchName: this.targetName,
-      //   pageNumber: this.currentPage,
-      //   pageSize: this.pageSize,
-      //   descStr: this.descStr
-      // }
-      // this.refreshDom(data)
-    // } else {
-    //   let data = {
-    //     planType: self.planType,
-    //     deptId: self.targetDept,
-    //     resultType: self.targetState,
-    //     startTime: '',
-    //     endTime: '',
-    //     searchName: self.targetName,
-    //     pageNumber: self.currentPage,
-    //     pageSize: self.pageSize,
-    //     descStr: self.descStr
-    //   }
-    //   self.refreshDom(data)
-    // }
-      // let data = {
-      //   planType: this.planType,
-      //   deptId: self.targetDept,
-      //   resultType: '',
-      //   startTime: '',
-      //   endTime: '',
-      //   searchName: '',
-      //   pageNumber: this.currentPage,
-      //   pageSize: this.pageSize,
-      //   descStr: this.descStr
-      // }
-      // this.refreshDom(data)
     },
     addJdSure () {
       let data = {
@@ -718,31 +627,7 @@ export default {
             message: res.msg
           })
           this.dialogVisible_jd = false
-          // let data1 = {
-          //   planType: this.planType,
-          //   deptId: this.targetDept,
-          //   resultType: this.targetState,
-          //   startTime: '',
-          //   endTime: '',
-          //   searchName: this.targetName,
-          //   pageNumber: this.currentPage,
-          //   pageSize: this.pageSize,
-          //   descStr: this.descStr
-          // }
-          // this.refreshDom(data1)
-      let data = {
-        planType: this.planType,
-        checkStatus: this.shqkInput,
-        deptId: this.targetDept,
-        resultType: this.targetState,
-        startTime: this.starttime,
-        endTime: this.endtime,
-        searchName: this.targetName,
-        pageNumber: this.currentPage,
-        pageSize: this.pageSize,
-        descStr: this.descStr
-      }
-      self.refreshDom(data)
+      self.refreshDom()
         } else {
           this.$message({
             type: 'error',
@@ -771,31 +656,7 @@ export default {
       } else {
         self.descStr = 'true'
       }
-      // let data = {
-      //   planType: self.planType,
-      //   deptId: self.targetDept,
-      //   resultType: self.targetState,
-      //   startTime: '',
-      //   endTime: '',
-      //   searchName: self.targetName,
-      //   pageNumber: self.currentPage,
-      //   pageSize: self.pageSize,
-      //   descStr: self.descStr
-      // }
-      // self.refreshDom(data)
-      let data = {
-        planType: this.planType,
-        checkStatus: this.shqkInput,
-        deptId: this.targetDept,
-        resultType: this.targetState,
-        startTime: this.starttime,
-        endTime: this.endtime,
-        searchName: this.targetName,
-        pageNumber: this.currentPage,
-        pageSize: this.pageSize,
-        descStr: this.descStr
-      }
-      self.refreshDom(data)
+      self.refreshDom()
     },
     toDetail (id) {
       if (this.planType1 - 0 === 2) {
@@ -812,13 +673,21 @@ export default {
       this.$router.push({ path: '/childList/' + id })
     },
     // 搜索以及分页时调用的方法
-    refreshDom (data) {
-      // const loading = this.$loading({
-      //     lock: true,
-      //     text: "加载中",
-      //     spinner: "el-icon-loading",
-      //     background: "rgba(0, 0, 0, 0.7)"
-      // });
+    refreshDom () {
+      let data = {
+        planType: this.planType,
+        checkStatus: this.shqkInput,
+        deptId: this.$route.query.deptId,
+        resultType: this.targetState,
+        startTime: this.starttime,
+        endTime: this.endtime,
+        searchName: this.targetName,
+        pageNumber: this.currentPage,
+        pageSize: this.pageSize,
+        descStr: this.descStr,
+        levelType: this.$route.query.levelType,
+        targetRoleId: this.$route.query.roleId
+      }
       let self = this
       self.$ajaxMore(
         'post',
@@ -1016,7 +885,7 @@ export default {
     },
     // 跳转到添加目标
     router_to_add () {
-      this.$router.push({ path: '/addPlan' })
+      this.$router.push({ path: '/addPlan', query: this.$route.query })
     },
     // 跳转到添加目标
     router_to_edit (id) {
@@ -1025,7 +894,7 @@ export default {
         this.HOST + '/tr/trPlan/web/getPlanDetail',
         { planId: id }, (res) => {
           if (res.success) {
-            this.$router.push({path: '/editPlan/' + id})
+            this.$router.push({path: '/editPlan/' + id, query: this.$route.query})
           } else {
             this.$message({
               type: 'error',

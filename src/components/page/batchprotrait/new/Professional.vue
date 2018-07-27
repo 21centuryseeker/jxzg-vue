@@ -2,7 +2,7 @@
   <div class="mainContent1">
     <div class="addZD">
         <el-button type="warning"  class="reverseBtn" size="small"  @click="addZb"><i class="iconfont">&#xe623;</i>自选指标</el-button>
-     </div> 
+     </div>
     <div class="tab-content">
 
       <div class="countBox newZy_1">
@@ -357,63 +357,122 @@
 
       </div>
 
-       <div class="teachTOP">
-          <el-card class="box-card">
+      <table width="100%">
+        <tr>
+          <td width="50%">       <div class="teachTOP">
+            <el-card class="box-card">
               <div class="textTitle listTitle_w">{{Toptitle}}</div>
-               <template v-if="TOP5ListFlag">
-                 <div class="chartBox chart_box_cjs">
+              <template v-if="TOP5ListFlag">
+                <div class="chartBox chart_box_cjs">
                   <img src="../../../../assets/empty.jpg" alt="">
                 </div>
-               </template>  
-                <template v-else>
-                  <table style="width: 100%;" class="special_table twoCenter">
-                    <thead>
-                      <tr>
-                        <th style="width:25%">排 名</th>
-                        <th style="width:50%">专业名称</th>
-                        <th style="width:25%">得 分</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                       <tr  v-for="(item,index) in TOP5List" :key="index">
-                        <td>{{index+1}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.value}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </template>
-          </el-card>
-      </div>
-
-      <div class="teachTOP">
+              </template>
+              <template v-else>
+                <table style="width: 100%;" class="special_table twoCenter">
+                  <thead>
+                  <tr>
+                    <th style="width:25%">排 名</th>
+                    <th style="width:50%">专业名称</th>
+                    <th style="width:25%">得 分</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr  v-for="(item,index) in TOP5List" :key="index">
+                    <td>{{index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.value}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </template>
+            </el-card>
+          </div></td><td width="50%">   <div class="teachTOP">
           <el-card class="box-card">
-              <div class="textTitle listTitle_w">{{Toptitle1}}</div>
-               <template v-if="TOP5ListFlag1">
-                 <div class="chartBox chart_box_cjs">
-                  <img src="../../../../assets/empty.jpg" alt="">
-                </div>
-               </template>  
-                <template v-else>
-                  <table style="width: 100%;" class="special_table twoCenter">
-                    <thead>
-                      <tr>
-                        <th style="width:25%">排 名</th>
-                        <th style="width:50%">专业名称</th>
-                        <th style="width:25%">得 分</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                       <tr  v-for="(item,index) in TOP5List1" :key="index">
-                        <td>{{index+1}}</td>
-                        <td>{{item.name}}</td>
-                        <td>{{item.value}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </template>
+            <div class="textTitle listTitle_w">{{Toptitle1}}</div>
+            <template v-if="TOP5ListFlag1">
+              <div class="chartBox chart_box_cjs">
+                <img src="../../../../assets/empty.jpg" alt="">
+              </div>
+            </template>
+            <template v-else>
+              <table style="width: 100%;" class="special_table twoCenter">
+                <thead>
+                <tr>
+                  <th style="width:25%">排 名</th>
+                  <th style="width:50%">专业名称</th>
+                  <th style="width:25%">得 分</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  v-for="(item,index) in TOP5List1" :key="index">
+                  <td>{{index+1}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.value}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </template>
           </el-card>
-      </div>
+        </div></td>
+        </tr>
+      </table>
+       <!--<div class="teachTOP">-->
+          <!--<el-card class="box-card">-->
+              <!--<div class="textTitle listTitle_w">{{Toptitle}}</div>-->
+               <!--<template v-if="TOP5ListFlag">-->
+                 <!--<div class="chartBox chart_box_cjs">-->
+                  <!--<img src="../../../../assets/empty.jpg" alt="">-->
+                <!--</div>-->
+               <!--</template>-->
+                <!--<template v-else>-->
+                  <!--<table style="width: 100%;" class="special_table twoCenter">-->
+                    <!--<thead>-->
+                      <!--<tr>-->
+                        <!--<th style="width:25%">排 名</th>-->
+                        <!--<th style="width:50%">专业名称</th>-->
+                        <!--<th style="width:25%">得 分</th>-->
+                      <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                       <!--<tr  v-for="(item,index) in TOP5List" :key="index">-->
+                        <!--<td>{{index+1}}</td>-->
+                        <!--<td>{{item.name}}</td>-->
+                        <!--<td>{{item.value}}</td>-->
+                      <!--</tr>-->
+                    <!--</tbody>-->
+                  <!--</table>-->
+                <!--</template>-->
+          <!--</el-card>-->
+      <!--</div>-->
+
+      <!--<div class="teachTOP">-->
+          <!--<el-card class="box-card">-->
+              <!--<div class="textTitle listTitle_w">{{Toptitle1}}</div>-->
+               <!--<template v-if="TOP5ListFlag1">-->
+                 <!--<div class="chartBox chart_box_cjs">-->
+                  <!--<img src="../../../../assets/empty.jpg" alt="">-->
+                <!--</div>-->
+               <!--</template>-->
+                <!--<template v-else>-->
+                  <!--<table style="width: 100%;" class="special_table twoCenter">-->
+                    <!--<thead>-->
+                      <!--<tr>-->
+                        <!--<th style="width:25%">排 名</th>-->
+                        <!--<th style="width:50%">专业名称</th>-->
+                        <!--<th style="width:25%">得 分</th>-->
+                      <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                       <!--<tr  v-for="(item,index) in TOP5List1" :key="index">-->
+                        <!--<td>{{index+1}}</td>-->
+                        <!--<td>{{item.name}}</td>-->
+                        <!--<td>{{item.value}}</td>-->
+                      <!--</tr>-->
+                    <!--</tbody>-->
+                  <!--</table>-->
+                <!--</template>-->
+          <!--</el-card>-->
+      <!--</div>-->
 
        <div class="teachTOP">
           <el-card class="box-card">
@@ -422,7 +481,7 @@
                  <div class="chartBox chart_box_cjs">
                   <img src="../../../../assets/empty.jpg" alt="">
                 </div>
-               </template>  
+               </template>
                 <template v-else>
                   <table style="width: 100%;" class="special_table twoCenter">
                     <thead>
@@ -571,7 +630,7 @@
       <btnCommon :dialogVisible="addZb_dialogVisible" @cancel='cancel' :sureADD="sureAdd" flag="2" v-if="addZb_dialogVisible"></btnCommon>
 
     </div>
-    
+
   </div>
 </template>
 
@@ -656,7 +715,7 @@ export default {
     }
   },
   mounted () {
-    
+
   this.$ajaxMore(
   'post',
       '/tr/GroupPortrait/web/getPortraitInfoByCon',
@@ -997,7 +1056,7 @@ pageSize:1},
       this.addZb_dialogVisible=true
     },
   }
-  
+
 }
 </script>
 

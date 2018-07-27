@@ -1,13 +1,13 @@
 <template>
 <div class="mainContent">
-      <div class="tab-control  tab-controlFixed clearfix">
-        <div class="tab-control-item" v-for="(item,index) in TitleItems" >
-          <div v-if="index==0" class="active tab" @click="jobSwitch(item, $event)">{{item.deptName}}</div>
-          <div v-else-if="index!=0" class="tab" @click="jobSwitch(item, $event)">{{item.deptName}}</div>
-        </div>
-      </div>
-      <!-- <div class="headerTitle paddingTop46">学校档案库</div> -->
-    <div class="zgItem zgForm clearfix" style="margin-top: 56px;">
+      <!--<div class="tab-control  tab-controlFixed clearfix">-->
+        <!--<div class="tab-control-item" v-for="(item,index) in TitleItems" >-->
+          <!--<div v-if="index==0" class="active tab" @click="jobSwitch(item, $event)">{{item.deptName}}</div>-->
+          <!--<div v-else-if="index!=0" class="tab" @click="jobSwitch(item, $event)">{{item.deptName}}</div>-->
+        <!--</div>-->
+      <!--</div>-->
+       <div class="headerTitle paddingTop46">诊改制度库</div>
+    <div class="zgItem zgForm clearfix" style="margin-top: 46px;">
         <div  class="allDown">
             <el-button  :disabled="!flagAllDown" :class="{Nodisabled:flagAllDown}" size="small" type="info" @click="onAllDown"><i class="iconfont bigIcon">&#xe63a;</i>全部下载</el-button>
         </div>
@@ -154,8 +154,8 @@ export default {
       let self = this
       self.$ajax('post', self.HOST + '/tr/trZsk/web/getZskList?pageNumber=' + pageNumber + '&pageSize=' + pageSize + '&typeValue=' + typeValue + '&startTime=' + startTime + '&endTime=' + endTime + '&searchName=' + searchName + '&descStr=' + descStr, {}, (res) => {
         if (res.success) {
-          if(res.data){
-              self.total = res.data.totalSize
+          if (res.data) {
+            self.total = res.data.totalSize
           }
           if (res.obj == null) {
             self.dataFlag = true
@@ -174,7 +174,6 @@ export default {
       })
     },
     getCurrentPage: function (val) {
-      let self = this
       this.pageNumber = val
       this.ajaxDataFn(this.pageNumber, this.pageSize, this.typeValue, this.startTime, this.endTime, this.searchName, this.descStr)
     },
@@ -236,7 +235,6 @@ export default {
       this.ajaxDataFn(this.pageNumber, this.pageSize, this.typeValue, this.startTime, this.endTime, this.searchName, this.descStr)
     },
     sortList (v) {
-      let self = this
       if (v.order) {
         if (v.order === 'ascending') {
           // 升序
@@ -460,12 +458,12 @@ export default {
         margin-bottom: -1px;
 }
 .headerTitle{
-      height: 60px;
+      height: 30px;
     font-size: 18px;
     color: #37474f;
     line-height: 60px;
     background: #f1f4f5;
-    padding-left: 20px;
+    padding-left: 0px;
 }
 .linkText{
   display: block;

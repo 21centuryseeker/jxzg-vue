@@ -148,6 +148,7 @@
           </div>
         </el-card>
       </div>
+      <randerChart flag="1"></randerChart>
       <div class="targetBox">
         <el-card class="box-card">
           <div id="chart_box_gyxjhzsqk" class="chartBox chart_box_cjs">
@@ -226,8 +227,10 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js";
+import chartCommon from "./pic_common.js"
+import randerChart from './randerChart.vue'
 export default {
+  components: { randerChart },
   data() {
     return {
       zybList: [],

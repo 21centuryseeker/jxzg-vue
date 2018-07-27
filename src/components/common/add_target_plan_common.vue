@@ -174,7 +174,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <template v-for="(item, index) in zbList2">
+                      <template v-if="zbList2.length" v-for="(item, index) in zbList2">
                         <tr :key="index">
                           <td width="50" align="center">
                             <el-radio v-model="zb_id_radio_2" :label="index">
@@ -194,6 +194,11 @@
                               <span>{{item.indexDesc}}</span>
                             </el-tooltip>
                           </td>
+                        </tr>
+                      </template>
+                      <template>
+                        <tr>
+                          <td colspan="99">暂无数据</td>
                         </tr>
                       </template>
                     </tbody>
@@ -244,9 +249,10 @@ export default {
     formChange: {}
   },
   watch: {
-    // deptId () {
-    // this.deptId_change()
-    // },
+    deptId (val) {
+      // this.deptId_change()
+      // console.log(val)
+    },
     zb_id(val) {
       this.formChange("zb_id", val);
     },
@@ -411,6 +417,7 @@ export default {
       this.radio = this.radio_prop !== "" ? this.radio_prop : "1";
       this.yjTime = this.yjTime_prop;
       this.targetId = this.targetId_prop;
+      // console.log(this.deptId_prop)
     },
     refreshTable2() {
       let self = this;
@@ -426,10 +433,12 @@ export default {
         obj,
         res => {
           if (res.success) {
-            self.zbList2 = [];
-            self.zbList2 = res.obj;
+            this.zbList2 = [];
+            this.zbList2 = (res.obj || []);
             if (res.data) {
               self.totalPage2 = res.data.totalSize;
+            } else {
+              this.totalPage2 = 0
             }
             // self.currentPage = 1;
           } else {

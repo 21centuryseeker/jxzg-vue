@@ -25,7 +25,7 @@ const router = new Router({
     },
     {
       path: '/slgl',
-      redirect: '/slgl/2',
+      redirect: '/slgl/1',
       meta: {
         title: '双链管理',
         isshowSubTitle: false,
@@ -80,6 +80,24 @@ const router = new Router({
           }
         },
         {
+          path: '/pgsj',
+          component: resolve => require(['../components/page/swdt/nl/LanMo.vue'], resolve),
+          meta: {
+            title: '适应社会需求能力评估数据',
+            isshowSubTitle: false,
+            requireAuth: true
+          }
+        },
+        {
+          path: '/zgzdk',
+          component: resolve => require(['../components/page/zgRepository/zz_zhidu.vue'], resolve),
+          meta: {
+            title: '诊改制度库',
+            isshowSubTitle: false,
+            requireAuth: true
+          }
+        },
+        {
           path: '/glfwjx',
           component: resolve => require(['../components/page/glfwjx/glfwjx.vue'], resolve),
           meta: {
@@ -103,7 +121,8 @@ const router = new Router({
           component: resolve => require(['../components/page/slgl/Slgl.vue'], resolve),
           meta: {
             title: '双链管理',
-            requireAuth: true
+            requireAuth: true,
+            isshowSubTitle: false,
           }
         },
         {
@@ -186,7 +205,8 @@ const router = new Router({
           component: resolve => require(['../components/page/jhgl/wfz/PlanList.vue'], resolve),
           meta: {
             title: '诊改计划与督办',
-            requireAuth: true
+            requireAuth: true,
+            isshowSubTitle: false
           }
         },
         {
@@ -363,6 +383,30 @@ const router = new Router({
           }
         },
         {
+          path: '/bz',
+          component: resolve => require(['../components/page/jm_bzlgl/jm_bzlzbk.vue'], resolve),
+          meta: {
+            title: '标准链管理',
+            requireAuth: true
+          }
+        },
+        {
+          path: '/Add_jm_bzlzbk/:id',
+          component: resolve => require(['../components/page/jm_bzlgl/AddJm_bzlzbk.vue'], resolve),
+          meta: {
+            title: '标准链管理-添加',
+            requireAuth: true
+          }
+        },
+        {
+          path: '/edit_jm_bzlzbk/:id',
+          component: resolve => require(['../components/page/jm_bzlgl/editWork.vue'], resolve),
+          meta: {
+            title: '标准链管理-编辑',
+            requireAuth: true
+          }
+        },
+        {
           path: '/xxx',
           component: resolve => require(['../components/page/diaowen/diaowen.vue'], resolve),
           meta: {
@@ -418,6 +462,15 @@ const router = new Router({
           meta: {
             title: '消息通知',
             requireAuth: true
+          }
+        },
+        {
+          path: '/zdbg',
+          component: resolve => require(['../components/page/swdt.vue'], resolve),
+          meta: {
+            title: '职业院校内部质量保证体系自我诊改报告',
+            requireAuth: true,
+            isshowSubTitle: false
           }
         },
         // 发展中心
@@ -608,6 +661,34 @@ const router = new Router({
             {
               path: '/zyhx/dt',
               component: resolve => require(['../components/page/zz_portrait/portraitMajor.vue'], resolve),
+              meta: {
+                title: '专业画像-个人画像',
+                isshowSubTitle: false,
+                requireAuth: true
+              }
+            },
+            {
+              path: '/',
+              component: resolve => require(['../components/page/batchprotrait/Professional.vue'], resolve),
+              meta: {
+                title: '专业画像-群体画像',
+                isshowSubTitle: false,
+                requireAuth: true
+              }
+            }
+          ]
+        },
+        {
+          path: '/zyhx2', // 专业画像
+          component: resolve => require(['../components/page/HxPro/ZyCommon.vue'], resolve),
+          meta: {
+            title: '数据画像',
+            requireAuth: true
+          },
+          children: [
+            {
+              path: '/zyhx2/dt',
+              component: resolve => require(['../components/page/zz_portrait/portraitMajor_jm.vue'], resolve),
               meta: {
                 title: '专业画像-个人画像',
                 isshowSubTitle: false,

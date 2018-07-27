@@ -12,7 +12,7 @@
               <div class="col_item_box_right">
                 <div>在职教职工人数</div>
                 <div>
-                  <span>{{list_jsjbqk.value1}}</span>人</div>
+                  <span>{{list_jsjbqk.value1}}</span> 人</div>
               </div>
             </div>
           </el-col>
@@ -43,11 +43,11 @@
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="col_item_box boxShadow">
+            <div class="col_item_box boxShadow col_item_boxA">
               <div class="col_item_box_left">
                 <i class="iconfont" style="color: #ffc000">&#xe644;</i>
               </div>
-              <div class="col_item_box_right">
+              <div class="col_item_box_right" >
                 <div>生师比</div>
                 <div>
                   <span>{{list_jsjbqk.value6}}:1</span>
@@ -57,6 +57,7 @@
           </el-col>
         </el-row>
       </div>
+      <radarChart flag="2"></radarChart>
       <!-- charts区域 -->
       <div class="charts_box">
         <div>
@@ -261,8 +262,10 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js";
+import chartCommon from "./pic_common.js"
+import radarChart from './randerChart.vue'
 export default {
+  components: { radarChart },
   data() {
     return {
       baseUrl: this.HOST + "/tr/GroupPortrait/web/getPortraitInfoById",
@@ -437,12 +440,22 @@ div.col_item_box_right {
   font-size: 14px;
   color: #a3afb7;
 }
+div.col_item_boxA .col_item_box_left{
+  width: 30%;
+}
+div.col_item_boxA .col_item_box_right{
+ width: 70%;
+ left:10%
+}
 .col_item_box.theAll div.col_item_box_right {
   color: #fff;
 }
 div.col_item_box_right > div:first-child {
-  margin-top: 39px;
+  margin-top: 45px;
 }
+/* div.col_item_boxA .col_item_box_right > div:first-child {
+  margin-top: 45px;
+} */
 div.col_item_box_right > div > span {
   font-size: 24px;
   color: #526069;
@@ -644,7 +657,7 @@ div.gender_outside {
   font-family: "Arial";
 }
 .chart_show {
-  margin-top: 22px;
+  margin-bottom: 22px;
   padding: 20px;
   box-sizing: border-box;
 }

@@ -9,7 +9,7 @@
           <div class="countBoxR">
             <p class="text">课程总数</p>
             <p class="num">
-              <span>{{list_01.value1}}</span>门
+              <span>{{list_01.value1}}</span> 门
             </p>
           </div>
         </el-card>
@@ -21,8 +21,8 @@
           </div>
           <div class="countBoxR">
             <p class="text">公共课</p>
-            <p class="num">
-              <span>{{list_01.value2}}</span>门
+            <p class="num"> 
+              <span>{{list_01.value2}}</span> 门
             </p>
           </div>
         </el-card>
@@ -35,7 +35,7 @@
           <div class="countBoxR">
             <p class="text">公共基础课</p>
             <p class="num">
-              <span>{{list_01.value3}}</span>门
+              <span>{{list_01.value3}}</span> 门
             </p>
           </div>
         </el-card>
@@ -48,12 +48,13 @@
           <div class="countBoxR">
             <p class="text">专业课</p>
             <p class="num">
-              <span>{{list_01.value4}}</span>门
+              <span>{{list_01.value4}}</span> 门
             </p>
           </div>
         </el-card>
       </div>
     </div>
+    <radarChart flag="3"></radarChart>
     <div class="expandBox marginBtom24">
       <el-card class="box-card">
         <div class="expandEcharts" id="chart_box_lnszkczs"></div>
@@ -128,8 +129,10 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js";
+import chartCommon from "./pic_common.js"
+import radarChart from './randerChart'
 export default {
+  components: { radarChart },
   data() {
     return {
       baseUrl: this.HOST + "/tr/GroupPortrait/web/getPortraitInfoById",

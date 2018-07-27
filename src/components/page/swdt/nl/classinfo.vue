@@ -1,0 +1,171 @@
+<template>
+  <div id="table-fill-report">
+    <div v-html="htmls" id="fillReport">
+
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'ClassInfo',
+  props: {
+    cid: String
+  },
+  data: function () {
+    return {
+      vtotal: 0,
+      dialogTitle: '',
+      currentPage: 1,
+      isVideo: false,
+      videoData: [],
+      videoVisible: false,
+      first: 'first',
+      score: [],
+      classBiaoxian: [],
+      tounaofengbao: [],
+      taolundayi: [],
+      taolundayihuoyue: [],
+      shipinziyuan: {},
+      fshipinziyuan: {},
+      htmls:""
+    }
+  },
+  watch: {
+    cid (val) {
+     this.getData(val)
+    }
+  },
+  mounted: function () {
+    console.log(this.$route)
+  },
+  created: function () {
+  },
+  components: {
+  },
+  methods: {
+    saveOrUpdate(itemKey,itemValue){
+
+        let params = {
+            typeId:this.cid
+           ,key:itemKey
+           ,value:itemValue
+        }
+        console.log(params)
+        this.$ajax("post",this.HOST+"/tr/fillReport/save-or-update",params,(flag)=>{
+            alert(flag)
+        })
+    },
+    /**
+     * 根据类型不同处理不同的保存方式
+     * @param elementType
+     */
+    processByElementType(event){
+      let element = $(event.target)
+      let key  = element.data("type");
+      let elementType = element.attr("type")||"text"
+      if(elementType=="checkbox") //checkbox的执行逻辑与radio的一样
+        elementType = "radio"
+      switch(elementType){
+        case "radio":     //单选时的保存逻辑
+          let array = []
+           key = element.attr("name")
+          //找到所有的同类元素
+          let items = element.parent().children(".minput");
+          for(let i = 0;i<items.length;i++){
+            let item = $(items.get(i))
+            let value = item.val()
+
+
+            let map = {}
+            if(item.is(":checked")){
+               map = {
+                  checked:true,
+                  value:value
+              }
+            }else{
+               map = {
+                checked:false,
+                value:value
+              }
+            }
+            array.push(map)
+          }
+          let strJson = JSON.stringify(array);
+          this.saveOrUpdate(key,strJson)
+          break;
+        case "checkbox": //多选时的保存逻辑
+          break;
+        default:  //处理普通的INPUT保存操作
+          let value = element.val()
+          this.saveOrUpdate(key,value);
+      }
+
+
+    },
+
+    getData(type_id){
+      this.$ajaxGet(this.HOST+"/tr/preview/prewExcelXLS/"+type_id,{},(data)=>{
+        this.htmls = data
+        $("#fillReport").off("keypress",".sinput")
+        $("#fillReport").on("keypress",".sinput",(event)=>{
+          if(event.keyCode == "13"){ //如果是回车事件
+            this.processByElementType(event)
+          }
+        })
+
+
+        $("#fillReport").off("change",".minput")
+        $("#fillReport").on("change",".minput",(event)=>{
+            this.processByElementType(event)
+        })
+
+
+
+      })
+    }
+
+
+
+  }
+
+}
+</script>
+
+<style scoped>
+  .content1{
+    margin: 0 15px 0 5px;
+
+  }
+  .lanmo-header{
+    margin: 0 16px 0 25px;
+  }
+  .content1 h3{
+    padding: 10px 0;
+  }
+  .card{
+    border-radius: 5px;
+    background-color: white!important;
+    margin-left: 20px;
+  }
+  .little_title{
+    font-size: 14px;
+    color:#526069
+  }
+  #chart3{
+    padding-top: 20px;
+  }
+  .content1  table td{
+    /* valign:'top'; */
+    padding-top: 20px;
+  }
+  /*.split-t{*/
+    /*float: left;*/
+    /*width: 20%;*/
+    /*!* margin-right: 17px; *!*/
+    /*box-sizing: border-box;*/
+    /*padding-right: 17px*/
+  /*}*/
+
+</style>

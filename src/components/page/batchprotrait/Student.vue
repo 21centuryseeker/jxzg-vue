@@ -12,7 +12,7 @@
                 <div class="countBoxR">
                   <p class="text">在校生人数 </p>
                   <p class="num">
-                    <span>{{list_xsjbqqk.value1}}</span>人
+                    <span>{{list_xsjbqqk.value1}}</span> 人
                   </p>
                 </div>
               </el-card>
@@ -27,7 +27,7 @@
                 <div class="countBoxR">
                   <p class="text">计划招生人数 </p>
                   <p class="num">
-                    <span>{{list_xsjbqqk.value2}}</span>人
+                    <span>{{list_xsjbqqk.value2}}</span> 人
                   </p>
                 </div>
               </el-card>
@@ -42,7 +42,7 @@
                 <div class="countBoxR">
                   <p class="text">实际录取人数 </p>
                   <p class="num">
-                    <span>{{list_xsjbqqk.value3}}</span>人
+                    <span>{{list_xsjbqqk.value3}}</span> 人
                   </p>
                 </div>
               </el-card>
@@ -57,7 +57,7 @@
                 <div class="countBoxR">
                   <p class="text">实际报到人数 </p>
                   <p class="num">
-                    <span>{{list_xsjbqqk.value4}}</span>人
+                    <span>{{list_xsjbqqk.value4}}</span> 人
                   </p>
                 </div>
               </el-card>
@@ -66,6 +66,7 @@
         </el-row>
       </div>
     </div>
+    <radarChart flag="4"></radarChart>
     <!-- 历年各院系计划招生情况 -->
     <div class="row-content">
       <el-row>
@@ -298,8 +299,10 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js";
+import chartCommon from "./pic_common.js"
+import radarChart from './randerChart.vue'
 export default {
+  components: { radarChart },
   data() {
     return {
       baseUrl: this.HOST + "/tr/GroupPortrait/web/getPortraitInfoById",

@@ -1,5 +1,6 @@
 <template>
   <div class="swdt_box">
+    <div style="text-align: right;padding: 10px;"><el-button type="primary" size="small" @click="downloadAll">整体导出</el-button></div>
     <div id="tree-container" style="height: 100%;width: 100%;"></div>
       <el-dialog title="查看" :visible.sync="dialogVisible" width="900px">
     <el-button type="primary" @click="toExcel" style="position: absolute;right: 60px;top: 35px;" size="small">导出</el-button>
@@ -17,7 +18,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalSize">
     </el-pagination>
-  </el-dialog>  
+  </el-dialog>
   </div>
 </template>
 <script>
@@ -36,6 +37,9 @@ export default {
     }
   },
   methods: {
+    downloadAll () {
+        window.location.href = '/tr/rcpy/web/downLoadAllFile?thName=0'
+    },
     toExcel () {
         window.location.href  = '/tr/preview/web/prewExcel/' + this.thName + '/' + this.tableName + '/' + this.downName.replace(/\.|\s*/g, '')
     },
@@ -395,10 +399,10 @@ export default {
             d = toggleChildren(d);
             update(d);
             centerNode(d);
-            if (d.tId === undefined) {
-                window.location.href = '/tr/rcpy/web/downLoadAllFile?thName=0'
-                return
-            }
+            // if (d.tId === undefined) {
+                // window.location.href = '/tr/rcpy/web/downLoadAllFile?thName=0'
+            //     return
+            // }
             if (d.thName && d.tableName) {
                 _cjsthis.thName = d.thName.replace(/\./g, '')
                 _cjsthis.tableName = d.tableName
@@ -431,7 +435,7 @@ export default {
                 }
             };
             childCount(0, root);
-            var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line  
+            var newHeight = d3.max(levelWidth) * 25; // 25 pixels per line
             tree = tree.size([newHeight, viewerWidth]);
             // Compute the new tree layout.
             var nodes = tree.nodes(root).reverse(),
@@ -623,19 +627,19 @@ export default {
   .overlay{
       background-color:#fff;
   }
-   
+
   .node circle {
     fill: #fff;
     stroke: steelblue;
     stroke-width: 1.5px;
   }
-   
+
   .node text {
-    font-size:10px; 
+    font-size:10px;
     font-family:sans-serif;
     /* stroke: #f00; */
   }
-   
+
   .link {
     fill: none;
     stroke: #ccc;
@@ -666,4 +670,10 @@ export default {
     border-width: 0px;
     min-width: 100%;
 }
+  .swdt_lay_box td {
+      vertical-align: middle !important;
+  }
+  .swdt_lay_box td {
+    text-align: center !important;
+  }
 </style>

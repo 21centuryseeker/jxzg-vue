@@ -5,7 +5,7 @@
         <div style="text-align: center;margin-bottom: 60px;">
           <img src="../../../static/img/login_logo.png" alt="">
         </div>
-        <div class="project_title">内部质量保证体系诊断与改进系统</div>
+        <div class="project_title">质量监测诊改系统</div>
         <template v-if="loginstate == 1 && !isForget">
           <div class="login_input_box_father">
             <div class="login_input_box">

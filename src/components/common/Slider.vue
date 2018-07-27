@@ -285,7 +285,7 @@ body
 .sidebar {
   display: block;
   position: absolute;
-  width: 220px;
+  width: 240px;
   left: 0;
   top: 65px;
   bottom: 0;

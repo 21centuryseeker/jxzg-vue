@@ -4,7 +4,7 @@
       <el-col :span="16">
         <div class="logo">
           <img src="../../../static/img/logo.png" class="logo_header">
-          <span class="logo_span">内部质量保证体系诊断与改进系统</span>
+          <span class="logo_span">质量监测诊改系统</span>
         </div>
       </el-col>
       <el-col :span="8">

@@ -9,7 +9,7 @@
     <link rel="icon" href="./static/img/favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="./static/css/font-awesome.css">
-    <!--<link rel="stylesheet" href="./static/layout-grid/layout-grid.min.css">-->
+    <link rel="stylesheet" href="./static/layout-grid/layout-grid.min.css">
     <!--[if lte IE 9]>
     <style>
      .operation_item  .el-date-editor {line-height: 25px;}
@@ -22,6 +22,10 @@
     </style>
     <![endif]-->
     <style>
+      .chartBox.chart_box_cjs>div+div {
+        text-align: left;
+      }
+      .chart_show {box-shadow: 0 2px 12px 0 rgba(0,0,0,.1)}
       /*登录页*/
       .login_box .swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet {
     margin: 10px 0;
@@ -216,6 +220,9 @@
         top: 0;
         width: 90%;
       }
+      #workbench .planargeA .targerLIst .firstL .goTablelinkA{
+    top: -4px;
+}
       .w_tableBoxA .el-table td{
         padding: 5px 0
       }
@@ -398,6 +405,22 @@ body .schoolgroup.mainContent_school .bookGroup .xqItem .num {
    #zjdialog .el-dialog__headerbtn .el-dialog__close{
   display: none !important
 }
+#jm_bzlgl  .el-collapse-item__content{
+   display: none;
+   padding-bottom: 0
+ }
+ #jm_bzlgl  .el-collapse {
+    border-top: none;
+}
+#jm_bzlgl .zzbzListGroup .el-button:focus, 
+#jm_bzlgl .zzbzListGroup .el-button:hover{
+  background-color: #70AD47;
+    color: #fff;
+}
+#jm_bzlgl .zzbzListGroup .el-button+.el-button{
+  margin-left: 0;
+  margin-right: 10px
+}
 
     </style>
     <!--<link rel="stylesheet" href="http://at.alicdn.com/t/font_515713_z30px9t1gul92j4i.css">-->
@@ -405,7 +428,7 @@ body .schoolgroup.mainContent_school .bookGroup .xqItem .num {
     <script src="./static/js/jquery-2.1.1.min.js"></script>
     <script src="./static/js/d3.v3.min.js"></script>
     <script src="./static/webuploader/webuploader.min.js"></script>
-    <!--<script src="./static/layout-grid/layout-grid.min.js"></script>-->
+    <script src="./static/layout-grid/layout-grid.min.js"></script>
   </head>
   <script type="text/html" id="template">
     <div class="ie-updater_box">

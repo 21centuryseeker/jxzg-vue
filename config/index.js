@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/tr': {
-        // target: 'http://localhost:8888', // me
+        target: 'http://localhost:8888', // me
         // target: 'http://192.168.10.77:8080',  // 王丹
         // target: 'http://192.168.10.75:8080',  // 优康
         // target: 'http://192.168.10.78:8080',  // 晓飞
-         target: 'http://192.168.10.94:8080',  // 赵振
+        //  target: 'http://192.168.10.94:8080',  // 赵振
         // target: 'http://192.168.10.99:8080',  // 宁宁
         // target: 'http://192.168.10.91:8080',  // 海然
         // target: 'http://192.168.10.191:8099', // 李珂

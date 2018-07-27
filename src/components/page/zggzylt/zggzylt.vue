@@ -24,7 +24,7 @@
             >
            <span class="custom-tree-node" slot-scope="{ node, data }">
              <span><i class="iconfont" style="color: #feb078" v-if="isChile(node)" >&#xe605;</i>
-                    <i class="iconfont" :class="[$store.state.currentId === node.key ? 'active': 'noactive']"  v-else >&#xe631;</i>
+                    <i class="iconfont" :class="[$store.state.currentId === node.key ? 'active': 'noactive',node.key===cclick ? 'cactive':'']"  v-else >&#xe631;</i>
                {{ node.label }}</span>
            </span>
             </el-tree>
@@ -53,9 +53,9 @@
 
                       </div>
                       <div style="float: right;margin: 0 auto;width: 30%;text-align: center;vertical-align: middle;"><span :class="val.styleName" class="span_state">{{val.resultType}}</span></div>
-                      <!-- <div style="clear: both">
+                      <div style="clear: both">
                         <el-progress :percentage="val.targetInfo.progress" color="#ffc100" style="    top: -26px;width: 40%;"></el-progress>
-                        </div> -->
+                        </div>
                     </div>
 
                   </template>
@@ -457,7 +457,8 @@
        *
        */
       nodeClick: function (data, currentNode, node) {
-        // console.log('测试111 ', data)
+        console.log('测试111 ', currentNode)
+         this.cclick = currentNode.key
         //  如果是成员则加载成员计划
         if (data.flag === 'member') {
           this.planList = []
@@ -519,7 +520,8 @@
         },
         multipleSelection: [],
         filterText: '',
-        ksList: []
+        ksList: [],
+        cclick:''
       }
     }
   }
@@ -769,9 +771,12 @@
     width: 100%
   }
   #zgre .active{
-    color: rgb(254, 176, 120);
+    /*color: rgb(254, 176, 120)!important;*/
   }
   #zgre .noactive{
     color: #ccc;
+  }
+  #zgre .cactive{
+    color: rgb(254, 176, 120)!important;
   }
 </style>

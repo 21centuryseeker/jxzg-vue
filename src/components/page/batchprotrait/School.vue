@@ -9,7 +9,7 @@
           <div class="countBoxR">
             <p class="text">教职工总数</p>
             <p class="num">
-              <span>{{list_01.value1}}</span>人
+              <span>{{list_01.value1}}</span> 人
             </p>
           </div>
         </el-card>
@@ -22,7 +22,7 @@
           <div class="countBoxR">
             <p class="text">在校生总数</p>
             <p class="num">
-              <span>{{list_01.value2}}</span>人
+              <span>{{list_01.value2}}</span> 人
             </p>
           </div>
         </el-card>
@@ -48,7 +48,7 @@
           <div class="countBoxR">
             <p class="text">固定资产总值</p>
             <p class="num">
-              <span>{{list_01.value4}}</span>万元
+              <span>{{list_01.value4}}</span> 万元
             </p>
           </div>
         </el-card>
@@ -94,46 +94,47 @@
         </el-row>
       </div>
     </div>
-
+    <!-- <radarChart flag="0"></radarChart> -->
     <div class="expandBox marginBtom24">
       <div class="titleTop">基本办学条件</div>
       <el-card class="box-card">
-        <div class="expandEcharts" id="chart_box_jbbxtj"></div>
-        <div class="schoolShowGroup clearfix">
-          <div class="schoolShow">
+       
+        <div class="schoolShowGroup clearfix" style="margin-bottom:10px">
+          <div class="schoolShow schoolShowA">
             <div class="countBoxL">
               <i class="iconfont iconColor1">&#xe644;</i>
             </div>
             <div class="countBoxR">
               <p class="text">学校总占地面积</p>
               <p class="num">
-                <span>{{list_jbbxtj.value1}}</span>平方米
+                <span>{{list_jbbxtj.value1}}</span> 平方米
               </p>
             </div>
           </div>
-          <div class="schoolShow">
+          <div class="schoolShow schoolShowA">
             <div class="countBoxL">
               <i class="iconfont iconColor2">&#xe644;</i>
             </div>
             <div class="countBoxR">
               <p class="text">学校产权校舍面积</p>
               <p class="num">
-                <span>{{list_jbbxtj.value2}}</span>平方米
+                <span>{{list_jbbxtj.value2}}</span> 平方米
               </p>
             </div>
-          </div>
-          <div class="schoolShow">
+          </div> 
+          <div class="schoolShow schoolShowA">
             <div class="countBoxL">
               <i class="iconfont iconColor3">&#xe644;</i>
             </div>
             <div class="countBoxR">
               <p class="text">今年新增校舍</p>
               <p class="num">
-                <span>{{list_jbbxtj.value3}}</span>平方米
+                <span>{{list_jbbxtj.value3}}</span> 平方米
               </p>
             </div>
           </div>
         </div>
+         <div class="expandEcharts" id="chart_box_jbbxtj"></div>
       </el-card>
     </div>
     <!-- 馆藏图书资料 -->
@@ -147,7 +148,7 @@
           <div class="countBoxR">
             <p class="text">纸质图书总册数</p>
             <p class="num">
-              <span>{{list_gctszl.value1}}</span>万册
+              <span>{{list_gctszl.value1}}</span> 万册
             </p>
           </div>
         </el-card>
@@ -160,7 +161,7 @@
           <div class="countBoxR">
             <p class="text">本学年新增数</p>
             <p class="num">
-              <span>{{list_gctszl.value2}}</span>万册
+              <span>{{list_gctszl.value2}}</span> 万册
             </p>
           </div>
         </el-card>
@@ -173,7 +174,7 @@
           <div class="countBoxR">
             <p class="text">生均图书</p>
             <p class="num">
-              <span>{{list_gctszl.value3}}</span>册/生
+              <span>{{list_gctszl.value3}}</span> 册/生
             </p>
           </div>
         </el-card>
@@ -186,7 +187,7 @@
           <div class="countBoxR">
             <p class="text">中文纸质专业期刊</p>
             <p class="num">
-              <span>{{list_gctszl.value4}}</span>种
+              <span>{{list_gctszl.value4}}</span> 种
             </p>
           </div>
         </el-card>
@@ -199,7 +200,7 @@
           <div class="countBoxR">
             <p class="text">外文纸质专业期刊</p>
             <p class="num">
-              <span>{{list_gctszl.value5}}</span>种
+              <span>{{list_gctszl.value5}}</span> 种
             </p>
           </div>
         </el-card>
@@ -212,7 +213,7 @@
           <div class="countBoxR">
             <p class="text">电子专业期刊</p>
             <p class="num">
-              <span>{{list_gctszl.value6}}</span>种
+              <span>{{list_gctszl.value6}}</span> 种
             </p>
           </div>
         </el-card>
@@ -230,7 +231,7 @@
           <div class="countBoxR">
             <p class="text">阅览室座位数</p>
             <p class="num">
-              <span>{{list_yls_jf_js.value1}}</span>个
+              <span>{{list_yls_jf_js.value1}}</span> 个
             </p>
           </div>
         </el-card>
@@ -243,7 +244,7 @@
           <div class="countBoxR">
             <p class="text">计算机数</p>
             <p class="num">
-              <span>{{list_yls_jf_js.value2}}</span>台
+              <span>{{list_yls_jf_js.value2}}</span> 台
             </p>
           </div>
         </el-card>
@@ -256,7 +257,7 @@
           <div class="countBoxR">
             <p class="text">教室数</p>
             <p class="num">
-              <span>{{list_yls_jf_js.value3}}</span>间
+              <span>{{list_yls_jf_js.value3}}</span> 间
             </p>
           </div>
         </el-card>
@@ -301,28 +302,28 @@
             <p class="resName">实践基地总数</p>
             <p class="resNum color1">
               <span class="first">
-                <em>{{list_xnsjjd.value1}}</em>个</span>
+                <em>{{list_xnsjjd.value1}}</em> 个</span>
             </p>
           </div>
           <div class="item">
             <p class="resName">建筑面积</p>
             <p class="resNum color2">
               <span class="first">
-                <em>{{list_xnsjjd.value2}}</em>平方米</span>
+                <em>{{list_xnsjjd.value2}}</em> 平方米</span>
             </p>
           </div>
           <div class="item">
             <p class="resName">设备总数</p>
             <p class="resNum color3">
               <span class="first">
-                <em>{{list_xnsjjd.value3}}</em>台/套</span>
+                <em>{{list_xnsjjd.value3}}</em> 台/套</span>
             </p>
           </div>
           <div class="item borderNone">
             <p class="resName">设备总值</p>
             <p class="resNum color4">
               <span class="first">
-                <em>{{list_xnsjjd.value4}}</em>万元</span>
+                <em>{{list_xnsjjd.value4}}</em> 万元</span>
             </p>
           </div>
         </div>
@@ -342,28 +343,28 @@
             <p class="resName">实践基地总数</p>
             <p class="resNum color1">
               <span class="first">
-                <em>{{list_xwsjjd.value1}}</em>个</span>
+                <em>{{list_xwsjjd.value1}}</em> 个</span>
             </p>
           </div>
           <div class="item">
             <p class="resName">实习实训项目</p>
             <p class="resNum color2">
               <span class="first">
-                <em>{{list_xwsjjd.value2}}</em>个</span>
+                <em>{{list_xwsjjd.value2}}</em> 个</span>
             </p>
           </div>
           <div class="item">
             <p class="resName">接待学生量</p>
             <p class="resNum color3">
               <span class="first">
-                <em>{{list_xwsjjd.value3}}</em>人次</span>
+                <em>{{list_xwsjjd.value3}}</em> 人次</span>
             </p>
           </div>
           <div class="item borderNone">
             <p class="resName">接收应届毕业生就业数</p>
             <p class="resNum color4">
               <span class="first">
-                <em>{{list_xwsjjd.value4}}</em>人</span>
+                <em>{{list_xwsjjd.value4}}</em> 人</span>
             </p>
           </div>
         </div>
@@ -385,7 +386,7 @@
           <div class="countBoxR">
             <p class="text">学校总收入</p>
             <p class="num">
-              <span>{{list_bxjf.value1}}</span>万元
+              <span>{{list_bxjf.value1}}</span> 万元
             </p>
           </div>
         </el-card>
@@ -398,7 +399,7 @@
           <div class="countBoxR">
             <p class="text">学校总支出</p>
             <p class="num">
-              <span>{{list_bxjf.value2}}</span>万元
+              <span>{{list_bxjf.value2}}</span> 万元
             </p>
           </div>
         </el-card>
@@ -435,7 +436,7 @@
           <div class="countBoxR">
             <p class="text">院系</p>
             <p class="num">
-              <span>{{list_zy_kc.value1}}</span>个
+              <span>{{list_zy_kc.value1}}</span> 个
             </p>
           </div>
         </el-card>
@@ -448,7 +449,7 @@
           <div class="countBoxR">
             <p class="text">专业</p>
             <p class="num">
-              <span>{{list_zy_kc.value2}}</span>个
+              <span>{{list_zy_kc.value2}}</span> 个
             </p>
           </div>
         </el-card>
@@ -461,7 +462,7 @@
           <div class="countBoxR">
             <p class="text">课程</p>
             <p class="num">
-              <span>{{list_zy_kc.value3}}</span>个
+              <span>{{list_zy_kc.value3}}</span> 个
             </p>
           </div>
         </el-card>
@@ -518,7 +519,7 @@
           <div class="countBoxR">
             <p class="text">计划招生总人数</p>
             <p class="num">
-              <span>{{list_zslq.value1}}</span>人
+              <span>{{list_zslq.value1}}</span> 人
             </p>
           </div>
         </el-card>
@@ -531,7 +532,7 @@
           <div class="countBoxR">
             <p class="text">实际录取总人数</p>
             <p class="num">
-              <span>{{list_zslq.value2}}</span>人
+              <span>{{list_zslq.value2}}</span> 人
             </p>
           </div>
         </el-card>
@@ -544,7 +545,7 @@
           <div class="countBoxR">
             <p class="text">实际报到总人数</p>
             <p class="num">
-              <span>{{list_zslq.value3}}</span>人
+              <span>{{list_zslq.value3}}</span> 人
             </p>
           </div>
         </el-card>
@@ -584,7 +585,7 @@
           <div class="countBoxR">
             <p class="text">社团共计</p>
             <p class="num">
-              <span>{{list_xsst.value1}}</span>个
+              <span>{{list_xsst.value1}}</span> 个
             </p>
           </div>
         </el-card>
@@ -597,7 +598,7 @@
           <div class="countBoxR">
             <p class="text">现有成员</p>
             <p class="num">
-              <span>{{list_xsst.value2}}</span>人
+              <span>{{list_xsst.value2}}</span> 人
             </p>
           </div>
         </el-card>
@@ -624,8 +625,10 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js";
+import chartCommon from "./pic_common.js"
+import radarChart from './randerChart.vue'
 export default {
+  components: { radarChart },
   data() {
     return {
       baseUrl: this.HOST + "/tr/GroupPortrait/web/getPortraitInfoById",
@@ -969,6 +972,10 @@ export default {
   width: 30%;
   text-align: center;
 }
+.schoolShowA .countBoxL {
+  width: 26%;
+  text-align: center;
+}
 .schoolShow .countBoxL .iconfont {
   font-size: 32px;
   color: #fff;
@@ -1004,6 +1011,9 @@ export default {
 }
 .schoolShow .countBoxR {
   width: 60%;
+}
+.schoolShowA .countBoxR {
+  width: 70%;
 }
 .schoolShow p,
 .schoolShow .text {
@@ -1089,6 +1099,9 @@ export default {
   border: 1px solid #dfdfdf;
   border-radius: 8px;
   width: 25%;
+}
+.expandBox .schoolShowA {
+  width: 30%;
 }
 .expandEcharts,
 .RecruitStudentsEcharts,

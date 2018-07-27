@@ -3,7 +3,7 @@
     <cHead></cHead>
     <cSlider></cSlider>
     <div id="out-contetn" class="content" v-loading="isLoading" element-loading-text="拼命加载中">
-      <div style="width: 100%;min-width: 1010px;min-height: 100%;box-sizing:border-box;padding-bottom: 40px;position: relative;">
+      <div style="width: 100%;min-width: 1010px;min-height: 100%;box-sizing:border-box;padding-bottom: 60px;position: relative;">
         <div style="padding: 1.64% 1.64% 12px 1.64%;" v-if="isShow">
           <span style="font-size: 18px;color: #37474f" v-html="changeTitle"></span>
         </div>
@@ -481,7 +481,7 @@ div.state_div_right a.active {
 }
 .tab-controlFixed {
   position: fixed;
-  left: 220px;
+  left: 240px;
   right: 0;
   top: 67px;
   z-index: 10;
@@ -505,7 +505,7 @@ div.state_div_right a.active {
 .wrapper .el-loading-mask {
   position: fixed;
   top: 70px;
-  left: 221px;
+  left: 241px;
 }
 .sjqxcontent .save_in_dialog {
   padding: 9px 15px;
@@ -550,4 +550,36 @@ div.state_div_right a.active {
   position: relative;
   top: 0;
 }
+  .glfwjx .el-radio-button:first-child .el-radio-button__inner {
+    border-radius: 4px!important;
+  }
+  .glfwjx .el-radio-button--small .el-radio-button__inner{
+    border-left: 1px solid #ccc;
+    border-radius: 4px!important;
+  }
+  .glfwjx .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+    border-left: none!important;
+  }
+  #zgre .tree-side {
+    height: 600px;
+  }
+
+  #table-fill-report table{
+    border: none;
+    background-color: white;
+    padding: 20px;
+  }
+#table-fill-report table tbody tr:nth-child(1){
+  height: 120px;
+}
+#table-fill-report table tbody tr:nth-child(n+2){
+  height: 50px;
+}
+#table-fill-report table tbody tr td{
+  padding-left: 8px;
+}
+  #table-fill-report .sinput{
+    height: 26px;
+    width: 80%;
+  }
 </style>
