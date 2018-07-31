@@ -114,3 +114,21 @@ a{text-decoration: none}
 .editor-btn{
     margin-top: 20px;
 }
+
+.mainContent_school .cjs_add_new .el-card__body {
+    box-sizing: border-box;
+    font-size: 0;
+    padding-right: 0;
+  }
+  .mainContent_school .cjs_add_new .el-card__body .countBoxL {
+      width: 20%;
+  }
+  .mainContent_school .cjs_add_new .el-card__body .countBoxL .iconfont {
+    font-size: 42px;
+  }
+  .mainContent_school .cjs_add_new .el-card__body   .countBoxR {
+      width: 80% !important;
+  }
+  .cjs_school_new .schoolShow .countBoxL,.cjs_school_new .schoolShow  .countBoxR {
+      height: 90px;
+  }

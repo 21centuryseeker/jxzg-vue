@@ -114,12 +114,20 @@
             </div>
           </template>
           <template v-else>
-              <p class="details" style="margin-bottom:10px">
+             <div class="textTitleA">该教师建设质量指数<span style="color:#70ad47;font-weight: bold;"> {{zdf?zdf:'-'}}</span>分</div> 
+                  <div class="textTitleA" style="margin-bottom:10px">
+                    全校排名 第<span style="color:#70ad47;font-weight: bold;">{{XXTOP?XXTOP:'-'}}</span>名
+                    &nbsp; 
+                    全院排名 第<span style="color:#70ad47;font-weight: bold;">{{YXTOP?YXTOP:'-'}}</span>名
+                    &nbsp; 
+                    全专业排名 第<span style="color:#70ad47;font-weight: bold;">{{ZYTOP?ZYTOP:'-'}}</span>名
+                  </div>
+              <!-- <p class="details" style="margin-bottom:10px">
                     该教师建设质量指数 <span style="color:#70ad47">{{zdf}}</span>分
                      <span style="margin-left:10px">全校排名 第</span><span style="color:#70ad47">{{XXTOP?XXTOP:'-'}}</span>名
                     <span style="margin-left:10px">全院排名 第</span><span style="color:#70ad47">{{YXTOP?YXTOP:'-'}}</span>名
                      <span style="margin-left:10px">全专业排名 第</span><span style="color:#70ad47">{{ZYTOP?ZYTOP:'-'}}</span>名
-                  </p>
+                  </p> -->
             <el-row :gutter="20">
               <el-col :span="12">
                   <!-- 雷达图 -->
@@ -1295,5 +1303,11 @@ export default {
 .special_table_box .special_table .leftAlign {
   text-align: left;
   padding-left: 30px;
+}
+.mainContent1 .textTitleA {
+  color: #37474f;
+  font-size: 16px;
+  line-height: 24px;
+  padding-bottom: 10px;
 }
 </style>

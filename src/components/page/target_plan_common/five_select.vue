@@ -38,10 +38,16 @@
 <script>
 export default {
   watch: {
-    '$route' (to) {
+    '$route' (to, from) {
       if (to.query && to.query.dr) {
         this.dept_role = to.query.dr
         this.levelType = to.query.levelType
+      } else {
+        this.dept_role = 0
+        this.levelType = 1
+        this.deptId = ''
+        this.roleId = ''
+        this.getDeptAndJob()
       }
     }
   },

@@ -127,6 +127,7 @@ export default {
   components: { cUploader, cAddCommon },
   data() {
     return {
+      checkUserName: '',
       dept_role: "",
       theWeight: "", // 权重
       fiveCm: ["", "学校层面", "专业层面", "课程层面", "教师层面", "学生层面"],
@@ -313,18 +314,19 @@ export default {
               "," +
               res.obj.check_user_dept_id +
               "," +
-              res.obj.targetRoleId;
+              res.obj.checkUserRoleId;
             this.sgrOptions.push({
-              user_id: res.obj.check_user_id + "_" + res.obj.check_user_dept_id,
-              checkUserName:
+              userId: res.obj.check_user_id + "," + res.obj.check_user_dept_id + ',' + res.obj.checkUserRoleId,
+              userName:
                 res.obj.check_user_name +
                 "(" +
                 res.obj.check_user_id +
                 "," +
                 res.obj.dept_name +
-                ")",
-              checkDeptId: res.obj.checkDeptId
+                ")"
             });
+            this.checkUserName = res.obj.check_user_name
+            this.checkFocus(1)
             // self.checkUserId = res.obj.check_user_name + '(' + res.obj.check_user_id + ')'
           }
         } else {
@@ -335,7 +337,7 @@ export default {
         }
       }
     );
-    this.remoteMethod(this.$store.state.nickname);
+    // this.remoteMethod(this.$store.state.nickname);
     this.getDeptAndRole();
   },
   methods: {
@@ -373,7 +375,7 @@ export default {
     },
     checkFocus(bol) {
       if (bol) {
-        this.remoteMethod(this.$store.state.nickname);
+        this.remoteMethod(this.checkUserName || this.$store.state.nickname);
       }
     },
     select_change(val) {
@@ -612,7 +614,7 @@ export default {
         }
         this.warnNumList = [];
         for (let item of this.yjLists) {
-          if (item.value ^ item.input.trim() === '') {
+          if (this.cjs_xor(item.value, item.input.trim())) {
             this.$message({
               type: 'warning',
               message: "请完整填写预警设置"

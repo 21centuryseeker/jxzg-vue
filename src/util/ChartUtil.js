@@ -47,6 +47,7 @@ class ChartUtil {
         left: '2%',
         text: titleName,
         textStyle: {// 标题内容的样式
+          color: '#37474f',
           fontStyle: 'normal', // 主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
           fontWeight: 'lighter', // 可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
           fontFamily: 'san-serif', // 主题文字字体，默认微软雅黑

@@ -282,14 +282,22 @@ class chartCommon {
                   subtext: res1.data.title + ':{a|' + res1.data.value1 + '}',
                   left: '2%',
                   textStyle: {
+                    color: '#37474f',
                     fontStyle: 'normal',
                     fontWeight: 'lighter',
                     fontFamily: 'san-serif',
                     fontSize: 16
                   },
                   subtextStyle: {
+                    fontStyle: 'normal', // 主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+                    fontWeight: 'lighter', // 可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+                    fontFamily: 'san-serif',
+                    fontSize: 16,
+                    color: '#37474f',
                     rich: {
                       a: {
+                        fontWeight: 'bold',
+                        fontSize: 16,
                         color: '#70ad47'
                       }
                     }
@@ -367,8 +375,15 @@ class chartCommon {
               text: res.data.series.name + ': {a|' + res.data.series.svgScore + '}分',
               subtext: '',
               subtextStyle: {
+                fontStyle: 'normal', // 主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+                fontWeight: 'lighter', // 可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+                fontFamily: 'san-serif',
+                fontSize: 16,
+                color: '#37474f',
                 rich: {
                   a: {
+                    fontSize: 16,
+                    fontWeight: 'bold',
                     color: '#70ad47',
                     lineHeight: 16
                     // fontSize: 16
@@ -377,12 +392,14 @@ class chartCommon {
               },
               left: '2%',
               textStyle: {
+                color: '#37474f',
                 fontStyle: 'normal',
                 fontWeight: 'lighter',
                 fontFamily: 'san-serif',
                 fontSize: 16,
                 rich: {
                   a: {
+                    fontWeight: 'bold',
                     color: '#70ad47',
                     fontSize: 16
                   }
@@ -396,7 +413,7 @@ class chartCommon {
             },
             radar: {
               radius: '60%',
-              center: ['50%', '60%'],
+              center: ['50%', '51%'],
               // shape: 'circle',
               name: {
                 textStyle: {
@@ -418,7 +435,7 @@ class chartCommon {
             option.title.subtext += ('全校排名 第{a|' + qx + '}名')
           }
           if (gy) {
-            option.title.subtext += ((qx ? '\n' : '') + '全院排名 第{a|' + gy + '}名')
+            option.title.subtext += ((qx ? '  ' : '') + '全院排名 第{a|' + gy + '}名')
           }
           _this.$ChartUtil.drawChartNoXY(dom, title, [], _this.$ChartUt.VERTICAL, series, [], option, _this)
         } else {

@@ -26,6 +26,33 @@
             </div>
           </div>
           <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    所属部门-角色
+                  </div>
+                  <div class="detail_item_right">{{detailOption.dept_roleName}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    计划层面
+                  </div>
+                  <div class="detail_item_right">{{levelOption[detailOption.levelType - 1]}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    权重
+                  </div>
+                  <div class="detail_item_right">{{detailOption.planQz}}</div>
+                </div>
+              </div>
+          <div class="grid-content bg-purple">
             <div class="detail_item_box">
               <div class="detail_item_left">
                 <i class="iconfont detail_icon">&#xe636;</i>
@@ -37,7 +64,7 @@
             <div class="detail_item_box">
               <div class="detail_item_left">
                 <i class="iconfont detail_icon">&#xe636;</i>
-                起止时间</div>
+                起止日期</div>
               <div class="detail_item_right">{{startTime + '至' + endTime}}</div>
             </div>
           </div>
@@ -350,6 +377,14 @@
 export default {
   data () {
     return {
+      detailOption: {},
+      levelOption: [
+        '学校层面',
+        '专业层面',
+        '课程层面',
+        '教师层面',
+        '学生层面'
+      ],
       daList: [],
       fj_name: [],
       dakId: '',
@@ -438,6 +473,7 @@ export default {
     //   初始化
     self.$ajax('post', self.HOST + '/tr/planAudit/web/getPlanDetail', {planId: self.$router.currentRoute.params.id}, (res) => {
       if (res.success) {
+        this.detailOption = res.obj
         self.creator_name = res.obj.creator_name
         self.planName = res.obj.plan_name
         self.targetName = res.obj.target_name
@@ -711,7 +747,7 @@ export default {
   vertical-align: top;
 }
 .detail_item_left {
-  width: 80px;
+  width: 110px;
   /* text-align: right; */
   font-size: 14px;
   color: #76838f;

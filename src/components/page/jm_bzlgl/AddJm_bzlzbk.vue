@@ -81,7 +81,7 @@
 
       <!-- 操作按钮 -->
       <div class="btn_box">
-        <el-button type="primary" @click="doSubmit" style="width: 190px;">提交</el-button>
+        <el-button type="primary" @click="doSubmit" style="width: 190px;">提 交</el-button>
         <a href="javascript:history.go(-1)" style="margin-left: 30px;color: #777;">返回上一步</a>
       </div>
 

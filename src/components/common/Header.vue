@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="16">
         <div class="logo">
-          <img src="../../../static/img/logo.png" class="logo_header">
+          <img src="/tr/trLogoConfig/getLogo/1" class="logo_header">
           <span class="logo_span">质量监测诊改系统</span>
         </div>
       </el-col>

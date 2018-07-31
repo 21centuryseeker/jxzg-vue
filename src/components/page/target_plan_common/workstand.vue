@@ -22,7 +22,7 @@
           <el-container width="600px;" style="width: 600px;display: inline-block;" key="table1">
             <div style="font-size: 16px;padding: 10px;">工作标准</div>
             <div style="padding-left: 10px;">
-              <el-radio v-model="workId"></el-radio>
+              <el-radio v-model="workId" :label="workId_before"></el-radio>
               {{standDescription}}
             </div>
           </el-container>
@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     propsUpdate() {
+      // console.log(this.workIdprops)
       this.workId = this.workIdprops
       this.desc = this.workStand
     },

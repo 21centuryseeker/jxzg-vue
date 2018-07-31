@@ -50,7 +50,7 @@ export default {
           }, 150)
         } else {
           this.$message({
-            msg: res.msg,
+            message: res.msg,
             type: 'error'
           })
         }

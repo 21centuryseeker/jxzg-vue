@@ -1,6 +1,6 @@
 <template>
   <div id="jm_bzlgl">
-    <el-button type="warning" class="reverseBtn dcBtn" size="mini" @click="addDc" >
+    <el-button type="warning" class="reverseBtn dcBtn" size="mini" @click="addDc">
       <i class="iconfont">&#xe623;</i>导出</el-button>
     <div>
       <table style="width: 100%;table-layout:fixed">
@@ -99,7 +99,7 @@
                     <div class="itemTitle">
                       <div class="title">工作标准</div>
                       <ul class="zzbzgroupGroup">
-                        <li>
+                        <li v-html="zzbzgroup.workStand">
                           {{zzbzgroup.workStand}}
                         </li>
                       </ul>
@@ -109,7 +109,7 @@
                       <ul class="zdGroup">
                         <template v-for="(item,index) in zzbzgroup.workStandList">
                           <li :key="index">
-                            <i class="el-icon-document"></i>
+                            <i class="el-icon-document" style="font-size: 16px;"></i>
                             {{item.name}}
                             <a class="downLink" :href="item.link" :download="item.link">
                               <i class="iconfont">&#xe63a;</i>
@@ -174,8 +174,8 @@ export default {
       dialogVisible: false,
       zzName: "", //当前编辑岗位的新名字
       dialogId: "", //当前编辑岗位的新id
-      dutyIdName: "" ,//传递当前的岗位职责名称
-      flagDc:false,//导出的flag
+      dutyIdName: "", //传递当前的岗位职责名称
+      flagDc: false //导出的flag
     };
   },
   watch: {},
@@ -214,13 +214,12 @@ export default {
         if (data.children.length > 0) {
           data.isActive = true;
           this.zbFather_label = data.label;
-          console.log("this.zbFather_label", this.zbFather_label);
-          this.flagDc=true
+          this.flagDc = true;
         }
       } else {
         self.gwzzList = [];
         data.isActive = true;
-        this.flagDc=false
+        this.flagDc = false;
         self.zb_before_id = data.id;
         self.zb_before_name = data.label;
         self.getgwzzFn();
@@ -252,11 +251,15 @@ export default {
         obj,
         res => {
           if (res.success) {
-            self.gwzzList = res.obj;
-            self.dutyIdNew = res.obj[0].id;
-            self.dutyIdName = res.obj[0].dutyName;
-            if (self.dutyIdNew) {
-              self.workFn();
+            if (res.obj.length > 0) {
+              self.gwzzList = res.obj;
+              self.dutyIdNew = res.obj[0].id;
+              self.dutyIdName = res.obj[0].dutyName;
+              if (self.dutyIdNew) {
+                self.workFn();
+              }
+            } else {
+              this.zzbzList = [];
             }
           } else {
             // self.$message({
@@ -277,10 +280,18 @@ export default {
     // 编辑岗位职责
     editGwzeFn(item) {
       this.dialogId = item.id;
+      this.zzName = item.dutyName;
       this.dialogVisible = true;
     },
     editGwzeSure() {
       let self = this;
+      if (this.zzName === "") {
+        self.$message({
+          type: "warning",
+          message: "请输入岗位职责名称!"
+        });
+        return;
+      }
       let obj = {
         dutyName: this.zzName,
         id: this.dialogId
@@ -426,27 +437,26 @@ export default {
     // 导出
     addDc() {
       let self = this;
-      if(!this.flagDc){
-         let obj = {
-        deptName: self.zbFather_label,
-        roleId: self.zb_before_id,
-        roleName: self.zb_before_name
-      };
-      location.href =
-        this.HOST +
-        "/tr/trStandLink/web/exportExcel?deptName=" +
-        self.zbFather_label +
-        "&roleId=" +
-        self.zb_before_id +
-        "&roleName=" +
-        self.zb_before_name;
-      }else{
+      if (!this.flagDc) {
+        let obj = {
+          deptName: self.zbFather_label,
+          roleId: self.zb_before_id,
+          roleName: self.zb_before_name
+        };
+        location.href =
+          this.HOST +
+          "/tr/trStandLink/web/exportExcel?deptName=" +
+          self.zbFather_label +
+          "&roleId=" +
+          self.zb_before_id +
+          "&roleName=" +
+          self.zb_before_name;
+      } else {
         this.$message({
           message: "请选择具体岗位",
           type: "warning"
         });
       }
-    
     }
   }
 };
@@ -565,7 +575,7 @@ export default {
 }
 .gzbzBody {
   height: 600px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .zzbzListGroup .el-button:first-child {
   margin-right: 10px;
@@ -645,7 +655,7 @@ export default {
   right: 1.64%;
   top: 14px;
 }
-#jm_bzlgl .activeGWStyle{
+#jm_bzlgl .activeGWStyle {
   color: #70ad47;
 }
 </style>

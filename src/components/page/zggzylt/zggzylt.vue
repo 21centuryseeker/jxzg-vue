@@ -65,7 +65,7 @@
                       <i class="iconfont" style="color:#70ad47" >&#xe636;</i>&nbsp;<span>目标描述:</span>&nbsp;&nbsp;<span>{{val.targetInfo.targetInfo}}</span>
                     </div>
                     <div class="bg-purple ">
-                      <i class="iconfont" style="color:#70ad47" >&#xe636;</i>&nbsp;<span>起止时间:</span>&nbsp;&nbsp;<span>{{val.targetInfo.startTime + '至' + val.targetInfo.endTime}}</span>
+                      <i class="iconfont" style="color:#70ad47" >&#xe636;</i>&nbsp;<span>起止日期:</span>&nbsp;&nbsp;<span>{{val.targetInfo.startTime + '至' + val.targetInfo.endTime}}</span>
                     </div>
                     <div class="bg-purple ">
                       <i class="iconfont" style="color:#70ad47" >&#xe636;</i>&nbsp;<span>审核方式:</span>&nbsp;&nbsp;<span>{{val.targetInfo.checkType}}</span>

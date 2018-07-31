@@ -163,20 +163,17 @@
                                   <li class="nameL">
                                     <span class="el-tag">{{item.manager_name}}</span>
                                   </li>
-                                  <li class="date">{{item.start_time}}-{{item.end_time}}</li>
+                                  <li class="date">{{item.start_time}} 至 {{item.end_time}}</li>
                                   <li class="targetCM">{{item.levelType?item.levelType:'--'}}</li>
                                   <li class="operate clearfix">
                                     <template v-if="item.is_manager==1">
-                                      <!-- <span class="bgColor bgColor0" title="进度填报" @click.stop="showJdBox(item)">
-                                                        <i class="iconfont">&#xe634;</i>
-                                                      </span> -->
-                                      <span class="bgColor bgColor1" title="分解目标" @click.stop="toDetailTarFJ(item.id)">
+                                      <span class="bgColor bgColor1" title="分解目标" @click.stop="toDetailTarFJ(item)">
                                         <i class="iconfont">&#xe7ac;</i>
                                       </span>
-                                      <span class="bgColor bgColor2" title="制定计划" @click.stop="(item.result_type !== '已完成'&&item.result_type !== '已延期完成')? $router.push({path: '/zdPlan/' + item.id}): $message({type: 'warning',message: '该目标已完成，无法制定计划'})">
+                                      <span class="bgColor bgColor2" title="制定计划" @click.stop="toPlanFn(item)">
                                         <i class="iconfont">&#xe641;</i>
                                       </span>
-                                      <span class="bgColor bgColor3" title="编辑" @click.stop="router_to_edit(item.id)">
+                                      <span class="bgColor bgColor3" title="编辑" @click.stop="router_to_edit(item)">
                                         <i class="iconfont">&#xe6b3;</i>
                                       </span>
                                     </template>
@@ -196,12 +193,12 @@
                                 <el-table size="mini" ref="multipleTable" :data="planTbable" @row-click="rowClickPlan" style="width: 100%">
                                   <el-table-column label="计划" class="planTitle" align="left">
                                     <template slot-scope="scope">
-                                      <a href="javascript:void(0)" class="goTablelink " @click.stop="$router.push({path: '/wfzPlanDetail/' + scope.row.id})">
+                                      <a href="javascript:void(0)" class="goTablelink "  @click.stop="$router.push({path: '/wfzPlanDetail/' + scope.row.id})">
                                         {{scope.row.plan_name}}
                                       </a>
 
                                       <div class="groupA cleatfix">
-                                        <div class="prgrossA">
+                                        <div class="prgrossA" >
                                           <el-progress :text-inside="true" :stroke-width='6' :percentage="scope.row.progress ? scope.row.progress - 0 : 0" status="success"></el-progress>
                                         </div>
                                         <div class="prgrossTextA">
@@ -212,64 +209,64 @@
                                   </el-table-column>
                                   <el-table-column label="1月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[0].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[0].monthStatus]" :class="resultTypeObj[scope.row.month[0].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="2月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[1].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[1].monthStatus]" :class="resultTypeObj[scope.row.month[1].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="3月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[2].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[2].monthStatus]" :class="resultTypeObj[scope.row.month[2].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="4月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[3].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[3].monthStatus]" :class="resultTypeObj[scope.row.month[3].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="5月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[4].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0"  :title="titleName[scope.row.month[4].monthStatus]" :class="resultTypeObj[scope.row.month[4].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="6月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[5].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[5].monthStatus]" :class="resultTypeObj[scope.row.month[5].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="7月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[6].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :title="titleName[scope.row.month[6].monthStatus]"  :class="resultTypeObj[scope.row.month[6].monthStatus]"></span>
 
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="8月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[7].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[7].monthStatus]" :class="resultTypeObj[scope.row.month[7].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="9月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[8].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[8].monthStatus]" :class="resultTypeObj[scope.row.month[8].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="10月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[9].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[9].monthStatus]" :class="resultTypeObj[scope.row.month[9].monthStatus]"></span>
 
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="11月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[10].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[10].monthStatus]" :class="resultTypeObj[scope.row.month[10].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="12月" align="center" width="40" class="monthCell">
                                     <template slot-scope="scope">
-                                      <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[11].monthStatus]"></span>
+                                      <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[11].monthStatus]" :class="resultTypeObj[scope.row.month[11].monthStatus]"></span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column label="负责人" align="center" width="85">
@@ -279,7 +276,7 @@
                                   </el-table-column>
                                   <el-table-column label="所属层面" align="center" width="85">
                                     <template slot-scope="scope">
-                                      <span class="bgSpan smallSpan">{{scope.row.manager_name}}</span>
+                                      <span>{{scope.row.levelTypeNanme?scope.row.levelTypeNanme:'--'}}</span>
                                     </template>
                                   </el-table-column>
                                   <el-table-column class="contentTable" label="操作" align="center">
@@ -288,7 +285,7 @@
                                         <a href="javascript:void(0)" class="contentTablelink " @click="showJdBoxPlan(scope.row)">
                                           进度填报
                                         </a>
-                                        <a href="javascript:void(0)" class="contentTablelink1" @click="router_to_edit_plan(scope.row.id)">
+                                        <a href="javascript:void(0)" class="contentTablelink1" @click="router_to_edit_plan(scope.row)">
                                           编辑
                                         </a>
                                       </span>
@@ -342,20 +339,14 @@
                                           <li class="nameL">
                                             <span class="el-tag smallSpan">{{item.manager_name}}</span>
                                           </li>
-                                          <li class="date">{{item.start_time}}-{{item.end_time}}</li>
+                                          <li class="date">{{item.start_time}} 至 {{item.end_time}}</li>
                                           <li class="targetCM" style="width:12%">{{item.levelType?item.levelType:'--'}}</li>
                                           <li class="operate clearfix" style="width:18%">
                                             <template>
-                                              <!-- <span class="bgColor bgColor0" title="进度填报" @click="showJdBoxFJ(item)">
-                                                                    <i class="iconfont">&#xe634;</i>
-                                                                  </span> -->
-                                              <!-- <span  class="bgColor bgColor2" title="制定计划" @click.stop="FJplan(item.id)">
-                                                                  <i class="iconfont">&#xe620;</i>
-                                                                  </span> -->
-                                              <span class="bgColor bgColor2" title="制定计划" @click.stop="(item.result_type !== '已完成'&&item.result_type !== '已延期完成')? $router.push({path: '/zdPlan/' + item.id}): $message({type: 'warning',message: '该目标已完成，无法制定计划'})">
+                                              <span class="bgColor bgColor2" title="制定计划" @click.stop="toPlanFn(item)">
                                                 <i class="iconfont">&#xe641;</i>
                                               </span>
-                                              <span class="bgColor bgColor3" title="编辑" @click.stop="router_to_editTa(item.id)">
+                                              <span class="bgColor bgColor3" title="编辑" @click.stop="router_to_editTa(item)">
                                                 <i class="iconfont">&#xe6b3;</i>
                                               </span>
                                             </template>
@@ -370,7 +361,7 @@
                                       </div>
                                       <div v-if="z_targerLIstFlag==item.id">
                                         <div class="planTbableList" style="width:100%;padding: 10px 0 18px 0;" v-if="z_planTbableListFlag">
-                                          <el-table size="mini" ref="multipleTable" :data="z_planTbable"  @row-click="rowClickPlan"  style="width: 100%;">
+                                          <el-table size="mini" ref="multipleTable" :data="z_planTbable" @row-click="rowClickPlan" style="width: 100%;">
                                             <el-table-column label="计划" class="planTitle" align="left">
                                               <template slot-scope="scope">
                                                 <a href="javascript:void(0)" class="goTablelink " @click.stop="$router.push({path: '/wfzPlanDetail/' + scope.row.id})">
@@ -389,64 +380,68 @@
                                             </el-table-column>
                                             <el-table-column label="1月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[0].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[0].monthStatus]"
+                                                :class="resultTypeObj[scope.row.month[0].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="2月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[1].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[1].monthStatus]"
+                                                :class="resultTypeObj[scope.row.month[1].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="3月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[2].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[2].monthStatus]"
+                                                :class="resultTypeObj[scope.row.month[2].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="4月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[3].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[3].monthStatus]"
+                                                :class="resultTypeObj[scope.row.month[3].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="5月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[4].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[4].monthStatus]" :class="resultTypeObj[scope.row.month[4].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="6月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[5].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0"  :tltle="titleName[scope.row.month[5].monthStatus]" :class="resultTypeObj[scope.row.month[5].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="7月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[6].monthStatus]"></span>
+                                               
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[6].monthStatus]"  :class="resultTypeObj[scope.row.month[6].monthStatus]"></span>
 
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="8月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[7].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[7].monthStatus]" :class="resultTypeObj[scope.row.month[7].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="9月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[8].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[8].monthStatus]" :class="resultTypeObj[scope.row.month[8].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="10月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[9].monthStatus]"></span>
-
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[9].monthStatus]" :class="resultTypeObj[scope.row.month[9].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="11月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[10].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[10].monthStatus]" :class="resultTypeObj[scope.row.month[10].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="12月" align="center" width="40" class="monthCell">
                                               <template slot-scope="scope">
-                                                <span v-if="scope.row.month.length!=0" :class="resultTypeObj[scope.row.month[11].monthStatus]"></span>
+                                                <span v-if="scope.row.month.length!=0" :tltle="titleName[scope.row.month[11].monthStatus]" :class="resultTypeObj[scope.row.month[11].monthStatus]"></span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column label="负责人" align="center" width="85">
@@ -456,16 +451,16 @@
                                             </el-table-column>
                                             <el-table-column label="所属层面" align="center" width="85">
                                               <template slot-scope="scope">
-                                                <span class="bgSpan smallSpan">{{scope.row.manager_name}}</span>
+                                                <span>{{scope.row.levelTypeNanme?scope.row.levelTypeNanme:'--'}}</span>
                                               </template>
                                             </el-table-column>
                                             <el-table-column class="contentTable" label="操作" align="center">
                                               <template slot-scope="scope">
                                                 <span v-if="scope.row.is_manager">
-                                                  <a href="javascript:void(0)" class="contentTablelink " @click="showJdBoxPlan(scope.row)">
+                                                  <a href="javascript:void(0)" class="contentTablelink " @click="zmb_showJdBoxPlan(scope.row)">
                                                     进度填报
                                                   </a>
-                                                  <a href="javascript:void(0)" class="contentTablelink1" @click="router_to_edit_plan(scope.row.id)">
+                                                  <a href="javascript:void(0)" class="contentTablelink1" @click="router_to_edit_plan(scope.row)">
                                                     编辑
                                                   </a>
                                                 </span>
@@ -497,46 +492,6 @@
             </el-col>
           </el-row>
         </div>
-
-        <!-- <div class="targetBox">
-                <el-row :gutter="20">
-                    <el-col :span="12">
-                        <el-card class="box-card">
-                            <div class="title">分科目经费使用比例</div>
-                            <div  class="w_targeTable">
-                                <el-table  ref="multipleTable"  :data="fundsData"
-                                    style="width: 100%" >
-                                    <el-table-column  label="名称" align="left"  prop="name" >
-                                    </el-table-column>
-                                  <el-table-column   label="总计" align="center"  prop="maney" >
-                                    </el-table-column>
-                                    <el-table-column
-                                    label="使用情况"
-                                    width="160" align="center" >
-                                      <template slot-scope="scope">
-                                        <div class="clearfix">
-                                          <div class="prgross">
-                                           <el-progress :text-inside="true" :stroke-width='6' :percentage="scope.row.progress ? scope.row.progress - 0 : 0" status="success"></el-progress>
-                                        </div>
-                                         <div class="prgrossText">
-                                             {{scope.row.progress ? scope.row.progress - 0 : 0}}%
-                                         </div>
-                                        </div>
-
-                                      </template>
-                                    </el-table-column>
-                                </el-table>
-                            </div>
-                         </el-card>
-                    </el-col>
-                       <el-col :span="12">
-                        <el-card class="box-card">
-                            <div class="title">总经费使用历史曲线</div>
-                            <div id="targeCompent" class="chartBox"></div>
-                         </el-card>
-                    </el-col>
-                </el-row>
-            </div> -->
       </div>
     </div>
     <el-dialog title="本月进度填报" :visible.sync="dialogVisible_jd" width="30%">
@@ -560,7 +515,8 @@
         <el-radio :label="4">
           <span style="display: inline-block;width: 6px;height: 20px;"></span>
           <i class="radio_i" style="background: #333333"></i>
-          <span style="font-size: 16px;">已结项</span>
+          <span style="font-size: 16px;">已结项 </span>
+          <span style="font-size: 14px;color:#333">（填报后将不可更改）</span>
         </el-radio><br><br>
       </el-radio-group>
       <span slot="footer" class="dialog-footer">
@@ -591,6 +547,7 @@
           <span style="display: inline-block;width: 6px;height: 20px;"></span>
           <i class="radio_i" style="background: #333333"></i>
           <span style="font-size: 16px;">已结项</span>
+          <span style="font-size: 14px;color:#333">（填报后将不可更改）</span>
         </el-radio><br><br>
       </el-radio-group>
       <span slot="footer" class="dialog-footer">
@@ -599,9 +556,9 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="本月进度填报" :visible.sync="dialogVisible_FJ" width="30%">
-      <div style="font-size: 16px;margin-bottom: 20px;padding-left: 20px;">{{theDetailName}}</div>
-      <el-radio-group v-model="slider_valueFJ" style="margin-left: 20px;">
+    <el-dialog title="本月进度填报" :visible.sync="zmb_dialogVisible_pl" width="30%">
+      <div style="font-size: 16px;margin-bottom: 20px;padding-left: 20px;">{{zmb_theDetailName}}</div>
+      <el-radio-group v-model="zmb_slider_valuePl" style="margin-left: 20px;">
         <el-radio :label="1">
           <span style="display: inline-block;width: 6px;height: 20px;"></span>
           <i class="radio_i" style="background: #70ad47"></i>
@@ -621,11 +578,12 @@
           <span style="display: inline-block;width: 6px;height: 20px;"></span>
           <i class="radio_i" style="background: #333333"></i>
           <span style="font-size: 16px;">已结项</span>
+          <span style="font-size: 14px;color:#333">（填报后将不可更改）</span>
         </el-radio><br><br>
       </el-radio-group>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible_FJ = false">取 消</el-button>
-        <el-button type="primary" @click="addJdSureFJ">确 定</el-button>
+        <el-button @click="zmb_dialogVisible_pl = false">取 消</el-button>
+        <el-button type="primary" @click="zmb_addJdSureFJ">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -634,6 +592,10 @@
 export default {
   data() {
     return {
+      zmb_dialogVisible_pl: false, //子目标计划
+      zmb_slider_valuePl: 0, //弹窗默认的进度回显
+      zmb_reformIdpl: "",
+      zmb_theDetailName: "",
       theDetailName: "",
       userType: 1, // 判断分类
       reformId: "",
@@ -712,7 +674,14 @@ export default {
         1: "round1",
         2: "round2",
         3: "round3",
-        4: "round4"
+        4: "round4",
+        5:'round5'
+      },
+      titleName: {
+        1: "正常",
+        2: "有问题或时间到但未填报",
+        3: "停滞",
+        4: "已结项"
       },
       flagAdd: 0,
       gatherDataFlag: true,
@@ -720,7 +689,16 @@ export default {
       NoticeId: 0,
       z_targerLIstFlag: 0, //子目标计划flag
       z_planTbable: [], //子目标计划的列表
-      z_planTbableListFlag:false
+      z_planTbableListFlag: false,
+      dept_role: 0,
+      roleId: 0,
+      objCM: {
+        "1": "学校层面",
+        "2": "专业层面",
+        "3": "课程层面",
+        "4": "教师层面",
+        "5": "学生层面"
+      }
     };
   },
   created() {},
@@ -735,8 +713,10 @@ export default {
           self.items = res.obj;
           let defaultDepId = res.obj[0].deptId;
           self.deptId = defaultDepId;
-          self.targetNoticeFn(defaultDepId);
+          self.dept_role = res.obj[0].id;
+          self.roleId = res.obj[0].roleId;
 
+          self.targetNoticeFn(defaultDepId);
           // 我的目标-目标标准值
           self.targetFn(defaultDepId);
           // self.chartBoxFn()// 经费图表
@@ -751,10 +731,44 @@ export default {
     );
   },
   methods: {
+    // 2018-7-27
+    toPlanFn(item) {
+      let obj = {
+        学校层面: 1,
+        专业层面: 2,
+        课程层面: 3,
+        教师层面: 4,
+        学生层面: 5
+      };
+      let id = item.id;
+      this.$ajax(
+        "post",
+        this.HOST + "/tr/trPlan/web/checkBeforeAddPlan",
+        { targetId: id },
+        res => {
+          if (res.success) {
+            this.$router.push({
+              path: "/zdPlan/" + id,
+              query: {
+                levelType: obj[item.levelType],
+                dr: this.dept_role,
+                deptId: this.deptId,
+                roleId: this.roleId
+              }
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: res.msg
+            });
+          }
+        }
+      );
+    },
     // 点击子目标
-    zTarger(v){
-      let self=this
-      this.z_targerLIstFlag=v
+    zTarger(v) {
+      let self = this;
+      this.z_targerLIstFlag = v;
       if (v) {
         let newData = {
           targetId: v,
@@ -764,10 +778,9 @@ export default {
         };
         self.z_planTableFn(newData);
       }
-    
     },
     // 获取子目标计划
-      //  点击手风琴  请求计划
+    //  点击手风琴  请求计划
     z_planTableFn(newData) {
       let self = this;
       self.z_planTbable = [];
@@ -780,13 +793,24 @@ export default {
             if (res.obj.length == 0) {
               self.z_planTbableListFlag = false;
               self.$message({
-                message:"该目标暂无计划",
+                message: "该目标暂无计划",
                 type: "error"
               });
             } else {
               self.z_planTbableListFlag = true;
             }
-            self.z_planTbable = res.obj;
+            let obj = {
+              "1": "学校层面",
+              "2": "专业层面",
+              "3": "课程层面",
+              "4": "教师层面",
+              "5": "学生层面"
+            };
+            let newObj = res.obj;
+            for (let item of newObj) {
+              item.levelTypeNanme = obj[item.levelType];
+            }
+            self.z_planTbable = newObj;
           } else {
             self.$message({
               message: res.msg,
@@ -806,7 +830,6 @@ export default {
         this.$router.push({ path: "/wfzPlanDetail/" + row.id });
       }
     },
- 
 
     //   切换顶部用户身份
     jobSwitch(item, event) {
@@ -819,11 +842,13 @@ export default {
 
       // 部门id
       this.deptId = item.deptId;
+      this.dept_role = item.id;
+      this.roleId = item.roleId;
       // 我的目标-消息通知
       this.targetNoticeFn(this.deptId);
       // 我的目标-目标标准值
       this.targetFn(this.deptId);
-      this.chartBoxFn(); // 经费图表
+      // this.chartBoxFn(); // 经费图表
       this.gatherFn();
     },
 
@@ -1219,7 +1244,18 @@ export default {
             } else {
               self.planTbableListFlag = true;
             }
-            self.planTbable = res.obj;
+            let obj = {
+              "1": "学校层面",
+              "2": "专业层面",
+              "3": "课程层面",
+              "4": "教师层面",
+              "5": "学生层面"
+            };
+            let newObj = res.obj;
+            for (let item of newObj) {
+              item.levelTypeNanme = obj[item.levelType];
+            }
+            self.planTbable = newObj;
           } else {
             self.$message({
               message: res.msg,
@@ -1270,9 +1306,16 @@ export default {
       this.theDetailName = row.target_name;
     },
     // -我的目标-----分解
-    toDetailTarFJ(id) {
+    toDetailTarFJ(item) {
+      let obj = {
+        学校层面: 1,
+        专业层面: 2,
+        课程层面: 3,
+        教师层面: 4,
+        学生层面: 5
+      };
       let data = {
-        targetId: id
+        targetId: item.id
       };
       this.$ajax(
         "post",
@@ -1280,11 +1323,15 @@ export default {
         data,
         res => {
           if (res.success) {
-            this.$message({
-              type: "success",
-              message: res.msg
+            this.$router.push({
+              path: "/splitTarget/" + item.id,
+              query: {
+                levelType: obj[item.levelType],
+                dr: this.dept_role,
+                deptId: this.deptId,
+                roleId: this.roleId
+              }
             });
-            this.$router.push({ path: "/splitTarget/" + id });
           } else {
             this.$message({
               type: "error",
@@ -1295,14 +1342,30 @@ export default {
       );
     },
     // 我的目标----编辑      跳转到添加目标-我的目标编辑跳转
-    router_to_edit(id) {
+    router_to_edit(item) {
+      let obj = {
+        学校层面: 1,
+        专业层面: 2,
+        课程层面: 3,
+        教师层面: 4,
+        学生层面: 5
+      };
       this.$ajax(
         "post",
         this.HOST + "/tr/trTarget/web/getTargetById",
-        { targetId: id },
+        { targetId: item.id },
         res => {
           if (res.success) {
-            this.$router.push({ path: "/editTarget/" + id });
+            this.$router.push({
+              path: "/editTarget/" + item.id,
+              query: {
+                levelType: obj[item.levelType],
+                dr: this.dept_role,
+                deptId: this.deptId,
+                roleId: this.roleId
+              }
+            });
+            // this.$router.push({ path: "/editTarget/" + id });
           } else {
             this.$message({
               type: "error",
@@ -1316,25 +1379,47 @@ export default {
     // 我的计划 填报进度 -按钮
     showJdBoxPlan(row) {
       this.dialogVisible_pl = true;
-      if (row.progress != 0) {
+      // if (row.progress != 0) {
         this.slider_valuePl = row.month[new Date().getMonth()].monthStatus;
-      } else {
-        this.slider_valuePl = 0;
-      }
+      // } else {
+      //   this.slider_valuePl = 0;
+      // }
 
       this.reformIdpl = row.id;
       this.theDetailName = row.plan_name;
       // this.slider_valuePl = row.month[new Date().getMonth()]['monthStatus']
     },
+
+    // 我的计划 填报进度 -按钮
+    zmb_showJdBoxPlan(row) {
+      // console.log(row);
+      this.zmb_dialogVisible_pl = true;
+      // if (row.progress != 0) {
+        // console.log('adad',row.month[new Date().getMonth()].monthStatus)
+        this.zmb_slider_valuePl = row.month[new Date().getMonth()].monthStatus;
+      // } else {
+      //   this.zmb_slider_valuePl = 0;
+      // }
+      this.zmb_reformIdpl = row.id;
+      this.zmb_theDetailName = row.plan_name;
+    },
     //  我的计划 编辑 -按钮
-    router_to_edit_plan(id) {
+    router_to_edit_plan(item) {
       this.$ajaxMore(
         "post",
         this.HOST + "/tr/trPlan/web/getPlanDetail",
-        { planId: id },
+        { planId: item.id },
         res => {
           if (res.success) {
-            this.$router.push({ path: "/editPlan/" + id });
+            this.$router.push({
+              path: "/editPlan/" + item.id,
+              query: {
+                levelType: item.levelType,
+                dr: this.dept_role,
+                deptId: this.deptId,
+                roleId: this.roleId
+              }
+            });
           } else {
             this.$message({
               type: "error",
@@ -1406,16 +1491,32 @@ export default {
       );
     },
     //-编辑 跳转到添加目标
-    router_to_editTa(id) {
+    router_to_editTa(item) {
+      let obj = {
+        学校层面: 1,
+        专业层面: 2,
+        课程层面: 3,
+        教师层面: 4,
+        学生层面: 5
+      };
       this.$ajax(
         "post",
         this.HOST + "/tr/trTarget/web/getTargetById",
-        { targetId: id },
+        { targetId: item.id },
         res => {
           if (res.success) {
             this.$router.push({
-              path: "/editChildTarget/" + id + "/" + this.flagAdd
+              path: "/editChildTarget/" + item.id + "/" + this.flagAdd,
+              query: {
+                levelType: obj[item.levelType],
+                dr: this.dept_role,
+                deptId: this.deptId,
+                roleId: this.roleId
+              }
             });
+            // this.$router.push({
+            //   path: "/editChildTarget/" + id + "/" + this.flagAdd
+            // });
           } else {
             this.$message({
               type: "error",
@@ -1515,6 +1616,41 @@ export default {
               pageSize: 1000 // 每页显示条数
             };
             this.decomposeFn(newdata1);
+          } else {
+            this.$message({
+              type: "error",
+              message: res.msg
+            });
+          }
+        }
+      );
+    },
+
+    // 子目标 计划 填报进度 点击确定
+    zmb_addJdSureFJ() {
+      let data = {
+        reformId: this.zmb_reformIdpl,
+        reformType: 2,
+        progress: this.zmb_slider_valuePl
+      };
+      this.$ajaxMore(
+        "post",
+        this.HOST + "/tr/trPlan/web/editProgress",
+        data,
+        res => {
+          if (res.success) {
+            this.$message({
+              type: "success",
+              message: res.msg
+            });
+            this.zmb_dialogVisible_pl = false;
+            let newdata1 = {
+              targetId: this.z_targerLIstFlag,
+              deptId: self.deptId,
+              pageNumber: 1, // 页码
+              pageSize: 1000 // 每页显示条数
+            };
+            this.z_planTableFn(newdata1);
           } else {
             this.$message({
               type: "error",
@@ -2192,7 +2328,13 @@ export default {
   border-radius: 50%;
   background-color: #333;
 }
-
+.round5 {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #fff;
+}
 .planTbableList .el-table .cell a.contentTablelink {
   color: #ed7d31;
 }

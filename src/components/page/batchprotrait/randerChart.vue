@@ -34,31 +34,33 @@
     </div>
     <!-- 专业 -->
     <div v-if="flag - 0 === 1">
-      <!-- <div class="select_jh_box">
-        <el-select v-model="yxValue" placeholder="请选择" @change="yxChange">
-          <el-option v-for="item in yxOptions" :key="item.dm" :label="item.mc" :value="item.dm">
+      <div class="select_jh_box">
+        <el-select v-model="xnValue_3" placeholder="请选择" @change="xnChange_3">
+          <el-option v-for="item in xnOptions" :key="item.dm" :label="item.mc" :value="item.dm">
           </el-option>
         </el-select>
-      </div> -->
+      </div>
       <div class="targetBox" style="overflow: hidden;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);margin-top: 10px;padding: 20px;box-sizing: border-box;background: #fff;">
         <div class="chart_show chart_szjg  chart_box_cjs" id="chart_box_randarChart_teacher_1" style="margin-top: 0;width: 50%;float: left;box-shadow: none;">
           <img src="../../../assets/empty.jpg" alt="">
         </div>
         <div class="chart_show chart_jzgzcjbzc  chart_box_cjs" style="margin-top: 0px;width: 50%;float: left;box-shadow: none;">
-          <div class="title">{{tableData3.title}}</div>
           <div class="table_box_content" style="height: 350px;padding-top: 7px;">
+            <div class="title">{{tableData3.title}}</div>
             <table class="special_table">
               <thead>
                 <tr>
-                  <td>排名</td>
-                  <td style="text-align: left;padding-left: 50px;">学院</td>
+                  <td width="60">排名</td>
+                  <td style="text-align: left;padding-left: 10px;" class="show_hide">学院</td>
+                  <td style="padding-left: 10px;" class="show_hide">学年</td>
                   <td>得分</td>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item, index) in tableData3.data" :key="index">
-                  <td>{{item.value3}}</td>
-                  <td style="text-align: left;padding-left: 50px;">{{item.value1}}</td>
+                  <td width="60">{{item.value3}}</td>
+                  <td style="text-align: left;padding-left: 10px;" class="show_hide" :title="item.value1">{{item.value1}}</td>
+                  <td style="padding-left: 10px;" class="show_hide">{{item.year}}</td>
                   <td>{{item.value2}}</td>
                 </tr>
               </tbody>
@@ -96,19 +98,19 @@
                 <table class="special_table">
                   <thead>
                     <tr>
-                      <td>排名</td>
-                      <td style="text-align: left;">学院</td>
-                      <td style="text-align: left;">专业名称</td>
+                      <td width="60">排名</td>
+                      <td style="text-align: left;" class="show_hide">学院</td>
+                      <td style="text-align: left;" class="show_hide">专业名称</td>
                       <td>专业负责人</td>
                       <td>学年</td>
                       <td>得分</td>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(item, index) in tableData2" :key="index">
-                      <td>{{pageSize2 * (currentPage2 - 1) + index + 1}}</td>
-                      <td style="text-align: left;">{{item.value1}}</td>
-                      <td style="text-align: left;">{{item.value2}}</td>
+                    <tr v-for="(item, index) in tableData2.list" :key="index">
+                      <td width="60">{{pageSize2 * (currentPage2 - 1) + index + 1}}</td>
+                      <td style="text-align: left;" class="show_hide" :title="item.value1">{{item.value1}}</td>
+                      <td style="text-align: left;" class="show_hide" :title="item.value2">{{item.value2}}</td>
                       <td>{{item.value3}}</td>
                       <td>{{item.value4}}</td>
                       <td>{{item.value5}}</td>
@@ -125,25 +127,33 @@
     </div>
     <!-- 课程 -->
     <div v-if="flag - 0 >= 2">
+      <div class="select_jh_box">
+        <el-select v-model="xnValue_3" placeholder="请选择" @change="xnChange_3">
+          <el-option v-for="item in xnOptions" :key="item.dm" :label="item.mc" :value="item.dm">
+          </el-option>
+        </el-select>
+      </div>
       <div class="targetBox" style="overflow: hidden;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);margin-top: 10px;padding: 20px;box-sizing: border-box;background: #fff;">
         <div class="chart_show chart_szjg  chart_box_cjs" id="chart_box_randarChart_teacher_1" style="margin-top: 0;width: 50%;float: left;box-shadow: none;">
           <img src="../../../assets/empty.jpg" alt="">
         </div>
         <div class="chart_show chart_jzgzcjbzc  chart_box_cjs" style="margin-top: 0px;width: 50%;float: left;box-shadow: none;">
-          <div class="title">{{tableData3.title}}</div>
           <div class="table_box_content" style="height: 350px;padding-top: 7px;">
+            <div class="title">{{tableData3.title}}</div>
             <table class="special_table">
               <thead>
                 <tr>
-                  <td>排名</td>
-                  <td style="text-align: left;padding-left: 50px;">学院</td>
+                  <td width="60">排名</td>
+                  <td style="text-align: left;padding-left: 10px;" class="show_hide">学院</td>
+                  <td style="padding-left: 10px;" class="show_hide" >学年</td>
                   <td>得分</td>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(item, index) in tableData3.data" :key="index">
-                  <td>{{item.value3}}</td>
-                  <td style="text-align: left;padding-left: 50px;">{{item.value1}}</td>
+                  <td width="60">{{item.value3}}</td>
+                  <td style="text-align: left;padding-left: 10px;" class="show_hide" :title="item.value1">{{item.value1}}</td>
+                  <td style="padding-left: 10px;" class="show_hide">{{item.year}}</td>
                   <td>{{item.value2}}</td>
                 </tr>
               </tbody>
@@ -176,13 +186,13 @@
           </el-col>
           <el-col :span="12">
             <div class="chart_show chart_jzgzcjbzc  chart_box_cjs" style="margin-top: 10px;">
-              <div class="table_title">该学院各专业所有{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}排名</div>
               <div class="table_box_content">
+                <div class="table_title">该学院各专业所有{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}排名</div>
                 <table class="special_table">
                   <thead>
                     <tr>
                       <td width="60">排名</td>
-                      <td style="text-align: left;padding-left: 20px;max-width: 50%;">专业</td>
+                      <td style="text-align: left;padding-left: 20px;max-width: 50%;" class="show_hide">专业</td>
                       <td>学年</td>
                       <td>得分</td>
                     </tr>
@@ -190,7 +200,7 @@
                   <tbody>
                     <tr v-for="(item, index) in tableData" :key="index">
                       <td width="60">{{pageSize * (currentPage - 1) + index + 1}}</td>
-                      <td style="text-align: left;padding-left: 20px;">{{item.value1}}</td>
+                      <td style="text-align: left;padding-left: 20px;" class="show_hide" :title="item.value1">{{item.value1}}</td>
                       <td>{{item.value2}}</td>
                       <td>{{item.value3}}</td>
                     </tr>
@@ -232,21 +242,21 @@
           </el-col>
           <el-col :span="12">
             <div class="chart_show chart_jzgzcjbzc  chart_box_cjs" style="margin-top: 10px;">
-              <div class="table_title">该专业所有{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}排名</div>
               <div class="table_box_content">
+                <div class="table_title">该专业所有{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}排名</div>
                 <table class="special_table">
                   <thead>
                     <tr>
-                      <td>排名</td>
-                      <td style="text-align: left; padding-left: 50px;">{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}</td>
+                      <td width="60">排名</td>
+                      <td style="text-align: left; padding-left: 50px;" class="show_hide">{{ flag - 0 ===3 ? '课程': (flag - 0 === 2 ? '教师' : '学生')}}</td>
                       <td>学年</td>
                       <td>得分</td>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(item, index) in tableData2" :key="index">
-                      <td>{{pageSize2 * (currentPage2 - 1) + index + 1}}</td>
-                      <td style="text-align: left;padding-left: 50px;">{{item.value1}}</td>
+                    <tr v-for="(item, index) in tableData2.list" :key="index">
+                      <td width="60">{{pageSize2 * (currentPage2 - 1) + index + 1}}</td>
+                      <td style="text-align: left;padding-left: 50px;" class="show_hide" :title="item.value1">{{item.value1}}</td>
                       <td>{{item.value2}}</td>
                       <td>{{item.value3}}</td>
                     </tr>
@@ -298,52 +308,29 @@ export default {
       pageSize3: 5,
       currentPage3: 1,
       totalSize3: 0,
-      yxValue2: ""
+      yxValue2: "",
+      xnValue_3: ""
     };
   },
   mounted() {
-    // if (this.flag - 0 === 0) {
-    this.getRanderChartSchool({
-      flag: this.flag,
-      yxid: "",
-      year: "",
-      zyid: "",
-      dom: "chart_box_randarChart_teacher_1"
-    });
-    this.handleCurrentChange3(1);
-    // this.getRanderChartSchool({
-    //   flag: 3,
-    //   yxid: "",
-    //   year: "",
-    //   zyid: "",
-    //   dom: "chart_box_randarChart_teacher_2"
-    // });
-    // this.getRanderChartSchool({
-    //   flag: 2,
-    //   yxid: "",
-    //   year: "",
-    //   zyid: "",
-    //   dom: "chart_box_randarChart_teacher_3"
-    // });
-    // this.getRanderChartSchool({
-    //   flag: 4,
-    //   yxid: "",
-    //   year: "",
-    //   zyid: "",
-    //   dom: "chart_box_randarChart_teacher_4"
-    // });
-    // return;
-    // } else {
-    // 获取学年
-    // this.getXn();
-    // 获取指标
-    // this.getZb();
-    // 区分专业课程教师学生
-    // this.getYx();
     this.getXn_zb();
-    // }
   },
   methods: {
+    xnChange_3() {
+      this.currentPage3 = 1;
+      this.getRadarAndTable();
+    },
+    // 获取根据学年变化的(2018-07-31)
+    getRadarAndTable() {
+      this.getRanderChartSchool({
+        flag: this.flag,
+        yxid: "",
+        year: this.xnValue_3,
+        zyid: "",
+        dom: "chart_box_randarChart_teacher_1"
+      });
+      this.handleCurrentChange3(1);
+    },
     // 获取院系
     getYx() {
       this.$ajaxGet(
@@ -367,36 +354,16 @@ export default {
                 zyid: "",
                 dom: "chart_box_randarChart"
               });
-              // this.$ajaxGet(
-              //   "/tr/GroupPortrait/web/getRadarData",
-              //   {
-              //     flag: this.flag,
-              //     yxid: this.yxValue,
-              //     year: "",
-              //     zyid: ""
-              //   },
-              //   res => {
-              //     if (res.success) {
-              //       this.tableData = res.data.list.reverse();
-              //       this.tableData.unshift(this.tableData.pop());
-              //     } else {
-              //       this.$message({
-              //         message: res.msg,
-              //         type: "error"
-              //       });
-              //     }
-              //   }
-              // );
             } else {
               // 学年
               // this.getXn();
               // 指标
-              this.getRanderChart({
-                yxid: this.yxValue,
-                year: this.xnValue2,
-                zyid: this.zyValue,
-                dom: "chart_box_randarChart2"
-              });
+              // this.getRanderChart({
+              //   yxid: this.yxValue,
+              //   year: this.xnValue2,
+              //   zyid: this.zyValue,
+              //   dom: "chart_box_randarChart2"
+              // });
               this.getRanderChart({
                 yxid: this.yxValue,
                 year: this.xnValue,
@@ -461,14 +428,6 @@ export default {
     // 专业画像获取院系后执行的获取
     getZyMajor(id) {
       this.zyValue = "";
-      // this.zyOptions = [];
-      // this.$ajaxGet(
-      //   this.HOST + "/tr/GroupPortrait/web/getYxByYxdm",
-      //   { flag: this.flag, yxdm: id },
-      //   res => {
-      //     if (res.success) {
-      // this.zyOptions = res.obj;
-      // this.zyValue = res.obj[0].dm;
       if (this.flag - 0 !== 1) {
         this.getRanderChart({
           yxid: this.yxValue2,
@@ -485,18 +444,9 @@ export default {
         startPage: this.currentPage2,
         pageSize: this.pageSize2
       });
-      //   } else {
-      //     this.$message({
-      //       message: res.msg,
-      //       type: "error"
-      //     });
-      //   }
-      // }
-      // );
     },
     // 获取学年
     getXn_zb() {
-      // /tr/GroupPortrait/web/getYearByCon
       this.$ajaxGet(
         this.HOST + "/tr/GroupPortrait/web/getYearByCon",
         { flag: this.flag },
@@ -505,6 +455,8 @@ export default {
             this.xnOptions = res.obj;
             this.xnValue = res.obj[0].dm;
             this.xnValue2 = res.obj[0].dm;
+            this.xnValue_3 = res.obj[0].dm;
+            this.getRadarAndTable();
             this.$ajaxGet(
               this.HOST + "/tr/GroupPortrait/web/getIndexTypeByCon",
               { flag: this.flag },
@@ -570,7 +522,6 @@ export default {
       let { yxid, year, zyid, dom } = obj;
       let qx = 0;
       let gy = 0;
-      // if (dom === "chart_box_randarChart") {
       let data = {
         flag: this.flag,
         yxid: yxid,
@@ -600,24 +551,12 @@ export default {
           });
         }
       });
-      // } else {
-      //   chartCommon.getRanderChart({
-      //     _this: this,
-      //     url: "/tr/GroupPortrait/web/getRadarData",
-      //     data: {
-      //       flag: this.flag,
-      //       yxid: yxid,
-      //       year: year,
-      //       zyid: zyid
-      //     },
-      //     dom: dom
-      //   });
-      // }
     },
     // 获取第一个表格数据
     getTableDataNew(val) {
       let data = {
         flag: this.flag,
+        year: this.xnValue_3,
         startPage: val,
         pageSize: this.pageSize
       };
@@ -661,7 +600,7 @@ export default {
           url: url,
           data: data,
           func: res => {
-            this.tableData2 = res.list;
+            this.tableData2 = res;
             this.totalSize2 = res.total;
           }
         });
@@ -698,7 +637,7 @@ export default {
             url: url,
             data: data,
             func: res => {
-              this.tableData2 = res.list;
+              this.tableData2 = res;
               this.totalSize2 = res.total;
             }
           });
@@ -725,7 +664,7 @@ export default {
         if (res.success) {
           func(res.data);
         } else {
-          this.$mseeage({
+          this.$message({
             message: res.msg,
             type: "error"
           });
@@ -767,7 +706,6 @@ export default {
           dom: "chart_box_randarChart"
         });
         this.handleCurrentChange(1);
-        // this.handleCurrentChange2(1);
       }
     },
     yxChange2(val) {
@@ -779,35 +717,15 @@ export default {
           dom: "chart_box_randarChart"
         });
         this.getZyMajor(this.yxValue2);
-        // this.$ajaxGet(
-        //   "/tr/GroupPortrait/web/getRadarData",
-        //   {
-        //     flag: this.flag,
-        //     yxid: this.yxValue2,
-        //     year: "",
-        //     zyid: ""
-        //   },
-        //   res => {
-        //     if (res.success) {
-        //       this.tableData = res.data.list;
-        //     } else {
-        //       this.$message({
-        //         message: res.msg,
-        //         type: "error"
-        //       });
-        //     }
-        //   }
-        // );
-        // this.handleCurrentChange2(1)
       } else {
         this.getZy(this.yxValue2);
-        this.getRanderChart({
-          yxid: this.yxValue2,
-          year: this.xnValue2,
-          zyid: this.zyValue,
-          dom: "chart_box_randarChart2"
-        });
-        this.handleCurrentChange2(1);
+        // this.getRanderChart({
+        //   yxid: this.yxValue2,
+        //   year: this.xnValue2,
+        //   zyid: this.zyValue,
+        //   dom: "chart_box_randarChart2"
+        // });
+        // this.handleCurrentChange2(1);
       }
     },
     xnChange() {
@@ -830,7 +748,7 @@ export default {
     },
     zyChange() {
       this.xnChange2();
-      this.handleCurrentChange2(1);
+      // this.handleCurrentChange2(1);
     },
     zbChange() {
       this.handleCurrentChange(1);
@@ -839,7 +757,7 @@ export default {
       this.handleCurrentChange2(1);
     },
     handleCurrentChange3(val) {
-      this.currentPage = val - 0;
+      this.currentPage3 = val - 0;
       this.getTableDataNew(val);
     },
     handleCurrentChange(val) {
@@ -1132,8 +1050,11 @@ div.gender_outside {
 }
 .chart_show {
   margin-top: 22px;
-  padding: 20px;
+  /* padding: 20px; */
   box-sizing: border-box;
+}
+.el-col>.chart_show {
+  padding: 20px;
 }
 /* .chart_show_child {
   width: 100%;
@@ -1171,14 +1092,14 @@ div.gender_outside {
 .table_title {
   font-size: 16px;
   text-align: left;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   color: #5e5e5e;
   font-style: normal;
   font-weight: 400;
   font-family: "san-serif";
 }
 .table_box_content {
-  height: 310px;
+  height: 350px;
   margin-top: 10px;
   /* overflow-y: auto; */
 }
@@ -1193,5 +1114,17 @@ div.gender_outside {
   /* box-sizing: content-box; */
   /* padding: 0; */
   /* box-shadow: none; */
+}
+table {
+  table-layout:fixed;
+}
+table tr td {
+  /* width: auto; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.special_table {
+  margin-top: 20px;
 }
 </style>

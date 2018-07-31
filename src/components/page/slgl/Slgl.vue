@@ -297,8 +297,10 @@ export default {
     };
   },
   watch: {
-    $route(to, from) {
-      this.refreshCondition();
+    '$route' (to, from) {
+      if (to.query ^ to.query.dr) {
+        this.refreshCondition();
+      }
     }
   },
   mounted() {

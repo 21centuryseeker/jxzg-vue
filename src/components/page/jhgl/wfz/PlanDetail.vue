@@ -3,569 +3,591 @@
     <!-- <div class="container_box_header">计划详情</div> -->
     <!-- 中间内容容器 -->
     <div class="bg_box">
-    <div class="content_box cjs_detail_box">
-      <el-row :gutter="30">
-        <el-col :span="14">
-          <div style="background: #fff;padding: 0 32px 20px;">
-          <div style="padding: 25px 0;font-size: 16px;color: #526069;"><span style="display: inline-block;width: 30px;height: 30px;background: #70ad47;border-radius: 4px;color: #fff;font-size: 24px;text-align: center;line-height: 23px;margin-right:14px;"><i class="iconfont">&#xe62b;</i></span>
-          {{planName}}
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                计划描述
-                </div>
-              <div class="detail_item_right">{{targetInfo || '无'}}</div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                所属目标</div>
-              <div class="detail_item_right">{{targetName}}</div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                创建人</div>
-              <div class="detail_item_right">{{creator_name || '无'}}</div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                起止时间</div>
-              <div class="detail_item_right">{{startTime + '至' + endTime}}</div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                监督人</div>
-              <div class="detail_item_right">
-                <el-tag style="margin-right: 10px" v-for="(val,key) of jdNames" :key="key+1">{{val}}</el-tag>
-              </div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                参与人</div>
-              <div class="detail_item_right">
-                <el-tag style="margin-right: 10px" v-for="(val,key) of cyNames" :key="key">{{val}}</el-tag>
-              </div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                审核方式</div>
-              <div class="detail_item_right">
-                <span>{{checkObj[checkType]}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple" v-if="checkType - 0 !== 1">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                审核人</div>
-              <div class="detail_item_right">
-                <span>
-                  <el-tag>{{checkUserName || '无'}}</el-tag>
+      <div class="content_box cjs_detail_box">
+        <el-row :gutter="30">
+          <el-col :span="14">
+            <div style="background: #fff;padding: 0 32px 20px;">
+              <div style="padding: 25px 0;font-size: 16px;color: #526069;">
+                <span style="display: inline-block;width: 30px;height: 30px;background: #70ad47;border-radius: 4px;color: #fff;font-size: 24px;text-align: center;line-height: 23px;margin-right:14px;">
+                  <i class="iconfont">&#xe62b;</i>
                 </span>
+                {{planName}}
               </div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple" v-if="indexName">
-            <!-- 指标 -->
-            <div class="zb_title">指标</div>
-            <div>
-              <span class="zb_name">{{indexName}}</span>
-            </div>
-          </div>
-          <div class="grid-content bg-purple" v-if="indexName">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                考核标准</div>
-              <div class="detail_item_right">{{indexName + khbz[targetStandContion - 0] + targetStand}}{{unit?unit:''}}</div>
-            </div>
-          </div>
-
-          <div class="grid-content bg-purple" v-if="indexName">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                标准描述</div>
-              <div class="detail_item_right">{{targetStandInfo || '无'}}</div>
-            </div>
-          </div>
-
-          <div class="grid-content bg-purple" style="background: #fff6f6;border: 1px solid #ffdada;" v-if="listWarn.length">
-            <div class="detail_item_box yj_box">
-              <div class="detail_item_left" style="width: 80px;line-height: 40px; margin: 5px 0 0 10px;">
-                <i class="iconfont" style="color: #f56c6c;font-size: 24px;vertical-align: top;display: inline-block">&#xe6e8;</i>
-                <span style="font-size: 18px;color: #f56c6c;line-height: 40px;display: inline-block;vertical-align: top;">预警</span>
-              </div>
-              <div class="detail_item_right" style="line-height: 30px;padding: 10px 0 10px 20px;">
-                <template v-for="(item, index) in listWarn">
-                  <span :key="item.waringNum" style="">{{(item.waringTime?mydateFormat.dateCodeYmd(item.waringTime):'即时通知') + '&nbsp;&nbsp;&nbsp;' + indexName + khbz[item.warningContion] + item.waringNum}}</span><br  :key="index">
-                </template>
-              </div>
-            </div>
-          </div>
-          <div class="grid-content bg-purple" v-if="listFile.length">
-            <div class="detail_item_box">
-              <div class="detail_item_left">
-                <i class="iconfont detail_icon">&#xe636;</i>
-                附件</div>
-              <div class="detail_item_right" >
-                <!-- <el-scrollbar wrapStyle="[{'height': '100%'}]"> -->
-                <template v-for="item in listFile">
-                  <div :key="item.fileUrl" style="margin-bottom: 10px;">
-                  <a :href="item.fileUrl" :key="item.fileUrl" class="download_a">
-                    <template v-if="iconObj[item.fileType]">
-                      <span v-html="iconObj[item.fileType]" class="download_i"></span>
-                    </template>
-                    <template v-if="!iconObj[item.fileType]">
-                      <i class="iconfont download_i" style="font-size: 34px;color:#999" >&#xe643;</i>
-                    </template>
-                    <span class="download_span">{{item.oldFileName}}</span>
-                  </a>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    计划描述
                   </div>
-                </template>
-                <!-- </el-scrollbar> -->
+                  <div class="detail_item_right">{{targetInfo || '无'}}</div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        </el-col>
-        <el-col :span="10">
-          <div style="background: #fff">
-          <div class="grid-content bg-purple">
-            <div class="my_tab_style">
-              <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="审核情况" name="first">
-                  <!-- 自动审核 -->
-                    <template v-if="checkType == 1">
-                      <div class="detail_item_box">
-                      <div class="detail_item_left">审核结果</div>
-                      <div class="detail_item_right">
-                        <span>{{checkStatusName[check_status]}}</span>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">标准</div>
-                      <div class="detail_item_right">
-                        <span>{{targetStand}}{{unit?unit:''}}</span>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">实际完成</div>
-                      <div class="detail_item_right">
-                        <span>{{completeValue || 0}}{{unit?unit:''}}</span>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">时间</div>
-                      <div class="detail_item_right">
-                        <span>{{myTime || '无'}}</span>
-                      </div>
-                    </div>
-                    </template>
-                  <template v-else>
-                    <template v-if="indexName">
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">标准</div>
-                      <div class="detail_item_right">
-                        <span>{{targetStand}}{{unit?unit:''}}</span>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">实际完成</div>
-                      <div class="detail_item_right">
-                        <span>{{completeValue || 0}}{{unit?unit:''}}</span>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">时间</div>
-                      <div class="detail_item_right">
-                        <span>{{myTime || '无'}}</span>
-                      </div>
-                    </div>
-                    </template>
-                  <template v-if="(check_status - 0 === 1 && checkType != 1) || isEdit">
-                    <template v-if="role_type.indexOf('1') !== -1">
-                      <div class="detail_item_box">
-                      <div class="detail_item_left">说明</div>
-                      <div class="detail_item_right textarea_box">
-                        <el-input
-                          type="textarea"
-                          :rows="2"
-                          placeholder="请输入内容"
-                          v-model="textarea"
-                          :disabled="isDisabled">
-                        </el-input>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">附件</div>
-                      <div class="detail_item_right">
-                        <!-- <el-upload
-                          ref="imageupload"
-                          class="upload-demo"
-                          :action="uploadUrl"
-                          :before-upload="beforeUpload"
-                          :on-preview="handlePreview"
-                          :on-remove="handleRemove"
-                          :before-remove="beforeRemove"
-                          :on-success="uploadsuccess"
-                          multiple
-                          :disabled="isDisabled"
-                          :data="data"
-                          :file-list="fileList">
-                          <el-button size="small" type="primary" :disabled="isDisabled">选择文件</el-button>
-                        </el-upload> -->
-                        <!-- <div id="picker" class="upload_btn" :disabled="isDisabled">选择文件</div>
-            <div class="upload_list">
-              <div class="item" v-for="(item, index) in fileList" :key="index" >
-                <span class="info"><i class="el-icon-document"></i>{{item.fileName || item.oldFileName}}</span>
-                <span class="state"><i class="el-icon-success remove_file" @click="removeFile(index)" title="移除文件"></i></span>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    所属目标</div>
+                  <div class="detail_item_right">{{targetName}}</div>
+                </div>
               </div>
-            </div> -->
-            <button v-if="isDisabled" :disabled="isDisabled" class="upload_btn" style="cursor: not-allowed;border: 0;background-color: rgb(184, 214, 163);">选择文件</button>
-            <cUploader :fileList="fileList" :fileName="fileName" v-if="!isDisabled"
-              :formData="formData"
-              :beforeFileQueued="beforeFileQueued"
-              :uploadSuccess="uploadSuccess"
-              :uploadError="uploadError"
-              @removeFile="removeFile"
-            ></cUploader>
-                      </div>
-                    </div>
-                    <div style="text-align: center; padding: 20px 0">
-                      <el-button type="primary" @click="submit_sh" :disabled="isDisabled"  style="width: 190px;">提交</el-button>
-                    </div>
-                    </template>
-                  </template>
-                  <template v-else>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">当前状态</div>
-                      <div class="detail_item_right">
-                        <span>{{checkStatusName[check_status]}}</span>
-                        <!-- 编辑按钮 -->
-                        <i class="el-icon-edit" v-if="check_status === 3" @click="edit_btn"></i>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">说明</div>
-                      <div class="detail_item_right">{{textarea || '无'}}</div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">附件</div>
-                      <div class="detail_item_right">
-                        <template v-if="!fileListSh || !fileListSh.length">无</template>
-                        <template v-for="item in fileListSh">
-                          <div :key="item.fileUrl" style="margin-bottom: 10px;">
-                  <a :href="item.fileUrl" :key="item.fileUrl" class="download_a">
-                    <template v-if="iconObj[item.fileType]">
-                      <span v-html="iconObj[item.fileType]" class="download_i"></span>
-                    </template>
-                    <template v-if="!iconObj[item.fileType]">
-                      <i class="iconfont download_i" style="font-size: 34px;color:#999" >&#xe643;</i>
-                    </template>
-                    <span class="download_span">{{item.oldFileName}}</span>
-                  </a>
-                          </div>
-                </template>
-                      </div>
-                    </div>
-                  </template>
-                  </template>
-                  <!-- 判断是否有权限审核 -->
-                  <!-- <template v-if="check_status === 2 && (role_type.indexOf('3') !== -1)"> -->
-                  <template v-if="false">
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">审核</div>
-                      <div class="detail_item_right">
-                        <el-radio-group v-model="auditStatus">
-                          <el-radio :label="3">不通过</el-radio>
-                          <el-radio :label="4">通过</el-radio>
-                        </el-radio-group>
-                      </div>
-                    </div>
-                    <div class="detail_item_box">
-                      <div class="detail_item_left">意见</div>
-                      <div class="detail_item_right  textarea_box">
-                        <el-input
-                          type="textarea"
-                          :rows="2"
-                          placeholder="请输入内容"
-                          v-model="auditDesc">
-                        </el-input>
-                      </div>
-                    </div>
-                    <div style="text-align: center;">
-                      <el-button type="primary" @click="submitSh">提交审核</el-button>
-                    </div>
-                  </template>
-                </el-tab-pane>
-                <el-tab-pane label="审核历史" name="second">
-                  <div>
-                    <div class="recod" v-if="history_list && history_list.length">
-                      <ul>
-                        <li v-for="(item, index) in history_list" :key="index">
-                          <div v-if="index === 0" class="transform_style">
-                            <div class="icon_list">
-                               <i class="iconfont" style="font-size: 28px;float: left;color: #70ad47;margin-top: 5px">&#xe6a3;</i>
-                            </div>
-                          <span class="list_time">{{item.create_time}}</span>
-                          <label><em>{{item.audit_status}}：</em><font>{{item.audit_desc && item.audit_desc.trim() !== '' ? item.audit_desc.trim() : '无'}}</font></label>
-                          </div>
-                          <div v-if="index !== 0" class="transform_style">
-                            <div class="icon_list">
-                              <i style="display: inline-block;width: 10px;height: 10px;border-radius: 5px;border: 2px solid #999;box-sizing: border-box;"></i>
-                            </div>
-                          <span  class="list_time">{{item.create_time}}</span>
-                          <label><em>{{item.audit_status}}：</em><font>{{item.audit_desc && item.audit_desc.trim() !== '' ? item.audit_desc.trim() : '无'}}</font></label>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="no_data" v-else >
-                      <img src="../../../../assets/empty.jpg" alt="">
-                    </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    所属部门-角色
                   </div>
-                </el-tab-pane>
-              </el-tabs>
+                  <div class="detail_item_right">{{detailOption.dept_roleName}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    计划层面
+                  </div>
+                  <div class="detail_item_right">{{levelOption[detailOption.levelType - 1]}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    权重
+                  </div>
+                  <div class="detail_item_right">{{detailOption.planQz}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    创建人</div>
+                  <div class="detail_item_right">{{creator_name || '无'}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    起止日期</div>
+                  <div class="detail_item_right">{{startTime + '至' + endTime}}</div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    监督人</div>
+                  <div class="detail_item_right">
+                    <el-tag style="margin-right: 10px" v-for="(val,key) of jdNames" :key="key+1">{{val}}</el-tag>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    参与人</div>
+                  <div class="detail_item_right">
+                    <el-tag style="margin-right: 10px" v-for="(val,key) of cyNames" :key="key">{{val}}</el-tag>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    审核方式</div>
+                  <div class="detail_item_right">
+                    <span>{{checkObj[checkType]}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple" v-if="checkType - 0 !== 1">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    审核人</div>
+                  <div class="detail_item_right">
+                    <span>
+                      <el-tag>{{checkUserName || '无'}}</el-tag>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple" v-if="indexName">
+                <!-- 指标 -->
+                <div class="zb_title">指标</div>
+                <div>
+                  <span class="zb_name">{{indexName}}</span>
+                </div>
+              </div>
+              <div class="grid-content bg-purple" v-if="indexName">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    考核标准</div>
+                  <div class="detail_item_right">{{indexName + khbz[targetStandContion - 0] + targetStand}}{{unit?unit:''}}</div>
+                </div>
+              </div>
+
+              <div class="grid-content bg-purple" v-if="indexName">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    标准描述</div>
+                  <div class="detail_item_right">{{targetStandInfo || '无'}}</div>
+                </div>
+              </div>
+
+              <div class="grid-content bg-purple" style="background: #fff6f6;border: 1px solid #ffdada;" v-if="listWarn.length">
+                <div class="detail_item_box yj_box">
+                  <div class="detail_item_left" style="width: 80px;line-height: 40px; margin: 5px 0 0 10px;">
+                    <i class="iconfont" style="color: #f56c6c;font-size: 24px;vertical-align: top;display: inline-block">&#xe6e8;</i>
+                    <span style="font-size: 18px;color: #f56c6c;line-height: 40px;display: inline-block;vertical-align: top;">预警</span>
+                  </div>
+                  <div class="detail_item_right" style="line-height: 30px;padding: 10px 0 10px 20px;">
+                    <template v-for="(item, index) in listWarn">
+                      <span :key="item.waringNum" style="">{{(item.waringTime?mydateFormat.dateCodeYmd(item.waringTime):'即时通知') + '&nbsp;&nbsp;&nbsp;' + indexName + khbz[item.warningContion] + item.waringNum}}</span><br :key="index">
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-content bg-purple" v-if="listFile.length">
+                <div class="detail_item_box">
+                  <div class="detail_item_left">
+                    <i class="iconfont detail_icon">&#xe636;</i>
+                    附件</div>
+                  <div class="detail_item_right">
+                    <!-- <el-scrollbar wrapStyle="[{'height': '100%'}]"> -->
+                    <template v-for="item in listFile">
+                      <div :key="item.fileUrl" style="margin-bottom: 10px;">
+                        <a :href="item.fileUrl" :key="item.fileUrl" class="download_a">
+                          <template v-if="iconObj[item.fileType]">
+                            <span v-html="iconObj[item.fileType]" class="download_i"></span>
+                          </template>
+                          <template v-if="!iconObj[item.fileType]">
+                            <i class="iconfont download_i" style="font-size: 34px;color:#999">&#xe643;</i>
+                          </template>
+                          <span class="download_span">{{item.oldFileName}}</span>
+                        </a>
+                      </div>
+                    </template>
+                    <!-- </el-scrollbar> -->
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
+          </el-col>
+          <el-col :span="10">
+            <div style="background: #fff">
+              <div class="grid-content bg-purple">
+                <div class="my_tab_style">
+                  <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tab-pane label="审核情况" name="first">
+                      <!-- 自动审核 -->
+                      <template v-if="checkType == 1">
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">审核结果</div>
+                          <div class="detail_item_right">
+                            <span>{{checkStatusName[check_status]}}</span>
+                          </div>
+                        </div>
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">标准</div>
+                          <div class="detail_item_right">
+                            <span>{{targetStand}}{{unit?unit:''}}</span>
+                          </div>
+                        </div>
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">实际完成</div>
+                          <div class="detail_item_right">
+                            <span>{{completeValue || 0}}{{unit?unit:''}}</span>
+                          </div>
+                        </div>
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">时间</div>
+                          <div class="detail_item_right">
+                            <span>{{myTime || '无'}}</span>
+                          </div>
+                        </div>
+                      </template>
+                      <template v-else>
+                        <template v-if="indexName">
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">标准</div>
+                            <div class="detail_item_right">
+                              <span>{{targetStand}}{{unit?unit:''}}</span>
+                            </div>
+                          </div>
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">实际完成</div>
+                            <div class="detail_item_right">
+                              <span>{{completeValue || 0}}{{unit?unit:''}}</span>
+                            </div>
+                          </div>
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">时间</div>
+                            <div class="detail_item_right">
+                              <span>{{myTime || '无'}}</span>
+                            </div>
+                          </div>
+                        </template>
+                        <template v-if="(check_status - 0 === 1 && checkType != 1) || isEdit">
+                          <template v-if="role_type.indexOf('1') !== -1">
+                            <div class="detail_item_box">
+                              <div class="detail_item_left">说明</div>
+                              <div class="detail_item_right textarea_box">
+                                <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea" :disabled="isDisabled">
+                                </el-input>
+                              </div>
+                            </div>
+                            <div class="detail_item_box">
+                              <div class="detail_item_left">附件</div>
+                              <div class="detail_item_right">
+                                <button v-if="isDisabled" :disabled="isDisabled" class="upload_btn" style="cursor: not-allowed;border: 0;background-color: rgb(184, 214, 163);">选择文件</button>
+                                <cUploader :fileList="fileList" :fileName="fileName" v-if="!isDisabled" :formData="formData" :beforeFileQueued="beforeFileQueued" :uploadSuccess="uploadSuccess" :uploadError="uploadError" @removeFile="removeFile"></cUploader>
+                              </div>
+                            </div>
+                            <div style="text-align: center; padding: 20px 0">
+                              <el-button type="primary" @click="submit_sh" :disabled="isDisabled" style="width: 190px;">提交</el-button>
+                            </div>
+                          </template>
+                        </template>
+                        <template v-else>
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">当前状态</div>
+                            <div class="detail_item_right">
+                              <span>{{checkStatusName[check_status]}}</span>
+                              <!-- 编辑按钮 -->
+                              <i class="el-icon-edit" v-if="check_status === 3" @click="edit_btn"></i>
+                            </div>
+                          </div>
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">说明</div>
+                            <div class="detail_item_right">{{textarea || '无'}}</div>
+                          </div>
+                          <div class="detail_item_box">
+                            <div class="detail_item_left">附件</div>
+                            <div class="detail_item_right">
+                              <template v-if="!fileListSh || !fileListSh.length">无</template>
+                              <template v-for="item in fileListSh">
+                                <div :key="item.fileUrl" style="margin-bottom: 10px;">
+                                  <a :href="item.fileUrl" :key="item.fileUrl" class="download_a">
+                                    <template v-if="iconObj[item.fileType]">
+                                      <span v-html="iconObj[item.fileType]" class="download_i"></span>
+                                    </template>
+                                    <template v-if="!iconObj[item.fileType]">
+                                      <i class="iconfont download_i" style="font-size: 34px;color:#999">&#xe643;</i>
+                                    </template>
+                                    <span class="download_span">{{item.oldFileName}}</span>
+                                  </a>
+                                </div>
+                              </template>
+                            </div>
+                          </div>
+                        </template>
+                      </template>
+                      <!-- 判断是否有权限审核 -->
+                      <!-- <template v-if="check_status === 2 && (role_type.indexOf('3') !== -1)"> -->
+                      <template v-if="false">
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">审核</div>
+                          <div class="detail_item_right">
+                            <el-radio-group v-model="auditStatus">
+                              <el-radio :label="3">不通过</el-radio>
+                              <el-radio :label="4">通过</el-radio>
+                            </el-radio-group>
+                          </div>
+                        </div>
+                        <div class="detail_item_box">
+                          <div class="detail_item_left">意见</div>
+                          <div class="detail_item_right  textarea_box">
+                            <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="auditDesc">
+                            </el-input>
+                          </div>
+                        </div>
+                        <div style="text-align: center;">
+                          <el-button type="primary" @click="submitSh">提交审核</el-button>
+                        </div>
+                      </template>
+                    </el-tab-pane>
+                    <el-tab-pane label="审核历史" name="second">
+                      <div>
+                        <div class="recod" v-if="history_list && history_list.length">
+                          <ul>
+                            <li v-for="(item, index) in history_list" :key="index">
+                              <div v-if="index === 0" class="transform_style">
+                                <div class="icon_list">
+                                  <i class="iconfont" style="font-size: 28px;float: left;color: #70ad47;margin-top: 5px">&#xe6a3;</i>
+                                </div>
+                                <span class="list_time">{{item.create_time}}</span>
+                                <label>
+                                  <em>{{item.audit_status}}：</em>
+                                  <font>{{item.audit_desc && item.audit_desc.trim() !== '' ? item.audit_desc.trim() : '无'}}</font>
+                                </label>
+                              </div>
+                              <div v-if="index !== 0" class="transform_style">
+                                <div class="icon_list">
+                                  <i style="display: inline-block;width: 10px;height: 10px;border-radius: 5px;border: 2px solid #999;box-sizing: border-box;"></i>
+                                </div>
+                                <span class="list_time">{{item.create_time}}</span>
+                                <label>
+                                  <em>{{item.audit_status}}：</em>
+                                  <font>{{item.audit_desc && item.audit_desc.trim() !== '' ? item.audit_desc.trim() : '无'}}</font>
+                                </label>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="no_data" v-else>
+                          <img src="../../../../assets/empty.jpg" alt="">
+                        </div>
+                      </div>
+                    </el-tab-pane>
+                  </el-tabs>
+                </div>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import cUploader from '../../../common/Uploader.vue'
+import cUploader from "../../../common/Uploader.vue";
 export default {
-  components: {cUploader},
-  data () {
+  components: { cUploader },
+  data() {
     return {
-      fileName: 'oldFileName',
-      formData: {fileSource: '1'},
-      checkUserName: '',
-      creator_name: '', // 创建人
+      detailOption: {},
+      levelOption: [
+        '学校层面',
+        '专业层面',
+        '课程层面',
+        '教师层面',
+        '学生层面'
+      ],
+      fileName: "oldFileName",
+      formData: { fileSource: "1" },
+      checkUserName: "",
+      creator_name: "", // 创建人
       isDisabled: false,
-      myTime: '',
-      completeValue: '',
-      jdName: '',
-      cyName: '',
+      myTime: "",
+      completeValue: "",
+      jdName: "",
+      cyName: "",
       jdNames: [],
       cyNames: [],
-      planName: '',
+      planName: "",
       history_list: [],
-      auditDesc: '',
+      auditDesc: "",
       auditStatus: 3,
-      role_type: '',
+      role_type: "",
       fileListSh: [],
       isEdit: false,
-      textarea: '',
-      uploadUrl: this.HOST + '/tr/uploadFile/web/uploadFile',
+      textarea: "",
+      uploadUrl: this.HOST + "/tr/uploadFile/web/uploadFile",
       data: {
-        fileSource: '4' // 目标上传是为'1', 计划上传时为'2'
+        fileSource: "4" // 目标上传是为'1', 计划上传时为'2'
       },
       fileSuccessList: [],
       fileList: [],
       fileListOld: [],
-      activeName: 'first',
-      check_status: '',
-      waringTime: '',
+      activeName: "first",
+      check_status: "",
+      waringTime: "",
       listWarn: [],
-      targetName: '',
-      targetInfo: '',
-      startTime: '',
-      endTime: '',
-      deptName: '', // 所属部门
-      listFile: '',
-      indexName: '',
-      checkType: '',
-      targetStandContion: '',
-      targetStand: '',
-      targetStandInfo: '',
-      unit: '',
+      targetName: "",
+      targetInfo: "",
+      startTime: "",
+      endTime: "",
+      deptName: "", // 所属部门
+      listFile: "",
+      indexName: "",
+      checkType: "",
+      targetStandContion: "",
+      targetStand: "",
+      targetStandInfo: "",
+      unit: "",
       checkObj: {
-        '1': '自动审核',
-        '2': '创建人审核',
-        '3': '第三方审核'
+        "1": "自动审核",
+        "2": "创建人审核",
+        "3": "第三方审核"
       },
-      khbz: [
-        '',
-        '大于等于',
-        '大于',
-        '等于',
-        '小于等于',
-        '小于'
-      ],
-      checkStatusName: [
-        '',
-        '未提交',
-        '已提交',
-        '审核不通过',
-        '审核通过'
-      ],
+      khbz: ["", "大于等于", "大于", "等于", "小于等于", "小于"],
+      checkStatusName: ["", "未提交", "已提交", "审核不通过", "审核通过"],
       iconObj: {
-        '.xlsx': '<i class="iconfont" style="font-size: 34px;color: #5ca35b;">&#xe71b;</i>',
-        '.xls': '<i class="iconfont" style="font-size: 34px;color: #5ca35b;">&#xe71b;</i>',
-        '.png': '<i class="iconfont" style="font-size: 34px;color: #4aab8f;">&#xe611;</i>',
-        '.jpg': '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
-        '.jpeg': '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
-        '.gif': '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
-        '.pdf': '<i class="iconfont" style="color: #ee6a71;font-size: 34px;">&#xe69b;</i>',
-        '.doc': '<i class="iconfont" style="color: #5185ba;font-size: 34px;">&#xe618;</i>',
-        '.docx': '<i class="iconfont" style="color: #5185ba;font-size: 34px;">&#xe618;</i>',
-        '.wmv': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
-        '.mp4': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
-        '.rm': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
-        '.rmvb': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
-        '.avi': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
-        '.3gp': '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>'
+        ".xlsx":
+          '<i class="iconfont" style="font-size: 34px;color: #5ca35b;">&#xe71b;</i>',
+        ".xls":
+          '<i class="iconfont" style="font-size: 34px;color: #5ca35b;">&#xe71b;</i>',
+        ".png":
+          '<i class="iconfont" style="font-size: 34px;color: #4aab8f;">&#xe611;</i>',
+        ".jpg":
+          '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
+        ".jpeg":
+          '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
+        ".gif":
+          '<i class="iconfont" style="color: #4aab8f;font-size: 34px;">&#xe611;</i>',
+        ".pdf":
+          '<i class="iconfont" style="color: #ee6a71;font-size: 34px;">&#xe69b;</i>',
+        ".doc":
+          '<i class="iconfont" style="color: #5185ba;font-size: 34px;">&#xe618;</i>',
+        ".docx":
+          '<i class="iconfont" style="color: #5185ba;font-size: 34px;">&#xe618;</i>',
+        ".wmv":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
+        ".mp4":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
+        ".rm":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
+        ".rmvb":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
+        ".avi":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>',
+        ".3gp":
+          '<i class="iconfont" style="color: #6b7d8f;font-size: 34px;">&#xe613;</i>'
       }
-    }
+    };
   },
-  mounted () {
-    let self = this
+  mounted() {
+    let self = this;
     //   初始化
-    self.$ajax('post', self.HOST + '/tr/planAudit/web/getPlanDetail', {planId: self.$router.currentRoute.params.id}, (res) => {
-      if (res.success) {
-        self.creator_name = res.obj.creator_name
-        self.planName = res.obj.plan_name
-        self.targetName = res.obj.target_name
-        // self.deptName = res.obj.dept_name
-        self.targetInfo = res.obj.plan_content
-        self.startTime = res.obj.start_time
-        self.endTime = res.obj.end_time
-        self.listFile = res.obj.fileListForAdd
-        self.jdName = res.obj.supervisors
-        self.jdNames = res.obj.supervisors.split(',')
-        self.cyName = res.obj.joins
-        self.cyNames = res.obj.joins.split(',')
-        self.indexName = res.obj.indexName
-        self.checkType = res.obj.checkTypeId.toString()
-        self.targetStandContion = res.obj.planStandContion
-        self.targetStand = res.obj.planStand
-        self.targetStandInfo = res.obj.planStandInfo
-        self.listWarn = res.obj.warn
-        self.check_status = res.obj.check_status
-        self.role_type = res.obj.planType
-        self.checkUserName = res.obj.check_user_name + '(' + res.obj.check_user_id + ')'
-        // 实际完成
-        self.unit = res.obj.unit
-        self.completeValue = res.obj.completeValue
-        if (res.obj.resultType - 0 === 1) {
-          self.isDisabled = true
+    self.$ajax(
+      "post",
+      self.HOST + "/tr/planAudit/web/getPlanDetail",
+      { planId: self.$router.currentRoute.params.id },
+      res => {
+        if (res.success) {
+          this.detailOption = res.obj
+          self.creator_name = res.obj.creator_name;
+          self.planName = res.obj.plan_name;
+          self.targetName = res.obj.target_name;
+          // self.deptName = res.obj.dept_name
+          self.targetInfo = res.obj.plan_content;
+          self.startTime = res.obj.start_time;
+          self.endTime = res.obj.end_time;
+          self.listFile = res.obj.fileListForAdd;
+          self.jdName = res.obj.supervisors;
+          self.jdNames = res.obj.supervisors.split(",");
+          self.cyName = res.obj.joins;
+          self.cyNames = res.obj.joins.split(",");
+          self.indexName = res.obj.indexName;
+          self.checkType = res.obj.checkTypeId.toString();
+          self.targetStandContion = res.obj.planStandContion;
+          self.targetStand = res.obj.planStand;
+          self.targetStandInfo = res.obj.planStandInfo;
+          self.listWarn = res.obj.warn;
+          self.check_status = res.obj.check_status;
+          self.role_type = res.obj.planType;
+          self.checkUserName =
+            res.obj.check_user_name + "(" + res.obj.check_user_id + ")";
+          // 实际完成
+          self.unit = res.obj.unit;
+          self.completeValue = res.obj.completeValue;
+          if (res.obj.resultType - 0 === 1) {
+            self.isDisabled = true;
+          }
+        } else {
+          self.$message({
+            type: "error",
+            message: res.msg
+          });
         }
-      } else {
-        self.$message({
-          type: 'error',
-          message: res.msg
-        })
       }
-    })
-    self.getCheckType()
-    self.getHistory()
+    );
+    self.getCheckType();
+    self.getHistory();
   },
   methods: {
-    uploadError (file, res) {
+    uploadError(file, res) {
       this.$message({
-        message: file.name + '上传出错！',
-        type: 'error'
-      })
+        message: file.name + "上传出错！",
+        type: "error"
+      });
     },
-    uploadSuccess (file, res) {
+    uploadSuccess(file, res) {
       if (res.success && res.successList) {
-        this.fileName = 'oldFileName'
-        this.fileList.push(res.successList[0])
+        this.fileName = "oldFileName";
+        this.fileList.push(res.successList[0]);
       } else {
         this.$message({
-          message: file.name + '上传失败！',
-          type: 'warning'
-        })
+          message: file.name + "上传失败！",
+          type: "warning"
+        });
       }
     },
-    beforeFileQueued (file) {
+    beforeFileQueued(file) {
       if (file.size / (1024 * 1024) > this.$uploadSize) {
         // 超出限制的上传文件大小
         this.$message({
-          message: file.name + '大于' + this.$uploadSize + 'M，无法上传！',
-          type: 'warning'
-        })
-        return false
+          message: file.name + "大于" + this.$uploadSize + "M，无法上传！",
+          type: "warning"
+        });
+        return false;
       } else {
-        return true
+        return true;
       }
     },
-    removeFile (index) {
-      this.$confirm('确定移除' + (this.fileList[index].fileName || this.fileList[index].oldFileName) + '？').then(() => {
-        this.fileList.splice(index, 1)
-      }).catch(() => {})
+    removeFile(index) {
+      this.$confirm(
+        "确定移除" +
+          (this.fileList[index].fileName || this.fileList[index].oldFileName) +
+          "？"
+      )
+        .then(() => {
+          this.fileList.splice(index, 1);
+        })
+        .catch(() => {});
     },
-    edit_btn () {
-      this.isEdit = true
+    edit_btn() {
+      this.isEdit = true;
     },
-    beforeUpload (file) {
+    beforeUpload(file) {
       if (file.size / (1024 * 1024) > this.$uploadSize) {
         // 超出限制的上传文件大小
         this.$message({
-          message: file.name + '大于' + this.$uploadSize + 'M，无法上传！',
-          type: 'warning'
-        })
-        this.$showRemoveDialog = false
-        return false
+          message: file.name + "大于" + this.$uploadSize + "M，无法上传！",
+          type: "warning"
+        });
+        this.$showRemoveDialog = false;
+        return false;
       } else {
-        this.$showRemoveDialog = true
-        return true
+        this.$showRemoveDialog = true;
+        return true;
       }
     },
-    handleClick (tab, event) {
+    handleClick(tab, event) {
       // console.log(tab, event);
     },
-    uploadsuccess (res, file, fileList) {
+    uploadsuccess(res, file, fileList) {
       if (res.success) {
-        this.fileSuccessList.push(res.obj.successList[0])
+        this.fileSuccessList.push(res.obj.successList[0]);
       } else {
         this.$message({
           message: res.msg,
-          type: 'error'
-        })
+          type: "error"
+        });
       }
     },
-    handleRemove (file, fileList) {
+    handleRemove(file, fileList) {
       // console.log(file, fileList);
     },
-    handlePreview (file) {
+    handlePreview(file) {
       // console.log(file);
     },
-    beforeRemove (file, fileList) {
+    beforeRemove(file, fileList) {
       if (this.$showRemoveDialog) {
-        return this.$confirm(`确定移除 ${file.name}？`)
+        return this.$confirm(`确定移除 ${file.name}？`);
       } else {
-        this.$showRemoveDialog = true
-        return true
+        this.$showRemoveDialog = true;
+        return true;
       }
     },
-    submit_sh () {
-      let self = this
+    submit_sh() {
+      let self = this;
       // self.fileSuccessList = []
       // for (let item of self.$refs.imageupload.uploadFiles) {
       //   if (item.response) {
@@ -578,97 +600,117 @@ export default {
       //     }
       //   }
       // }
-      self.isEdit = false
+      self.isEdit = false;
       let data = {
         planId: self.$router.currentRoute.params.id,
         auditDesc: self.textarea,
         files: self.fileList
-      }
-      self.$ajaxMore('post', self.HOST + '/tr/planAudit/web/submitPlanAudit', data, (res) => {
-        if (res.success) {
-          self.$message({
-            type: 'success',
-            message: res.msg
-          })
-          // 将审核状态改变为待审核
-          self.getCheckType()
-          self.getHistory()
-        } else {
-          self.$message({
-            type: 'error',
-            message: res.msg
-          })
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/planAudit/web/submitPlanAudit",
+        data,
+        res => {
+          if (res.success) {
+            self.$message({
+              type: "success",
+              message: res.msg
+            });
+            // 将审核状态改变为待审核
+            self.getCheckType();
+            self.getHistory();
+          } else {
+            self.$message({
+              type: "error",
+              message: res.msg
+            });
+          }
         }
-      })
+      );
     },
-    submitSh () {
-      let self = this
+    submitSh() {
+      let self = this;
       let data = {
         planId: self.$router.currentRoute.params.id,
         auditDesc: self.auditDesc,
         auditStatus: self.auditStatus
-      }
-      self.$ajaxMore('post', self.HOST + '/tr/planAudit/web/auditPlan', data, (res) => {
-        if (res.success) {
-          self.getCheckType()
-          self.getHistory()
-        } else {
-          self.$message({
-            message: res.msg,
-            type: 'error'
-          })
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/planAudit/web/auditPlan",
+        data,
+        res => {
+          if (res.success) {
+            self.getCheckType();
+            self.getHistory();
+          } else {
+            self.$message({
+              message: res.msg,
+              type: "error"
+            });
+          }
         }
-      })
+      );
     },
     // 获取审核状态
-    getCheckType () {
-      let self = this
-      self.$ajax('post', self.HOST + '/tr/planAudit/web/getPlanDetail', {
-        planId: self.$router.currentRoute.params.id
-      }, (res) => {
-        if (res.success) {
-          self.fileListSh = res.obj.fileList || []
-          self.fileList = res.obj.fileList || []
-          self.textarea = res.obj.audit_desc
-          self.check_status = res.obj.check_status
-          self.myTime = res.obj.completeTime
-          // self.fileList = []
-          // if (res.obj.fileList && res.obj.fileList.length) {
-          //   self.fileListOld = res.obj.fileList
-          //   for (let item of res.obj.fileList) {
-          //     self.fileList.push({
-          //       name: item.oldFileName,
-          //       url: item.fileUrl
-          //     })
-          //   }
-          // }
-          //  for (let item of self.fileListSh) {
-          //    item.url = location.origin + location.pathname + location.search + item.fileUrl
-          //  }
-        } else {
-          self.$message({
-            type: 'error',
-            message: res.msg
-          })
+    getCheckType() {
+      let self = this;
+      self.$ajax(
+        "post",
+        self.HOST + "/tr/planAudit/web/getPlanDetail",
+        {
+          planId: self.$router.currentRoute.params.id
+        },
+        res => {
+          if (res.success) {
+            self.fileListSh = res.obj.fileList || [];
+            self.fileList = res.obj.fileList || [];
+            self.textarea = res.obj.audit_desc;
+            self.check_status = res.obj.check_status;
+            self.myTime = res.obj.completeTime;
+            // self.fileList = []
+            // if (res.obj.fileList && res.obj.fileList.length) {
+            //   self.fileListOld = res.obj.fileList
+            //   for (let item of res.obj.fileList) {
+            //     self.fileList.push({
+            //       name: item.oldFileName,
+            //       url: item.fileUrl
+            //     })
+            //   }
+            // }
+            //  for (let item of self.fileListSh) {
+            //    item.url = location.origin + location.pathname + location.search + item.fileUrl
+            //  }
+          } else {
+            self.$message({
+              type: "error",
+              message: res.msg
+            });
+          }
         }
-      })
+      );
     },
     // 获取审核记录列表
-    getHistory () {
-      let self = this
-      self.$ajax('post', self.HOST + '/tr/planAudit/web/getHistroySubmitInfo', {planId: self.$router.currentRoute.params.id}, (res) => {
-        if (res.success) {
-          self.history_list = res.obj
-        } else {
-          self.$message({
-            type: 'error',
-            message: res.msg
-          })
+    getHistory() {
+      let self = this;
+      self.$ajax(
+        "post",
+        self.HOST + "/tr/planAudit/web/getHistroySubmitInfo",
+        { planId: self.$router.currentRoute.params.id },
+        res => {
+          if (res.success) {
+            self.history_list = res.obj;
+          } else {
+            self.$message({
+              type: "error",
+              message: res.msg
+            });
+          }
         }
-      })
+      );
     }
   }
-}
+};
 </script>
 <style scoped>
 .slgl_box {
@@ -693,13 +735,13 @@ export default {
   background: #ffc000;
 }
 .style_two {
-  background: #a5a5a5
+  background: #a5a5a5;
 }
 .style_three {
   background: #70ad47;
 }
 .style_four {
-  background: #ed7d31
+  background: #ed7d31;
 }
 .style_five {
   background: #4472c4;
@@ -719,12 +761,13 @@ export default {
   line-height: 60px;
   border-bottom: 1px solid #f1f1f1;
 }
-.detail_item_left, .detail_item_right {
+.detail_item_left,
+.detail_item_right {
   display: inline-block;
   vertical-align: top;
 }
 .detail_item_left {
-  width: 80px;
+  width: 110px;
   /* text-align: right; */
   font-size: 14px;
   color: #76838f;
@@ -732,7 +775,7 @@ export default {
 .detail_item_right {
   padding-left: 30px;
   font-size: 14px;
-  color:#222;
+  color: #222;
 }
 .detail_icon {
   color: #70ad47;
@@ -745,7 +788,7 @@ export default {
   line-height: 50px;
 }
 .zb_title::before {
-  content: ' ';
+  content: " ";
   display: inline-block;
   width: 4px;
   background: #70ad47;
@@ -774,12 +817,11 @@ export default {
 }
 .history_item_right {
   display: inline-block;
-
 }
-.is-expanded>.el-tree-node__content .expanded+span i.iconfont {
+.is-expanded > .el-tree-node__content .expanded + span i.iconfont {
   color: #feb078 !important;
 }
-.is-current>.el-tree-node__content>.custom-tree-node .iconfont {
+.is-current > .el-tree-node__content > .custom-tree-node .iconfont {
   color: #feb078 !important;
 }
 .el-upload-list__item.is-success .el-icon-close-tip {
@@ -789,43 +831,88 @@ export default {
   color: #37474f;
   word-break: break-all;
 }
-.recod {width:90%;height:auto;/*float:left;*/margin-left:5%;margin-top:5%;}
-.recod ul{margin-top:0px;float:left; width: 100%;}
-.recod ul li {width:100%;font-size: 0;height:auto;/*float:left;*/margin-top:0;line-height:inherit;padding-bottom:20px;border-left:1px solid #dfdfdf;}
-.recod ul li label em{/*float:left;*/font-style:normal;}
-.recod ul li label font{/*float:left;*/width:50%;word-break: break-all}
-.recod ul li:last-child{border:none;}
-.recod ul li i{
+.recod {
+  width: 90%;
+  height: auto; /*float:left;*/
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.recod ul {
+  margin-top: 0px;
+  float: left;
+  width: 100%;
+}
+.recod ul li {
+  width: 100%;
+  font-size: 0;
+  height: auto; /*float:left;*/
+  margin-top: 0;
+  line-height: inherit;
+  padding-bottom: 20px;
+  border-left: 1px solid #dfdfdf;
+}
+.recod ul li label em {
+  /*float:left;*/
+  font-style: normal;
+}
+.recod ul li label font {
+  /*float:left;*/
+  width: 50%;
+  word-break: break-all;
+}
+.recod ul li:last-child {
+  border: none;
+}
+.recod ul li i {
   /* display:inline-block; */
-  width:10px;height:10px;
-float:left;
-/* margin-left:-5px; */
-margin-top: 16px;
-/* transform: translateX(-5px) */
+  width: 10px;
+  height: 10px;
+  float: left;
+  /* margin-left:-5px; */
+  margin-top: 16px;
+  /* transform: translateX(-5px) */
 }
-.recod ul li.cur i{width:28px;height:28px;margin-left:-13px;margin-top: 0}
-.recod ul li i.iconfont{/*float:left;*/margin-left:-13px;}
-.recod ul li span{padding-right:5%;color:#999;line-height:inherit;
-    /* display: inline-block; */
-    width: 25%;
-    height: auto;
-    /*float: left;*/
-    text-align: right;
-    padding-right: 1%;
-    line-height: 42px;
+.recod ul li.cur i {
+  width: 28px;
+  height: 28px;
+  margin-left: -13px;
+  margin-top: 0;
 }
-.recod ul li.cur span{margin-left:-8px;}
-.recod ul li.cur span,.recod ul li.cur label{color:#80b748;}
-.recod ul li label {line-height: 42px;}
+.recod ul li i.iconfont {
+  /*float:left;*/
+  margin-left: -13px;
+}
+.recod ul li span {
+  padding-right: 5%;
+  color: #999;
+  line-height: inherit;
+  /* display: inline-block; */
+  width: 25%;
+  height: auto;
+  /*float: left;*/
+  text-align: right;
+  padding-right: 1%;
+  line-height: 42px;
+}
+.recod ul li.cur span {
+  margin-left: -8px;
+}
+.recod ul li.cur span,
+.recod ul li.cur label {
+  color: #80b748;
+}
+.recod ul li label {
+  line-height: 42px;
+}
 .transform_style {
   padding-left: 20px;
-  transform: translateY(-21px)
+  transform: translateY(-21px);
 }
 .list_time {
   margin-left: 10px;
 }
 ul li:first-child .icon_list {
-  transform: translateX(2px)
+  transform: translateX(2px);
 }
 .icon_list {
   float: left;
@@ -842,13 +929,13 @@ ul li:first-child .icon_list {
   margin-left: 20px;
   cursor: pointer;
   font-size: 16px;
-  transform: translateY(2px)
+  transform: translateY(2px);
 }
 .no_data {
   text-align: center;
   padding: 50px 0;
 }
 .no_data img {
-  max-width: 100%
+  max-width: 100%;
 }
 </style>

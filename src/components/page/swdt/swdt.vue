@@ -1,6 +1,6 @@
 <template>
   <div class="swdt_box">
-    <div style="text-align: right;padding: 10px;"><el-button type="primary" size="small" @click="downloadAll">整体导出</el-button></div>
+    <div style="text-align: right;padding: 10px;"><el-button type="primary" size="small" @click="downloadAll" style="background-color: #ebb563;border-color: #ebb563">整体导出</el-button></div>
     <div id="tree-container" style="height: 100%;width: 100%;"></div>
       <el-dialog title="查看" :visible.sync="dialogVisible" width="900px">
     <el-button type="primary" @click="toExcel" style="position: absolute;right: 60px;top: 35px;" size="small">导出</el-button>

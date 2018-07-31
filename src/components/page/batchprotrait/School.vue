@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent_school">
     <div class="list_card marginBtom24 clearfix">
-      <div class="schoolShow">
+      <div class="schoolShow cjs_add_new">
         <el-card class="box-card clearfix">
           <div class="countBoxL">
             <i class="iconfont iconColor1">&#xe644;</i>
@@ -11,10 +11,28 @@
             <p class="num">
               <span>{{list_01.value1}}</span> 人
             </p>
+            <template v-if="list_01.value5 !== undefined">
+              <template v-if="list_01.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_01.value5}} 人
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_01.value5}} 人
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
-      <div class="schoolShow">
+      <div class="schoolShow cjs_add_new">
         <el-card class="box-card clearfix">
           <div class="countBoxL">
             <i class="iconfont iconColor2">&#xe644;</i>
@@ -24,10 +42,28 @@
             <p class="num">
               <span>{{list_01.value2}}</span> 人
             </p>
+            <template v-if="list_01.value6 !== undefined">
+              <template v-if="list_01.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_01.value6}} 人
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_01.value6}} 人
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
-      <div class="schoolShow">
+      <div class="schoolShow cjs_add_new">
         <el-card class="box-card clearfix">
           <div class="countBoxL">
             <i class="iconfont iconColor3">&#xe644;</i>
@@ -37,10 +73,28 @@
             <p class="num">
               <span>{{list_01.value3}}:1</span>
             </p>
+            <template v-if="list_01.value7 !== undefined">
+              <template v-if="list_01.value7 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_01.value7}}
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_01.value7}}
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
-      <div class="schoolShow last">
+      <div class="schoolShow last cjs_add_new">
         <el-card class="box-card clearfix">
           <div class="countBoxL">
             <i class="iconfont iconColor4">&#xe644;</i>
@@ -50,6 +104,24 @@
             <p class="num">
               <span>{{list_01.value4}}</span> 万元
             </p>
+            <template v-if="list_01.value8 !== undefined">
+              <template v-if="list_01.value8 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_01.value8}} 万元
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_01.value8}} 万元
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -98,8 +170,8 @@
     <div class="expandBox marginBtom24">
       <div class="titleTop">基本办学条件</div>
       <el-card class="box-card">
-       
-        <div class="schoolShowGroup clearfix" style="margin-bottom:10px">
+
+        <div class="schoolShowGroup clearfix cjs_school_new" style="margin-bottom:10px">
           <div class="schoolShow schoolShowA">
             <div class="countBoxL">
               <i class="iconfont iconColor1">&#xe644;</i>
@@ -109,6 +181,24 @@
               <p class="num">
                 <span>{{list_jbbxtj.value1}}</span> 平方米
               </p>
+              <template v-if="list_jbbxtj.value4 !== undefined">
+                <template v-if="list_jbbxtj.value4 - 0 > 0">
+                  <p>
+                    相比同类院校多
+                    <span>{{list_jbbxtj.value4}} 平方米
+                      <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                    </span>
+                  </p>
+                </template>
+                <template v-else>
+                  <p>
+                    相比同类院校少
+                    <span>{{-list_jbbxtj.value4}} 平方米
+                      <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                    </span>
+                  </p>
+                </template>
+              </template>
             </div>
           </div>
           <div class="schoolShow schoolShowA">
@@ -120,8 +210,26 @@
               <p class="num">
                 <span>{{list_jbbxtj.value2}}</span> 平方米
               </p>
+              <template v-if="list_jbbxtj.value5 !== undefined">
+                <template v-if="list_jbbxtj.value5 - 0 > 0">
+                  <p>
+                    相比同类院校多
+                    <span>{{list_jbbxtj.value5}} 平方米
+                      <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                    </span>
+                  </p>
+                </template>
+                <template v-else>
+                  <p>
+                    相比同类院校少
+                    <span>{{-list_jbbxtj.value5}} 平方米
+                      <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                    </span>
+                  </p>
+                </template>
+              </template>
             </div>
-          </div> 
+          </div>
           <div class="schoolShow schoolShowA">
             <div class="countBoxL">
               <i class="iconfont iconColor3">&#xe644;</i>
@@ -131,10 +239,28 @@
               <p class="num">
                 <span>{{list_jbbxtj.value3}}</span> 平方米
               </p>
+              <template v-if="list_jbbxtj.value6 !== undefined">
+                <template v-if="list_jbbxtj.value6 - 0 > 0">
+                  <p>
+                    相比同类院校多
+                    <span>{{list_jbbxtj.value6}} 平方米
+                      <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                    </span>
+                  </p>
+                </template>
+                <template v-else>
+                  <p>
+                    相比同类院校少
+                    <span>{{-list_jbbxtj.value6}} 平方米
+                      <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                    </span>
+                  </p>
+                </template>
+              </template>
             </div>
           </div>
         </div>
-         <div class="expandEcharts" id="chart_box_jbbxtj"></div>
+        <div class="expandEcharts" id="chart_box_jbbxtj"></div>
       </el-card>
     </div>
     <!-- 馆藏图书资料 -->
@@ -150,6 +276,24 @@
             <p class="num">
               <span>{{list_gctszl.value1}}</span> 万册
             </p>
+            <template v-if="list_gctszl.value7 !== undefined">
+              <template v-if="list_gctszl.value7 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value7}} 万册
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value7}} 万册
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -163,6 +307,24 @@
             <p class="num">
               <span>{{list_gctszl.value2}}</span> 万册
             </p>
+            <template v-if="list_gctszl.value8 !== undefined">
+              <template v-if="list_gctszl.value8 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value8}} 万册
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value8}} 万册
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -176,6 +338,24 @@
             <p class="num">
               <span>{{list_gctszl.value3}}</span> 册/生
             </p>
+            <template v-if="list_gctszl.value9 !== undefined">
+              <template v-if="list_gctszl.value9 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value9}} 册/生
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value9}} 册/生
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -189,6 +369,24 @@
             <p class="num">
               <span>{{list_gctszl.value4}}</span> 种
             </p>
+            <template v-if="list_gctszl.value10 !== undefined">
+              <template v-if="list_gctszl.value10 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value10}} 种
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value10}} 种
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -202,6 +400,24 @@
             <p class="num">
               <span>{{list_gctszl.value5}}</span> 种
             </p>
+            <template v-if="list_gctszl.value11 !== undefined">
+              <template v-if="list_gctszl.value11 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value11}} 种
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value11}} 种
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -215,6 +431,24 @@
             <p class="num">
               <span>{{list_gctszl.value6}}</span> 种
             </p>
+            <template v-if="list_gctszl.value12 !== undefined">
+              <template v-if="list_gctszl.value12 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_gctszl.value12}} 种
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_gctszl.value12}} 种
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -233,6 +467,24 @@
             <p class="num">
               <span>{{list_yls_jf_js.value1}}</span> 个
             </p>
+            <template v-if="list_yls_jf_js.value4 !== undefined">
+              <template v-if="list_yls_jf_js.value4 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_yls_jf_js.value4}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_yls_jf_js.value4}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -246,6 +498,24 @@
             <p class="num">
               <span>{{list_yls_jf_js.value2}}</span> 台
             </p>
+            <template v-if="list_yls_jf_js.value5 !== undefined">
+              <template v-if="list_yls_jf_js.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_yls_jf_js.value5}} 台
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_yls_jf_js.value5}} 台
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -259,6 +529,24 @@
             <p class="num">
               <span>{{list_yls_jf_js.value3}}</span> 间
             </p>
+            <template v-if="list_yls_jf_js.value6 !== undefined">
+              <template v-if="list_yls_jf_js.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_yls_jf_js.value6}} 间
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_yls_jf_js.value6}} 间
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -304,6 +592,24 @@
               <span class="first">
                 <em>{{list_xnsjjd.value1}}</em> 个</span>
             </p>
+            <template v-if="list_xnsjjd.value5 !== undefined">
+              <template v-if="list_xnsjjd.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xnsjjd.value5}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xnsjjd.value5}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item">
             <p class="resName">建筑面积</p>
@@ -311,6 +617,24 @@
               <span class="first">
                 <em>{{list_xnsjjd.value2}}</em> 平方米</span>
             </p>
+            <template v-if="list_xnsjjd.value6 !== undefined">
+              <template v-if="list_xnsjjd.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xnsjjd.value6}} 平方米
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xnsjjd.value6}} 平方米
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item">
             <p class="resName">设备总数</p>
@@ -318,6 +642,24 @@
               <span class="first">
                 <em>{{list_xnsjjd.value3}}</em> 台/套</span>
             </p>
+            <template v-if="list_xnsjjd.value7 !== undefined">
+              <template v-if="list_xnsjjd.value7 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xnsjjd.value7}} 台/套
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xnsjjd.value7}} 台/套
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item borderNone">
             <p class="resName">设备总值</p>
@@ -325,6 +667,24 @@
               <span class="first">
                 <em>{{list_xnsjjd.value4}}</em> 万元</span>
             </p>
+            <template v-if="list_xnsjjd.value8 !== undefined">
+              <template v-if="list_xnsjjd.value8 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xnsjjd.value8}} 万元
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xnsjjd.value8}} 万元
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </div>
       </el-card>
@@ -345,6 +705,24 @@
               <span class="first">
                 <em>{{list_xwsjjd.value1}}</em> 个</span>
             </p>
+            <template v-if="list_xwsjjd.value5 !== undefined">
+              <template v-if="list_xwsjjd.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xwsjjd.value5}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xwsjjd.value5}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item">
             <p class="resName">实习实训项目</p>
@@ -352,6 +730,24 @@
               <span class="first">
                 <em>{{list_xwsjjd.value2}}</em> 个</span>
             </p>
+            <template v-if="list_xwsjjd.value6 !== undefined">
+              <template v-if="list_xwsjjd.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xwsjjd.value6}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xwsjjd.value6}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item">
             <p class="resName">接待学生量</p>
@@ -359,6 +755,24 @@
               <span class="first">
                 <em>{{list_xwsjjd.value3}}</em> 人次</span>
             </p>
+            <template v-if="list_xwsjjd.value7 !== undefined">
+              <template v-if="list_xwsjjd.value7 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xwsjjd.value7}} 人次
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xwsjjd.value7}} 人次
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
           <div class="item borderNone">
             <p class="resName">接收应届毕业生就业数</p>
@@ -366,6 +780,24 @@
               <span class="first">
                 <em>{{list_xwsjjd.value4}}</em> 人</span>
             </p>
+            <template v-if="list_xwsjjd.value8 !== undefined">
+              <template v-if="list_xwsjjd.value8 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xwsjjd.value8}} 人
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xwsjjd.value8}} 人
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </div>
       </el-card>
@@ -388,6 +820,24 @@
             <p class="num">
               <span>{{list_bxjf.value1}}</span> 万元
             </p>
+            <template v-if="list_bxjf.value3 !== undefined">
+              <template v-if="list_bxjf.value3 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_bxjf.value3}} 万元
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_bxjf.value3}} 万元
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -401,6 +851,24 @@
             <p class="num">
               <span>{{list_bxjf.value2}}</span> 万元
             </p>
+            <template v-if="list_bxjf.value4 !== undefined">
+              <template v-if="list_bxjf.value4 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_bxjf.value4}} 万元
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_bxjf.value4}} 万元
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -438,6 +906,24 @@
             <p class="num">
               <span>{{list_zy_kc.value1}}</span> 个
             </p>
+            <template v-if="list_zy_kc.value4 !== undefined">
+              <template v-if="list_zy_kc.value4 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zy_kc.value4}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zy_kc.value4}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -451,6 +937,24 @@
             <p class="num">
               <span>{{list_zy_kc.value2}}</span> 个
             </p>
+            <template v-if="list_zy_kc.value5 !== undefined">
+              <template v-if="list_zy_kc.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zy_kc.value5}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zy_kc.value5}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -464,6 +968,24 @@
             <p class="num">
               <span>{{list_zy_kc.value3}}</span> 个
             </p>
+            <template v-if="list_zy_kc.value6 !== undefined">
+              <template v-if="list_zy_kc.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zy_kc.value6}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zy_kc.value6}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -521,6 +1043,24 @@
             <p class="num">
               <span>{{list_zslq.value1}}</span> 人
             </p>
+            <template v-if="list_zslq.value4 !== undefined">
+              <template v-if="list_zslq.value4 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zslq.value4}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zslq.value4}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -534,6 +1074,24 @@
             <p class="num">
               <span>{{list_zslq.value2}}</span> 人
             </p>
+            <template v-if="list_zslq.value5 !== undefined">
+              <template v-if="list_zslq.value5 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zslq.value5}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zslq.value5}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -547,6 +1105,24 @@
             <p class="num">
               <span>{{list_zslq.value3}}</span> 人
             </p>
+            <template v-if="list_zslq.value6 !== undefined">
+              <template v-if="list_zslq.value6 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_zslq.value6}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_zslq.value6}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -587,6 +1163,24 @@
             <p class="num">
               <span>{{list_xsst.value1}}</span> 个
             </p>
+            <template v-if="list_xsst.value3 !== undefined">
+              <template v-if="list_xsst.value3 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xsst.value3}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xsst.value3}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -600,6 +1194,24 @@
             <p class="num">
               <span>{{list_xsst.value2}}</span> 人
             </p>
+            <template v-if="list_xsst.value4 !== undefined">
+              <template v-if="list_xsst.value4 - 0 > 0">
+                <p>
+                  相比同类院校多
+                  <span>{{list_xsst.value4}} 个
+                    <i class="iconfont" style="color: #70ad47;">&#xe614;</i>
+                  </span>
+                </p>
+              </template>
+              <template v-else>
+                <p>
+                  相比同类院校少
+                  <span>{{-list_xsst.value4}} 个
+                    <i class="iconfont" style="color: #ffc000;">&#xe616;</i>
+                  </span>
+                </p>
+              </template>
+            </template>
           </div>
         </el-card>
       </div>
@@ -625,8 +1237,8 @@
   </div>
 </template>
 <script>
-import chartCommon from "./pic_common.js"
-import radarChart from './randerChart.vue'
+import chartCommon from "./pic_common.js";
+import radarChart from "./randerChart.vue";
 export default {
   components: { radarChart },
   data() {
@@ -848,14 +1460,9 @@ export default {
       Object.assign(this.list_xsst, data);
     });
     // 历年学生社团数目
-    chartCommon.getLineOrBar(
-      this,
-      this.baseUrl,
-      83,
-      "chart_box_lnxsstsm",
-      0,
-      { grid: { y2: 80 } }
-    );
+    chartCommon.getLineOrBar(this, this.baseUrl, 83, "chart_box_lnxsstsm", 0, {
+      grid: { y2: 80 }
+    });
     // 各单位注册社团数
     chartCommon.getDataZoom(this, this.baseUrl, 22, "chart_box_gdwzcsts", {
       x: 30,

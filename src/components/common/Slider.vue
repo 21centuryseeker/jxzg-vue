@@ -132,7 +132,14 @@ export default {
         return "/" + array[1];
       } else if (array[1] === "swdtDetail") {
         return "/swdt";
+      } else if (array[1] === "Add_jm_bzlzbk") {
+        return "/bz";
+      } else if (array[1] === "edit_jm_bzlzbk") {
+        return "/bz";
+      } else if (array[1] === "zdbg_ls") {
+        return "/zdbg";
       }
+      
       if (array.length >= 3 && !(array[2] - 0)) {
         return "/" + array[1];
       }

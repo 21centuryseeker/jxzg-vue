@@ -29,7 +29,7 @@
             <div class="detail_item_box">
               <div class="detail_item_left">
                 <i class="iconfont detail_icon">&#xe636;</i>
-                起止时间</div>
+                起止日期</div>
               <div class="detail_item_right">{{startTime + '至' + endTime}}</div>
             </div>
           </div>

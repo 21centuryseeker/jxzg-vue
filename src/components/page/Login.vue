@@ -3,7 +3,7 @@
     <div class="login_right">
       <div class="login_right_content">
         <div style="text-align: center;margin-bottom: 60px;">
-          <img src="../../../static/img/login_logo.png" alt="">
+          <img src="/tr/trLogoConfig/getLogo/2" alt="">
         </div>
         <div class="project_title">质量监测诊改系统</div>
         <template v-if="loginstate == 1 && !isForget">

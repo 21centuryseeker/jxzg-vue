@@ -107,19 +107,17 @@
           </template>
           <template v-else>
             <el-row :gutter="20">
-              <el-col :span="12">   
-                  <p class="details" style="margin-bottom:10px">
-                    该专业建设质量指数<span style="color:#70ad47"> {{zdf?zdf:'-'}}</span>分
-                    <span style="margin-left:10px">全校排名 第</span><span style="color:#70ad47">{{XXTOP?XXTOP:'-'}}</span>名
-                    <span style="margin-left:10px">全院排名 第</span><span style="color:#70ad47">{{ZYTOP?ZYTOP:'-'}}</span>名
-                  </p>
+              <el-col :span="12">  
+                 <div class="textTitleA">该专业建设质量指数<span style="color:#70ad47;font-weight: bold;"> {{zdf?zdf:'-'}}</span>分</div> 
+                  <div class="textTitleA" style="margin-bottom:10px">
+                    全校排名 第<span style="color:#70ad47;font-weight: bold;">{{XXTOP?XXTOP:'-'}}</span>名
+                    &nbsp; 
+                    全院排名 第<span style="color:#70ad47;font-weight: bold;">{{ZYTOP?ZYTOP:'-'}}</span>名
+                  </div>
                   <!-- 雷达图 -->
                   <div id="zyZhLD" style="height:367px"></div>
-
               </el-col>
-
-              <el-col :span="12">
-               
+              <el-col :span="12">             
                   <div style="padding-top: 50px;">
                     <table class="special_table" style="width:100%">
                       <thead>
@@ -139,8 +137,7 @@
                         </template>
                       </tbody>
                     </table>
-                  </div>
-               
+                  </div>              
               </el-col>
             </el-row>
           </template>
@@ -346,7 +343,7 @@
                       <tbody>
                         <tr v-for="(list, index1) in teacherDistributeData" :key="index1">
                           <td>{{index1+1}}</td>
-                          <td class="leftAlign">{{list.KCMC}}</td>
+                          <td class="leftAlign"><span class="long">{{list.KCMC}}</span></td>
                           <td>{{list.zxs}}</td>
                         </tr>
                       </tbody>
@@ -364,7 +361,7 @@
                       <tbody>
                         <tr v-for="(list, index1) in teacherDistributeData1" :key="index1">
                           <td>{{teacherDistributeData.length + index1+1}}</td>
-                          <td class="leftAlign">{{list.KCMC}}</td>
+                          <td class="leftAlign"><span class="long">{{list.KCMC}}</span></td>
                           <td>{{list.zxs}}</td>
                         </tr>
                       </tbody>
@@ -1864,5 +1861,14 @@ export default {
 .special_table_box .special_table .leftAlign {
   text-align: left;
   padding-left: 70px;
+}
+.long{
+   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+    max-width: 185px!important;
+  width: 100%;
+  
 }
 </style>

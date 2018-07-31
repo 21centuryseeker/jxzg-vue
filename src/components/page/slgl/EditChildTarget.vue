@@ -566,7 +566,7 @@ export default {
         stand: this.lhbz_radio - 0 === 1 ? this.standard : this.lhbz_id,
         standType: this.lhbz_radio
       };
-      this.workId ? (objAss.workId = this.workId) : "";
+      this.workId ? (data.workId = this.workId) : "";
       let objAss = {};
       if (this.shType - 0 === 3) {
         // 第三方审核
@@ -620,7 +620,7 @@ export default {
         }
         this.warnNumList = [];
         for (let item of this.yjLists) {
-          if (item.value ^ (item.input.trim() === "")) {
+          if (this.cjs_xor(item.value, item.input.trim())) {
             this.$message({
               type: "warning",
               message: "请完整填写预警设置"

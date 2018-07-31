@@ -70,6 +70,37 @@ const router = new Router({
             requireAuth: true
           }
         },
+        // 重点关注
+        // 疑似不在校学生
+        {
+          path: '/ysbzxxs',
+          component: resolve => require(['../components/page/zdgz/ysbzxxs.vue'], resolve),
+          meta: {
+            isshowSubTitle: false,
+            title: '疑似不在校学生',
+            requireAuth: true
+          }
+        },
+        // 困难学生
+        {
+          path: '/knxs',
+          component: resolve => require(['../components/page/zdgz/knxs.vue'], resolve),
+          meta: {
+            isshowSubTitle: false,
+            title: '困难学生',
+            requireAuth: true
+          }
+        },
+        // 资源利用率
+        {
+          path: '/zylyl',
+          component: resolve => require(['../components/page/zdgz/zylyl.vue'], resolve),
+          meta: {
+            isshowSubTitle: false,
+            title: '资源利用率',
+            requireAuth: true
+          }
+        },
         {
           path: '/swdt',
           component: resolve => require(['../components/page/swdt/swdt.vue'], resolve),
@@ -471,6 +502,15 @@ const router = new Router({
             title: '职业院校内部质量保证体系自我诊改报告',
             requireAuth: true,
             isshowSubTitle: false
+          }
+        },
+        {
+          path: '/zdbg_ls/:id',
+          component: resolve => require(['../components/page/historyBG.vue'], resolve),
+          meta: {
+            title: '历史报告',
+            requireAuth: true,
+            isshowSubTitle: true
           }
         },
         // 发展中心

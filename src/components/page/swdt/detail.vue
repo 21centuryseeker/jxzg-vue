@@ -56,7 +56,7 @@ export default {
       } else {
         this.$message({
           type: 'error',
-          msg: res.msg
+          message: res.msg
         })
       }
     })

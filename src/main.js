@@ -85,6 +85,9 @@ Vue.prototype.variable_type = function (o) {
   */
   return Object.prototype.toString.call(o)
 }
+Vue.prototype.cjs_xor = function (a, b) {
+  return Boolean(a) != Boolean(b)
+}
 Vue.prototype.$echarts = echarts
 Vue.prototype.$swiper = swiper
 Vue.prototype.$ChartUtil = chartUtil

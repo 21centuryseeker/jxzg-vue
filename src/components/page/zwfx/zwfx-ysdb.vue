@@ -133,7 +133,7 @@
         <div  v-if="this.user - 0 === 1">
         <!-- 选择专业 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="teacherYxValue" filterable placeholder="请选择" @change="teacherYxChange" style="width: 280px;" clearable>
             <el-option
@@ -164,7 +164,7 @@
       <div v-if="this.user - 0 === 2">
         <!-- 选择院系 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">选择院系</div>
           <div class="item_right">
             <el-select v-model="studentyxValue" placeholder="请选择" @change="studentyxChange" style="width: 280px;" clearable>
             <el-option
@@ -258,7 +258,7 @@
       <div v-if="this.user - 0 === 4">
         <!-- 选择院系 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="yxValue" placeholder="请选择" @change="yxChange" style="width: 280px;" clearable>
             <el-option
@@ -303,7 +303,7 @@
         </div>
         <!-- 选择年级 -->
         <!-- <div class="item_box" v-if="if_kc_show">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="njValue" placeholder="请选择" @change="njChange" style="width: 280px;" clearable :disabled="kc_nj_disabled">
             <el-option
@@ -612,7 +612,7 @@
       <div  v-if="this.user - 0 === 1">
         <!-- 选择专业 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="teacherYxValue" filterable placeholder="请选择" @change="teacherYxChange" style="width: 280px;" clearable>
             <el-option
@@ -643,7 +643,7 @@
       <div v-if="this.user - 0 === 2">
         <!-- 选择院系 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">选择院系</div>
           <div class="item_right">
             <el-select v-model="studentyxValue" placeholder="请选择" @change="studentyxChange" style="width: 280px;" clearable>
             <el-option
@@ -736,7 +736,7 @@
       <div v-if="this.user - 0 === 4">
         <!-- 选择院系 -->
         <div class="item_box">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="yxValue" placeholder="请选择" @change="yxChange" style="width: 280px;" clearable>
             <el-option
@@ -781,7 +781,7 @@
         </div>
         <!-- 选择年级 -->
         <!-- <div class="item_box" v-if="if_kc_show">
-          <div class="item_left">专业部</div>
+          <div class="item_left">院系</div>
           <div class="item_right">
             <el-select v-model="njValue" placeholder="请选择" @change="njChange" style="width: 280px;" clearable :disabled="kc_nj_disabled">
             <el-option
@@ -1229,7 +1229,7 @@ export default {
         } else {
           this.$message({
             type: 'error',
-            msg: res.msg
+            message: res.msg
           })
         }
       })
@@ -1256,7 +1256,7 @@ export default {
         } else {
           this.$message({
             type: 'error',
-            msg: res.msg
+            message: res.msg
           })
         }
       })
@@ -1282,7 +1282,7 @@ export default {
         } else {
           this.$message({
             type: 'error',
-            msg: res.msg
+            message: res.msg
           })
         }
       })
@@ -1341,7 +1341,7 @@ export default {
         } else {
           this.$message({
             type: 'error',
-            msg: res.msg
+            message: res.msg
           })
         }
       })

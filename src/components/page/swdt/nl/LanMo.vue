@@ -6,7 +6,7 @@
         <tr>
           <td>
             <el-radio-group v-model="type" @change="chare">
-            <el-radio-button :label="value.id" v-for="(value,key) of classes" :key="key">
+            <el-radio-button :label="value" v-for="(value,key) of classes" :key="key">
               <div>{{value.table_name}}</div>
             </el-radio-button>
           </el-radio-group>
@@ -14,13 +14,12 @@
           <td>&nbsp;</td>
           <td style="text-align: right" colspan="2"> <el-input v-if="!isClass" size="smal" v-model="temsearch" placeholder="请输入学号进行查询"></el-input></td>
           <td></td>
-          <td style="text-align: right;width: 5%">  <el-button v-if="!isClass" style="background-color: #a5a5a5;color: white; "  @click="searchs">搜索</el-button>
-            <span v-else>&nbsp;</span>
+          <td style="text-align: right;width: 5%">  <el-button  style="background-color: #ebb563;color: white; border-color:#ebb563"  @click="exportFile">导出</el-button>
           </td>
         </tr>
       </table>
     </el-card>
-    <class-info :cid="dcid"></class-info>
+    <class-info :cid="dcid" :itype="itype"></class-info>
     </div>
 </template>
 
@@ -32,6 +31,7 @@ export default {
   data () {
     return {
       type: '1',
+      itype:'',
       dcid: '',
       searchkey: '',
       temsearch: '',
@@ -51,17 +51,8 @@ export default {
     ClassInfo
   },
   methods: {
-    searchs: function () {
-      let cid = this.dcid
-      this.$ajax('get', this.HOST + '/tr/Ybk/web/checkBeforeSearch?classId=' + cid + '&search=' + this.temsearch, {}, (data) => {
-        console.log('class', data)
-        let flag = data.success
-        if (flag === true) {
-          this.searchkey = this.temsearch
-        } else {
-          this.$message('没有该学生')
-        }
-      })
+    exportFile: function () {
+        window.location=this.HOST + '/tr/preview/export/'+this.dcid+'/'+this.itype;
     },
     getClass () {
       this.$ajax('get', this.HOST + '/tr/trTable/web/getTableList', {}, (data) => {
@@ -70,8 +61,10 @@ export default {
         if (flag === true) {
           this.classes = data.obj
           if (this.classes.length > 0) {
-
+            this.type = this.classes[0]
             this.dcid = (this.classes[0].id).toString()
+            this.itype = (this.classes[0].itype).toString()
+
           }
 
         }
@@ -136,16 +129,9 @@ export default {
       this.$router.push({name: name, params: {cid: cid}, query: {cid: cid}})
     },
     chare: function (ty) {
-      this.dcid = ty.toString()
-      this.temsearch = ''
-      this.searchkey = ''
-      if (ty === '1') {
-        // this.$router.push('/lmybk/class')
-        this.isClass = true
-      } else {
-        this.isClass = false
-        // this.$router.push('/lmybk/student')
-      }
+      console.log(ty)
+      this.dcid = (ty.id).toString()
+      this.itype = (ty.itype).toString()
     }
 
   }

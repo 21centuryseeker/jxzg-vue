@@ -16,7 +16,7 @@
             <li>
               <div class="title_seach">专业</div>
               <div class="title_select">
-                <el-select v-model="valueZy" placeholder="请选择" size="small" style="width: 300px" filterable>
+                <el-select v-model="valueZy" placeholder="请选择" size="small" style="width: 300px" filterable @change="getZY">
                   <el-option v-for="(item,index)  in optionsZy" :key="index" :label="item.name" :value="item.code">
                   </el-option>
                 </el-select>
@@ -37,51 +37,37 @@
             <el-col :span="6">
               <div class="infoLeft">
                 <div class="pic"><img src="../../../assets/zhuanyehuaxiang.png" /></div>
-                <p class="leason">{{baseInfo.ZYMC}}</p>
+                <p class="leason">{{ZymcNew}}</p>
               </div>
             </el-col>
             <el-col :span="18" style="position: relative;">
-              <div class="infoList" style="padding-bottom: 10px;">
+              <div class="infoList" style="padding-bottom: 10px;padding-top: 20px;">
                 <ul class="clearfix">
                   <li>
-                    <span>专业代码：</span>{{baseInfo.ZYDM?baseInfo.ZYDM:'--'}}</li>
+                    <span>专业代码：</span>{{valueZyNew}}</li>
                   <li>
-                    <span>首次招生时间： </span>{{baseInfo.fzr?baseInfo.fzr:'--'}}</li>
+                    <span>首次招生时间： </span>2008年</li>
                   <!-- <li><span>已建教学文本数： </span>{{}}</li> -->
                   <li>
-                    <span>专业带头人： </span>{{baseInfo.dtr?baseInfo.dtr:'--'}}</li>
+                    <span>所属类别： </span>特色专业</li>
                 </ul>
                 <ul class="clearfix">
                   <li>
-                    <span>学制：</span>{{baseInfo.XZ?baseInfo.XZ:'--'}}</li>
+                    <span>修业年限：</span>3年</li>
 
                   <li>
-                    <span>批准设置日期：</span>{{baseInfo.JLNY?baseInfo.JLNY:'--'}}</li>
+                    <span>主要面向就业岗位：</span>{{ZymcNew}}</li>
                   <li>
-                    <span>重点专业： </span>{{baseInfo.XZ_ZDZY?baseInfo.XZ_ZDZY:'--'}}</li>
+                    <span>批准设置时间： </span>200806</li>
                   <!-- <li><span>校内实训数： </span>{{}}</li> -->
                 </ul>
                 <ul class="clearfix">
                   <li>
-                    <span>特色专业： </span>{{baseInfo.XZ_TSZY?baseInfo.XZ_TSZY:'--'}}</li>
+                    <span>班级总数： </span>3</li>
                   <li>
-                    <span>专业对口率： </span>{{baseInfo.dkl?baseInfo.dkl:'--'}}%</li>
+                    <span>设置年限： </span>10年</li>
                   <li>
-                    <span>就业率： </span>{{baseInfo.jyl?baseInfo.jyl:'--'}}%</li>
-                </ul>
-
-                <ul class="clearfix">
-                  <li>
-                    <span>班级总数：</span>{{baseInfo.BJZS?baseInfo.BJZS:'--'}} </li>
-                  <li>
-                    <span>现代学徒制试点专业： </span>{{baseInfo.XZ_SFXTZ?baseInfo.XZ_SFXTZ:'-'}}</li>
-                  <li>
-                    <span>是否有上届毕业生： </span>{{baseInfo.XZ_SFYSJBYS?baseInfo.XZ_SFYSJBYS:'--'}}</li>
-                </ul>
-                <ul class="clearfix">
-                  <li>
-                    <span>批准招生日期：</span>{{baseInfo.QSXQ?baseInfo.QSXQ:'--'}}</li>
-
+                    <span>专业带头人： </span>刘冰</li>
                 </ul>
               </div>
             </el-col>
@@ -89,8 +75,150 @@
         </el-card>
       </div>
 
+      <el-dialog title="添加对比分析" :visible.sync="dialogVisible" width="30%">
+        <!-- <el-input placeholder="" v-model="addNewZy"></el-input> -->
+        <el-select v-model="addNewZy" placeholder="请选择" size="small" style="width: 300px" filterable @change="getDbZY">
+          <el-option v-for="(item,index)  in optionsZy" :key="index" :label="item.name" :value="item.code">
+          </el-option>
+        </el-select>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addNewZyFn">确 定</el-button>
+        </span>
+      </el-dialog>
+
+      <div style="margin-bottom:24px" class="special_table_box ">
+
+        <div class="titleName" style="  position: relative;">专业对比分析
+          <div class="dbzyAdd">
+            <span class="zyShow">{{dbZymc}}</span>
+            <span class="zyShow zyShowA"  @click="addfxFn"> <i class="iconfont" style="color:#70ad47">&#xe623;</i>添加对比分析</span>
+           
+          </div>
+        </div>
+
+        <div class=“special_table_box”>
+          <el-card class="box-card">
+            <template v-if="zyZhLDFlag">
+              <div class="nodataPic_zg" style="height:360px">
+                <img src="../../../assets/empty.jpg" />
+              </div>
+            </template>
+            <template v-else>
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <p class="details" style="margin-bottom:10px">
+                    {{ZymcNew}}综合得分
+                    <span style="color:#70ad47"> {{zdf?zdf:'-'}}</span>分
+                    <span style="margin-left:10px">全校排名 第</span>
+                    <span style="color:#70ad47">{{XXTOP?XXTOP:'-'}}</span>名
+                    <span style="margin-left:10px">全院排名 第</span>
+                    <span style="color:#70ad47">{{ZYTOP?ZYTOP:'-'}}</span>名
+                  </p>
+                  <p class="details" style="margin-bottom:10px">
+                    {{dbZymc}}综合得分
+                    <span style="color:#70ad47"> {{zdf1?zdf1:'-'}}</span>分
+                    <span style="margin-left:10px">全校排名 第</span>
+                    <span style="color:#70ad47">{{XXTOP1?XXTOP1:'-'}}</span>名
+                    <span style="margin-left:10px">全院排名 第</span>
+                    <span style="color:#70ad47">{{ZYTOP1?ZYTOP1:'-'}}</span>名
+                  </p>
+                  <!-- 雷达图 -->
+                  <div id="zyZhLD" style="height:367px"></div>
+
+                </el-col>
+
+                <el-col :span="12">
+                  <div style="padding-top: 50px;">
+                    <table class="special_table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th style="width:150px">序号</th>
+                          <th class="leftAlign">维度</th>
+                          <th style="width:200px">权重</th>
+                          <th style="width:200px">{{Zymc}}得分</th>
+                          <th style="width:200px">{{dbZymc}}得分</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template v-for="(item,index) in zyldtTable">
+                          <tr :key="index">
+                            <td>{{index+1}}</td>
+                            <td class="leftAlign">{{item.type_name}}</td>
+                            <td>{{item.qz}}</td>
+                            <td>{{item.score1}}</td>
+                            <td>{{item.score2}}</td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+                  </div>
+                </el-col>
+              </el-row>
+            </template>
+          </el-card>
+        </div>
+      </div>
+      <div class="special_table_box">
+         <el-card class="box-card">
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane :label="ZymcNew" name="first">
+              <table class="special_table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th class="leftAlign leftAlignA" style="width:200px">维度</th>
+                          <th style="width:200px" class="leftAlignA">专业</th>
+                          <th class="leftAlign leftAlignA">变动情况</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template v-for="(item,index) in zyldtTableA">
+                          <tr :key="index">
+                            <td class="leftAlign leftAlignA">{{item.type_name}}</td>
+                            <td class="leftAlign leftAlignA">{{item.zymc}}</td>
+                            <td class="leftAlign leftAlignA">
+                              <span class="listSpeca"><em>{{item.zg}}</em>项 <em class="specaColor">最高</em></span>
+                              <span class="listSpeca"><em>{{item.ss}}</em>项 <em class="specaColor specaColor1">上升</em></span>
+                              <span class="listSpeca"><em>{{item.cp}}</em>项 <em class="specaColor specaColor2">持平</em></span>
+                              <span class="listSpeca"><em>{{item.xj}}</em>项 <em class="specaColor specaColor3">下降</em></span>
+                              <span class="listSpeca"><em>{{item.zd}}</em>项 <em class="specaColor specaColor4">最低</em></span>
+                            </td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+          </el-tab-pane>
+          <el-tab-pane :label="dbZymc" name="second">
+                <table class="special_table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th class="leftAlign leftAlignA" style="width:200px">维度</th>
+                          <th style="width:200px" class="leftAlignA">专业</th>
+                          <th class="leftAlign leftAlignA">变动情况</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <template v-for="(item,index) in zyldtTableA">
+                          <tr :key="index">
+                            <td class="leftAlign leftAlignA">{{item.type_name}}</td>
+                            <td class="leftAlign leftAlignA">{{item.zymc}}</td>
+                            <td class="leftAlign leftAlignA">
+                              <span class="listSpeca"><em>{{item.zg}}</em>项 <em class="specaColor">最高</em></span>
+                              <span class="listSpeca"><em>{{item.ss}}</em>项 <em class="specaColor specaColor1">上升</em></span>
+                              <span class="listSpeca"><em>{{item.cp}}</em>项 <em class="specaColor specaColor2">持平</em></span>
+                              <span class="listSpeca"><em>{{item.xj}}</em>项 <em class="specaColor specaColor3">下降</em></span>
+                              <span class="listSpeca"><em>{{item.zd}}</em>项 <em class="specaColor specaColor4">最低</em></span>
+                            </td>
+                          </tr>
+                        </template>
+                      </tbody>
+                    </table>
+          </el-tab-pane>
+        </el-tabs>
+         </el-card>
+      </div>
       <div style="margin-bottom:24px">
-        <div>总体变动</div>
+        <div class="titleName">总体变动</div>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-card class="box-card">
@@ -111,7 +239,7 @@
 
       <!--历年招生录取情况 历年区域生源报到情况  -->
       <div style="margin-bottom:24px">
-        <div>申请转出</div>
+        <div class="titleName">申请转出</div>
         <el-row :gutter="20">
           <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
@@ -145,7 +273,7 @@
       </div>
 
       <div style="margin-bottom:24px">
-        <div>申请转入</div>
+        <div class="titleName">申请转入</div>
         <el-row :gutter="20">
           <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
@@ -180,7 +308,7 @@
 
       <!-- 在校生年级分布 -->
       <div style="margin-bottom:24px">
-        <div>资源库</div>
+        <div class="titleName">资源库</div>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-card class="box-card">
@@ -201,7 +329,7 @@
 
       <!-- 在校生年级分布 -->
       <div style="margin-bottom:24px">
-        <div>实训</div>
+        <div class="titleName">实训</div>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
@@ -267,14 +395,14 @@
             </el-card>
           </el-col>
           <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
+            <el-card class="box-card">
               <!-- 招生及录取情况 -->
               <div class="textTitleA">实开项目开出率 </div>
               <div class="majorEchart" style="height:345px;" id="sxykxmL" :key='454115'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
+            <el-card class="box-card">
               <!-- 招生及录取情况 -->
               <div class="textTitleA">实训室使用率</div>
               <div class="majorEchart" style="height:345px;" id="sxskxml" :key='452241225'></div>
@@ -283,142 +411,141 @@
         </el-row>
       </div>
 
-        <!-- 在校生年级分布 -->
+      <!-- 在校生年级分布 -->
       <div style="margin-bottom:24px">
-        <div>校企合作</div>
+        <div class="titleName">校企合作</div>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
               <div class="textTitleA">合作企业数量</div>
-                <div class="majorEchart" style="height:345px" id="hzqysl" :key='111211'></div>
+              <div class="majorEchart" style="height:345px" id="hzqysl" :key='111211'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
               <div class="textTitleA">合作企业类别</div>
-                <div class="majorEchart" style="height:345px;" id="hzqylb" :key='1013245'></div>
-             </el-card>
-          </el-col>
-          <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
-              <!-- 招生及录取情况 -->
-              <div class="textTitleA">合作企业层次及占比	</div>
-                <div class="majorEchart" style="height:345px" id="hzqyslcc" :key='11124411'></div>
+              <div class="majorEchart" style="height:345px;" id="hzqylb" :key='1013245'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">合作企业订单培养人数占全日制高职在校生人数比例	</div>
-                <div class="majorEchart" style="height:345px;" id="hzqyrsb" :key='101344245'></div>
-             </el-card>
-          </el-col>
-            <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
-              <!-- 招生及录取情况 -->
-              <div class="textTitleA">合作企业接受顶岗实习学生比例		</div>
-                <div class="majorEchart" style="height:345px" id="hzqyslccbl" :key='1115'></div>
+              <div class="textTitleA">合作企业层次及占比 </div>
+              <div class="majorEchart" style="height:345px" id="hzqyslcc" :key='11124411'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">合作企业录用应届毕业生比例	</div>
-                <div class="majorEchart" style="height:345px;" id="hzqyrsbl" :key='10855'></div>
-             </el-card>
-          </el-col>
-              <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
-              <!-- 招生及录取情况 -->
-              <div class="textTitleA">校企合作共同开发课程门数占开设课程总门数比例		</div>
-                <div class="majorEchart" style="height:345px" id="hzqyslccblll" :key='225'></div>
+              <div class="textTitleA">合作企业订单培养人数占全日制高职在校生人数比例 </div>
+              <div class="majorEchart" style="height:345px;" id="hzqyrsb" :key='101344245'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">专业拥有校企合作共同开发教材数		</div>
-                <div class="majorEchart" style="height:345px;" id="hzqyrsblbl" :key='2855'></div>
-             </el-card>
-          </el-col>
-             <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
-              <!-- 招生及录取情况 -->
-              <div class="textTitleA">企业捐赠设备数量			</div>
-                <div class="majorEchart" style="height:345px" id="qyjzsbs" :key='22995'></div>
+              <div class="textTitleA">合作企业接受顶岗实习学生比例 </div>
+              <div class="majorEchart" style="height:345px" id="hzqyslccbl" :key='1115'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">企业捐赠设备总价值			</div>
-                <div class="majorEchart" style="height:345px;" id="qyjzzjz" :key='2851599'></div>
-             </el-card>
-          </el-col>
-          	
-     <el-col :span="12">
-            <el-card class="box-card" style="margin-bottom:24px">
-              <!-- 招生及录取情况 -->
-              <div class="textTitleA">企业接受教师企业实践数量			</div>
-                <div class="majorEchart" style="height:345px" id="qyjsjssjs" :key='8822995'></div>
+              <div class="textTitleA">合作企业录用应届毕业生比例 </div>
+              <div class="majorEchart" style="height:345px;" id="hzqyrsbl" :key='10855'></div>
             </el-card>
           </el-col>
           <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">校企合作研发成果数量				</div>
-                <div class="majorEchart" style="height:345px;" id="xqhzyfcg" :key='882851599'></div>
-             </el-card>
+              <div class="textTitleA">校企合作共同开发课程门数占开设课程总门数比例 </div>
+              <div class="majorEchart" style="height:345px" id="hzqyslccblll" :key='225'></div>
+            </el-card>
           </el-col>
-         	
-         <el-col :span="24">
+          <el-col :span="12">
             <el-card class="box-card" style="margin-bottom:24px">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">校企合作研发成果占研发成果比率				</div>
-                <div class="majorEchart" style="height:345px;" id="xqhzbl" :key='9299'></div>
-             </el-card>
+              <div class="textTitleA">专业拥有校企合作共同开发教材数 </div>
+              <div class="majorEchart" style="height:345px;" id="hzqyrsblbl" :key='2855'></div>
+            </el-card>
+          </el-col>
+          <el-col :span="12">
+            <el-card class="box-card" style="margin-bottom:24px">
+              <!-- 招生及录取情况 -->
+              <div class="textTitleA">企业捐赠设备数量 </div>
+              <div class="majorEchart" style="height:345px" id="qyjzsbs" :key='22995'></div>
+            </el-card>
+          </el-col>
+          <el-col :span="12">
+            <el-card class="box-card" style="margin-bottom:24px">
+              <!-- 招生及录取情况 -->
+              <div class="textTitleA">企业捐赠设备总价值 </div>
+              <div class="majorEchart" style="height:345px;" id="qyjzzjz" :key='2851599'></div>
+            </el-card>
+          </el-col>
+
+          <el-col :span="12">
+            <el-card class="box-card" style="margin-bottom:24px">
+              <!-- 招生及录取情况 -->
+              <div class="textTitleA">企业接受教师企业实践数量 </div>
+              <div class="majorEchart" style="height:345px" id="qyjsjssjs" :key='8822995'></div>
+            </el-card>
+          </el-col>
+          <el-col :span="12">
+            <el-card class="box-card">
+              <!-- 招生及录取情况 -->
+              <div class="textTitleA">校企合作研发成果数量 </div>
+              <div class="majorEchart" style="height:345px;" id="xqhzyfcg" :key='882851599'></div>
+            </el-card>
+          </el-col>
+
+          <el-col :span="24">
+            <el-card class="box-card">
+              <!-- 招生及录取情况 -->
+              <div class="textTitleA">校企合作研发成果占研发成果比率 </div>
+              <div class="majorEchart" style="height:345px;" id="xqhzbl" :key='9299'></div>
+            </el-card>
           </el-col>
         </el-row>
       </div>
 
-
-     <div style="margin-bottom:24px">
-        <div>创新创业</div>
+      <div style="margin-bottom:24px">
+        <div class="titleName">创新创业</div>
         <el-row :gutter="20">
           <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">创业基地数量	</div>
+              <div class="textTitleA">创业基地数量 </div>
               <div class="majorEchart" style="height:345px" id="cyjdsl" :key='17883'></div>
             </el-card>
           </el-col>
           <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">学生创业比例  </div>
+              <div class="textTitleA">学生创业比例 </div>
               <div class="majorEchart" style="height:345px" id="xscybl" :key='1783'></div>
             </el-card>
           </el-col>
-          <el-col :span="12"  style="margin-bottom:24px">
+          <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">学校创业资助额	</div>
+              <div class="textTitleA">学校创业资助额 </div>
               <div class="majorEchart" style="height:345px" id="xscyzze" :key='1875'></div>
             </el-card>
           </el-col>
-          <el-col :span="12"  style="margin-bottom:24px">
+          <el-col :span="12" style="margin-bottom:24px">
             <el-card class="box-card">
               <!-- 招生及录取情况 -->
               <div class="textTitleA">创业课程开设数</div>
               <div class="majorEchart" style="height:345px" id="cykckss" :key='18873'></div>
             </el-card>
           </el-col>
-           <el-col :span="12">
+          <el-col :span="12">
             <el-card class="box-card">
               <!-- 招生及录取情况 -->
-              <div class="textTitleA">创业课程学习人数	</div>
+              <div class="textTitleA">创业课程学习人数 </div>
               <div class="majorEchart" style="height:345px" id="cykcxxrs" :key='188875'></div>
             </el-card>
           </el-col>
@@ -429,7 +556,6 @@
               <div class="majorEchart" style="height:345px" id="cygss" :key='1888873'></div>
             </el-card>
           </el-col>
-         
 
         </el-row>
       </div>
@@ -500,7 +626,18 @@ export default {
       LQflag: true,
       dataY: [], //申请总变动数
       arr1: [],
-      arr2: []
+      arr2: [],
+      zySelectGroup: [{ name: "wul" }, { name: "wuaal" }],
+
+      dbZydm: "156P",
+      dbZymc: "艺术专业",
+      Zymc: "",
+      dialogVisible: false,
+      addNewZy: "",
+      activeName:'first',
+      zyldtTableA:[],
+      ZymcNew:'',
+      valueZyNew:''
     };
   },
   created() {},
@@ -509,12 +646,225 @@ export default {
     this.getYxFn();
   },
   methods: {
+    
+    // 添加对比分析打开弹窗
+    addfxFn() {
+      this.addNewZy = "";
+      this.dialogVisible = true;
+    },
+    // 选择对比专业
+    getDbZY(vId) {
+      if (vId != this.valueZy) {
+        let obj = {};
+        obj = this.optionsZy.find(item => {
+          //这里的userList就是上面遍历的数据源
+          return item.code === vId; //筛选出匹配数据
+        });
+        // console.log(obj.name);//我这边的name就是对应label的
+        this.dbZymc = obj.name;
+        this.dbZydm = vId;
+      } else {
+        this.$message({
+          message: "不能选择相同专业对比",
+          type: "warning"
+        });
+      }
+    },
+    // 添加对比分析
+    addNewZyFn() {
+      
+      if (this.addNewZy) {
+        this.dialogVisible = false;
+        // 重新获取雷达图以及列表
+        this.zyZhFn();
+         this.activeName="first"
+      }else{
+        this.$message({
+          message: "请选择需要对比的专业",
+          type: "warning"
+        });
+      }
+    },
+
+    // 获取专业名称
+    getZY(vId) {
+      console.log("vId", vId);
+      let obj = {};
+      obj = this.optionsZy.find(item => {
+        //这里的userList就是上面遍历的数据源
+        return item.code === vId; //筛选出匹配数据
+      });
+      // console.log(obj.name);//我这边的name就是对应label的
+      this.Zymc = obj.name;
+
+      console.log("vId", obj.name);
+    },
+    // 请求雷达图
+    zyZhFn() {
+      let self = this;
+      let newData = {
+        typeId: 1,
+        zydm1: this.valueZy, //专业代码
+        zymc1: this.Zymc, //专业名称
+        zydm2: this.dbZydm, //对比专业代码
+        zymc2: this.dbZymc //对比专业名称
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchZyCompare",
+        newData,
+        res => {
+          if (res.data) {
+            let series = [
+              {
+                value: res.data.datax1List,
+                name: res.data.legend[0]
+              },
+              {
+                value: res.data.datax2List,
+                name: res.data.legend[1]
+              }
+            ];
+            setTimeout(() => {
+              this.studentScaleFn(
+                "",
+                res.data.legend,
+                res.data.indicator,
+                series,
+                document.getElementById("zyZhLD")
+              );
+            }, 150);
+          }
+        }
+      );
+    },
+    // 获取table
+    getDBTableFn() {
+      let self = this;
+      this.zyldtTable = [];
+      let newData = {
+        typeId: 1,
+        zydm1: this.valueZy, //专业代码
+        zydm2: this.dbZydm //对比专业代码
+      };
+      self.$ajaxMore(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/searchZyComparejbxx",
+        newData,
+        res => {
+          if (res.success) {
+            if (res.obj.length > 0) {
+              this.zyldtTable = res.obj;
+              // 专业得分
+              this.zdf = this.getRandom(50, 98);
+              this.zdf1 = this.getRandom(50, 98);
+              if (this.zdf > this.zdf1) {
+                this.XXTOP = this.getRandom(10, 40);
+                this.XXTOP1 = this.XXTOP + this.getRandom(0, 10);
+                this.ZYTOP = this.getRandom(40, 78);
+                this.ZYTOP1 = this.ZYTOP + this.getRandom(3, 20);
+              } else {
+                this.XXTOP = this.getRandom(10, 40);
+                this.XXTOP1 = this.XXTOP - this.getRandom(0, 10);
+                this.ZYTOP = this.getRandom(40, 78);
+                this.ZYTOP1 = this.ZYTOP - this.getRandom(3, 20);
+              }
+
+              this.zyZhLDFlag = false;
+            } else {
+              this.zyldtTable = [];
+              this.zyZhLDFlag = true;
+            }
+          }
+        }
+      );
+    },
+    // 雷达图数据
+    studentScaleFn(title, leg, ind, data, el) {
+      var option = {
+        title: {
+          // text: '基础雷达图'
+        },
+        tooltip: {},
+        legend: {
+          left: "right",
+          data: []
+        },
+        color: [
+          "#70ad47",
+          "#ed7d31",
+          "#ffc000",
+          "#4472c4",
+          "#a5a5a5",
+          "#dd6969",
+          "#00a6a6"
+        ],
+        radar: {
+          radius: "80%",
+          center: ["45%", "60%"],
+          // shape: 'circle',
+          name: {
+            textStyle: {
+              color: "#76838f",
+              backgroundColor: "#fff",
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: ind
+        },
+        series: [
+          {
+            name: "",
+            type: "radar",
+            itemStyle: { normal: { areaStyle: { type: "default" } } },
+            data: data
+          }
+        ]
+      };
+      var myChart = this.$echarts.init(el);
+      myChart.setOption(option);
+      window.addEventListener("resize", function() {
+        myChart.resize();
+      });
+    },
+    // 获取专业对比列表
+    getzyListfn(data) {
+      let self = this;
+      let newData = {
+        id:29,
+        key: data, //专业id
+      };
+      self.$ajax(
+        "post",
+        self.HOST + "/tr/individualPortrait/web/getselectJbxx",
+        newData,
+        res => {
+          if (res.success) {
+             this.zyldtTableA=res.obj
+          }
+        }
+      );
+    },
+    handleClick(){
+      if(this.activeName=="first"){
+       this.getzyListfn(this.valueZy)
+      }else{
+         this.getzyListfn(this.dbZydm)
+      }
+     
+    },
+
     getRandom(a, b) {
       return Math.floor(Math.random() * (b - a + 1) + a);
     },
     // 2018-7-17-------------------------------------------------
     searchInfo() {
       if (this.valueZy) {
+        this.activeName="first"
+        this.ZymcNew=this.Zymc
+        this.valueZyNew=this.valueZy
+
         this.dataFn();
       } else {
         this.$message({
@@ -527,6 +877,8 @@ export default {
     dataFn() {
       let self = this;
       self.baseInfoFn(); //基本信息
+      this.zyZhFn();
+      this.getDBTableFn();
       this.RateChangeFnZt();
       this.zyRateChangeFnZt();
       this.zyRateChangeFnZtA();
@@ -545,30 +897,30 @@ export default {
       this.sxykxmLfN();
       this.hzqyslfN();
       this.hzqylbBFn();
-      this.hzqyslccBFn()
+      this.hzqyslccBFn();
       this.sxykxmLfNA();
-      this.sxykxmLfN1()
-      this.sxykxmLfN2()
-      this.sxykxmLfN3()
-      this.hzqyrsblblfN()
-      this.qyjzsbsfN()
-      this.qyjzzjzfN()
-      this.qyjsjssjsfN()
-      this.xqhzyfcgfN()
-      this.xqhzblFn()
-      this.cyjdslfN()
-      this.xscyblFn()
-      this.xscyzzefN()
-      this.cykckssfN()
-      this.cykcxxrsfN()
-       this.cygssfN()
+      this.sxykxmLfN1();
+      this.sxykxmLfN2();
+      this.sxykxmLfN3();
+      this.hzqyrsblblfN();
+      this.qyjzsbsfN();
+      this.qyjzzjzfN();
+      this.qyjsjssjsfN();
+      this.xqhzyfcgfN();
+      this.xqhzblFn();
+      this.cyjdslfN();
+      this.xscyblFn();
+      this.xscyzzefN();
+      this.cykckssfN();
+      this.cykcxxrsfN();
+      this.cygssfN();
     },
     // 获取院系
     getYxFn() {
       let self = this;
       this.$ajax(
         "post",
-        this.HOST + "/tr/individualPortrait/web/getselectJbxx?id=29",
+        this.HOST + "/tr/individualPortrait/web/getselectJbxx?id=31",
         {},
         res => {
           if (res.success) {
@@ -598,7 +950,7 @@ export default {
     getZyFn() {
       let self = this;
       let dataNew = {
-        id: 30,
+        id: 33,
         key: self.valueYx
       };
       self.$ajax(
@@ -613,6 +965,15 @@ export default {
               self.valueZy = res.obj[0].code;
               self.flagzycsh++;
               if (self.flagzycsh == 2) {
+                let obj = [];
+                obj = this.optionsZy.find(item => {
+                  //这里的userList就是上面遍历的数据源
+                  return item.code === this.valueZy; //筛选出匹配数据
+                });
+                this.Zymc = obj.name;
+                  this.ZymcNew=this.Zymc
+                 this.valueZyNew=this.valueZy
+                this.getzyListfn(this.valueZy)
                 self.dataFn();
               }
             } else {
@@ -842,7 +1203,7 @@ export default {
     sjsbzFn() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
-        arr.push(this.getRandom(1,15));
+        arr.push(this.getRandom(1, 15));
       }
       this.barChartsFn("生均仪器设备值", arr, "sjsbz", 30, 0, "万");
     },
@@ -882,7 +1243,7 @@ export default {
       }
       this.barChartsFn("合作企业数量", arr, "hzqysl", 50, 0, "个");
     },
-     hzqylbBFn() {
+    hzqylbBFn() {
       let arr = [];
       // 国家级10%-30%，省级20-50%，校级20-50%（合计为100%）
       arr.push(this.getRandom(10, 30));
@@ -899,7 +1260,7 @@ export default {
       }
       this.pieChartsFn("合作企业类别", sdata, "hzqylb");
     },
-   hzqyslccBFn() {
+    hzqyslccBFn() {
       let arr = [];
       // 国家级10%-30%，省级20-50%，校级20-50%（合计为100%）
       arr.push(this.getRandom(10, 30));
@@ -920,35 +1281,50 @@ export default {
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(30, 60));
       }
-      this.RateChangeFn("合作企业订单培养人数占全日制高职在校生人数比例", arr, "hzqyrsb");
+      this.RateChangeFn(
+        "合作企业订单培养人数占全日制高职在校生人数比例",
+        arr,
+        "hzqyrsb"
+      );
     },
-   sxykxmLfN1() {
+    sxykxmLfN1() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(60, 75));
       }
       this.RateChangeFn("合作企业接受顶岗实习学生比例", arr, "hzqyslccbl");
     },
-  sxykxmLfN2() {
+    sxykxmLfN2() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(60, 90));
       }
       this.RateChangeFn("合作企业录用应届毕业生比例", arr, "hzqyrsbl");
     },
-  sxykxmLfN3() {
+    sxykxmLfN3() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(15, 40));
       }
-      this.RateChangeFn("校企合作共同开发课程门数占开设课程总门数比例", arr, "hzqyslccblll");
+      this.RateChangeFn(
+        "校企合作共同开发课程门数占开设课程总门数比例",
+        arr,
+        "hzqyslccblll"
+      );
     },
-   hzqyrsblblfN() {
+    hzqyrsblblfN() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(3, 15));
       }
-      this.barChartsFn("专业拥有校企合作共同开发教材数", arr, "hzqyrsblbl", 30, 0, "个");
+      this.barChartsFn(
+        "专业拥有校企合作共同开发教材数",
+        arr,
+        "hzqyrsblbl",
+        30,
+        0,
+        "个"
+      );
     },
     qyjzsbsfN() {
       let arr = [];
@@ -969,7 +1345,14 @@ export default {
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(10, 15));
       }
-      this.barChartsFn("企业接受教师企业实践数量", arr, "qyjsjssjs", 30, 0, "个");
+      this.barChartsFn(
+        "企业接受教师企业实践数量",
+        arr,
+        "qyjsjssjs",
+        30,
+        0,
+        "个"
+      );
     },
     xqhzyfcgfN() {
       let arr = [];
@@ -993,35 +1376,35 @@ export default {
       }
       this.barChartsFn("创业基地数量", arr, "cyjdsl", 30, 0, "个");
     },
-     xscyblFn() {
+    xscyblFn() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(10, 45));
       }
       this.RateChangeFn("学生创业比例", arr, "xscybl");
     },
-     xscyzzefN() {
+    xscyzzefN() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(10, 25));
       }
       this.barChartsFn("学校创业资助额", arr, "xscyzze", 50, 0, "万");
     },
-   cykckssfN() {
+    cykckssfN() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(0, 15));
       }
       this.barChartsFn("创业课程开设数", arr, "cykckss", 30, 0, "个");
     },
-     cykcxxrsfN() {
+    cykcxxrsfN() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(300, 800));
       }
       this.barChartsFn("创业课程学习人数", arr, "cykcxxrs", 300, 1000, "人");
     },
-     cygssfN() {
+    cygssfN() {
       let arr = [];
       for (var i = 0; i < 5; i++) {
         arr.push(this.getRandom(3, 20));
@@ -1432,5 +1815,64 @@ export default {
 .special_table_box .special_table .leftAlign {
   text-align: left;
   padding-left: 70px;
+}
+.special_table_box .special_table .leftAlignA {
+  text-align: left;
+  padding-left: 40px;
+}
+.mainContentAA .titleName {
+  line-height: 18px;
+  font-size: 16px;
+  color: #37474f;
+  padding-left: 10px;
+  border-left: 5px solid #70ad47;
+  margin-bottom: 15px;
+  margin-top: 35px;
+}
+.dbzyAdd {
+  position: absolute;
+ left: 118px;
+    top: -10px;
+}
+.zyShow{
+  display: inline-block;
+padding: 7px 15px;font-size:12px; 
+ border-radius: 3px;
+   background-color: #fff;
+   margin-right: 10px
+}
+.zyShowA{
+color: #70ad47;
+border: 1px solid  #70ad47;
+cursor: pointer;
+
+}
+.listSpeca{
+  display: inline-block;
+  /* margin-right: 20px; */
+  width: 19%;
+  font-size: 14px;
+  color: #76838f
+}
+.listSpeca em{
+  font-size: 16px;
+  padding: 0 5px;
+  font-style: normal
+}
+.listSpeca .specaColor{
+font-size: 12px;
+color: #43bbba
+}
+.listSpeca .specaColor1{
+color: #70ad47
+}
+.listSpeca .specaColor2{
+color: #67a2c9
+}
+.listSpeca .specaColor3{
+color: #ffc000
+}
+.listSpeca .specaColor4{
+color: #f39f66
 }
 </style>

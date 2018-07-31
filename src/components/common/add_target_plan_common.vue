@@ -60,7 +60,7 @@
             <template v-for="(item, index) in yjLists">
               <div :key="index">
                 <span>{{zbName}}</span>
-                <el-select v-model="item.value" placeholder="请选择" style="display: inline-block;width: 180px;">
+                <el-select v-model="item.value" placeholder="请选择" style="display: inline-block;width: 180px;" clearable>
                   <el-option v-for="items in options" :key="items.value" :label="items.label" :value="items.value">
                   </el-option>
                 </el-select>

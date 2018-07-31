@@ -535,7 +535,7 @@ export default {
         }
         this.warnNumList = [];
         for (let item of this.yjLists) {
-          if (item.value ^ (item.input.trim() === "")) {
+          if (this.cjs_xor(item.value, item.input.trim())) {
             this.$message({
               type: "warning",
               message: "请完整填写预警设置"

@@ -11,7 +11,8 @@
 export default {
   name: 'ClassInfo',
   props: {
-    cid: String
+    cid: String,
+    itype:String
   },
   data: function () {
     return {
@@ -45,6 +46,21 @@ export default {
   components: {
   },
   methods: {
+      saveOrUpdateItype2(itemId,itemKey,itemValue){
+      let params = {
+          id:itemId
+         ,value:itemValue
+         ,key_id:itemKey
+      }
+      console.log(params)
+      this.$ajax("post",this.HOST+"/tr/trTable/web/updateZyReport",params,(flag)=>{
+        this.$notify({
+          title: '成功',
+          message: '报表编辑成功',
+          type: 'success'
+        });
+      })
+    },
     saveOrUpdate(itemKey,itemValue){
 
         let params = {
@@ -54,7 +70,11 @@ export default {
         }
         console.log(params)
         this.$ajax("post",this.HOST+"/tr/fillReport/save-or-update",params,(flag)=>{
-            alert(flag)
+          this.$notify({
+            title: '成功',
+            message: '报表编辑成功',
+            type: 'success'
+          });
         })
     },
     /**
@@ -104,22 +124,83 @@ export default {
 
 
     },
+    processByElementTypeType2(event){
+      let element = $(event.target)
+      let key  = element.data("key");
+      let id = element.data("id");
+      let elementType = element.attr("type")||"text"
+      if(elementType=="checkbox") //checkbox的执行逻辑与radio的一样
+        elementType = "radio"
+      switch (elementType) {
+        case "radio":
+          let array = []
+          let key1 = element.data("type")
+          //找到所有的同类元素
+          let items = element.parent().children(".minput");
+          for(let i = 0;i<items.length;i++){
+            let item = $(items.get(i))
+            let value = item.val()
 
-    getData(type_id){
-      this.$ajaxGet(this.HOST+"/tr/preview/prewExcelXLS/"+type_id,{},(data)=>{
-        this.htmls = data
-        $("#fillReport").off("keypress",".sinput")
-        $("#fillReport").on("keypress",".sinput",(event)=>{
-          if(event.keyCode == "13"){ //如果是回车事件
-            this.processByElementType(event)
+
+            let map = {}
+            if(item.is(":checked")){
+              map = {
+                checked:true,
+                value:value
+              }
+            }else{
+              map = {
+                checked:false,
+                value:value
+              }
+            }
+            array.push(map)
           }
-        })
+          let strJson = JSON.stringify(array);
+          this.saveOrUpdateItype2(id,key1,strJson)
+          break
+        default:
+          let value  = element.val()//拿到元素值
+          this.saveOrUpdateItype2(id,key,value);
 
 
+
+      }
+    },
+    getData(type_id){
+      this.$ajaxGet(this.HOST+"/tr/preview/prewExcelXLS/"+type_id+"/"+this.itype,{},(data)=>{
+        $("#fillReport").off("keypress",".sinput")
         $("#fillReport").off("change",".minput")
-        $("#fillReport").on("change",".minput",(event)=>{
+        if(this.itype==2){//说明是第三张表
+          $("#fillReport").on("keypress",".sinput",(event)=>{
+            if(event.keyCode == "13"){ //如果是回车事件
+               this.processByElementTypeType2(event)
+            }
+          })
+          $("#fillReport").on("change",".minput",(event)=>{
+            this.processByElementTypeType2(event)
+          })
+        }else{
+          $("#fillReport").on("keypress",".sinput",(event)=>{
+            if(event.keyCode == "13"){ //如果是回车事件
+              this.processByElementType(event)
+            }
+          })
+          $("#fillReport").on("change",".minput",(event)=>{
             this.processByElementType(event)
-        })
+          })
+        }
+
+        this.htmls = data
+        setTimeout(()=>{
+          $(".label-flag").parent().first().children("span").css({"font-size":"20px"})
+          $(".label-flag").parent().first().css({"background-color":"#70ad47","font-size":"20px"});
+          $(".label-flag").parent().filter((index)=>{
+            return index!=0
+
+          }).css("background-color","#f3f8fb");
+
+        },50)
 
 
 

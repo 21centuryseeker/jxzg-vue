@@ -565,21 +565,26 @@ div.state_div_right a.active {
   }
 
   #table-fill-report table{
-    border: none;
+    border: #eee;
     background-color: white;
     padding: 20px;
   }
 #table-fill-report table tbody tr:nth-child(1){
-  height: 120px;
+  height: 80px!important;
 }
 #table-fill-report table tbody tr:nth-child(n+2){
   height: 50px;
 }
 #table-fill-report table tbody tr td{
   padding-left: 8px;
+  vertical-align: middle!important;
+
 }
   #table-fill-report .sinput{
     height: 26px;
     width: 80%;
   }
+#table-fill-report .minput{
+  margin-left: 2px;
+}
 </style>
